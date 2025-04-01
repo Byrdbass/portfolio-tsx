@@ -1,0 +1,286 @@
+options={{
+    fullScreen: {
+        enable: true,
+        zIndex: -1
+    },
+    background: {
+        color: "#111122", // Dark blue-black background
+        image: "",
+        position: "50% 50%",
+        repeat: "no-repeat",
+        size: "cover"
+    },
+    particles: {
+        number: {
+            value: 80,
+            density: {
+                enable: true,
+                area: 800
+            }
+        },
+        color: {
+            value: ["#89CFF0", "#BFEFFF", "#77BDE0", "#A5D3F0"], // Multiple icy blue shades
+        },
+        shape: {
+            type: ["circle", "triangle", "polygon"], // Multiple shapes
+            options: {
+                polygon: {
+                    sides: 6 // Hexagons (like ice crystals)
+                }
+            }
+        },
+        opacity: {
+            value: { min: 0.3, max: 0.8 }, // Random opacity within range
+            animation: {
+                enable: true,
+                speed: 1,
+                minimumValue: 0.1,
+                sync: false
+            }
+        },
+        size: {
+            value: { min: 1, max: 10 }, // Random size within range
+            animation: {
+                enable: true,
+                speed: 4,
+                minimumValue: 0.1,
+                sync: false
+            }
+        },
+        links: {
+            enable: true,
+            distance: 150,
+            color: "#BFEFFF",
+            opacity: 0.4,
+            width: 1,
+            triangles: {
+                enable: true, // Create triangles between particles
+                opacity: 0.1
+            }
+        },
+        move: {
+            enable: true,
+            speed: 3,
+            direction: "none",
+            random: true,
+            straight: false,
+            outModes: {
+                default: "out",
+                bottom: "out",
+                left: "out",
+                right: "out",
+                top: "out"
+            },
+            attract: {
+                enable: true,
+                rotate: {
+                    x: 600,
+                    y: 1200
+                }
+            },
+            trail: {
+                enable: true,
+                length: 3,
+                fill: {
+                    color: "#000033" // Trail color
+                }
+            },
+            vibrate: true,
+            warp: true // Particles teleport when reaching edges
+        },
+        rotate: {
+            value: {
+                min: 0,
+                max: 360
+            },
+            direction: "random",
+            animation: {
+                enable: true,
+                speed: 5
+            }
+        },
+        tilt: {
+            direction: "random",
+            enable: true,
+            value: {
+                min: 0,
+                max: 360
+            },
+            animation: {
+                enable: true,
+                speed: 6
+            }
+        },
+        roll: {
+            darken: {
+                enable: true,
+                value: 25
+            },
+            enable: true,
+            speed: {
+                min: 5,
+                max: 15
+            }
+        },
+        wobble: {
+            distance: 30,
+            enable: true,
+            speed: {
+                min: 5,
+                max: 15
+            }
+        }
+    },
+    interactivity: {
+        detectOn: "canvas",
+        events: {
+            onHover: {
+                enable: true,
+                mode: "bubble"
+            },
+            onClick: {
+                enable: true,
+                mode: "repulse"
+            },
+            resize: true
+        },
+        modes: {
+            grab: {
+                distance: 400,
+                links: {
+                    opacity: 1
+                }
+            },
+            bubble: {
+                distance: 200,
+                size: 20,
+                duration: 2,
+                opacity: 0.8,
+                speed: 3,
+                color: "#A0E6FF" // Lighter blue for bubbles
+            },
+            repulse: {
+                distance: 200,
+                duration: 0.4
+            },
+            push: {
+                quantity: 4
+            },
+            remove: {
+                quantity: 2
+            },
+            light: {
+                area: {
+                    gradient: {
+                        start: "#3b5e98",
+                        stop: "#2b4073"
+                    }
+                }
+            }
+        }
+    },
+    particles: {
+        groups: {
+            z5000: {
+                number: {
+                    value: 70
+                },
+                zIndex: {
+                    value: 5000
+                }
+            },
+            z7500: {
+                number: {
+                    value: 30
+                },
+                zIndex: {
+                    value: 7500
+                }
+            },
+            z2500: {
+                number: {
+                    value: 50
+                },
+                zIndex: {
+                    value: 2500
+                }
+            },
+            z1000: {
+                number: {
+                    value: 40
+                },
+                zIndex: {
+                    value: 1000
+                }
+            }
+        }
+    },
+    preset: "snow", // Can use presets like "snow", "stars", "bubbles"
+    emitters: [
+        {
+            direction: "top-right",
+            rate: {
+                delay: 5,
+                quantity: 3
+            },
+            position: {
+                x: 0,
+                y: 100
+            },
+            size: {
+                width: 0,
+                height: 0
+            },
+            particles: {
+                color: {
+                    value: "#87CEEB"
+                },
+                move: {
+                    speed: 5
+                },
+                size: {
+                    value: 15
+                }
+            }
+        }
+    ],
+    themes: [
+        {
+            name: "light",
+            default: {
+                value: true,
+                mode: "light"
+            },
+            options: {
+                background: {
+                    color: "#111122"
+                },
+                particles: {
+                    color: {
+                        value: "#89CFF0"
+                    }
+                }
+            }
+        },
+        {
+            name: "dark",
+            default: {
+                value: true,
+                mode: "dark"
+            },
+            options: {
+                background: {
+                    color: "#000033"
+                },
+                particles: {
+                    color: {
+                        value: "#77BDE0"
+                    }
+                }
+            }
+        }
+    ],
+    fpsLimit: 120,
+    smooth: true,
+    detectRetina: true
+}}
