@@ -7,7 +7,7 @@ import './particlesEx.css'
 
 
 const ParticleEx = () => {
-    const[init, setInit] = useState(false);
+    // const[init, setInit] = useState(false);
 
     const particlesInit = useCallback(async (engine: Engine) => {
         console.log("Particles Init");
@@ -23,7 +23,7 @@ const ParticleEx = () => {
             console.log("initializing particles");
           });
           
-          setInit(true);
+        //   setInit(true);
         };
         
         initEngine();
