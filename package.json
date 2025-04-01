@@ -12,6 +12,7 @@
   "dependencies": {
     "@tsparticles/engine": "^3.8.1",
     "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.8.1",
     "framer-motion": "^12.6.2",
     "gsap": "^3.12.7",
     "react": "^19.0.0",
