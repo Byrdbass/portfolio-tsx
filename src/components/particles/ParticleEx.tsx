@@ -1,6 +1,5 @@
 import { useCallback, useState, useEffect } from "react";
 import  { Particles, initParticlesEngine}  from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim";
 import { loadFull } from "tsparticles";
 import { Engine } from "@tsparticles/engine";
 import './particlesEx.css'
@@ -9,6 +8,7 @@ import './particlesEx.css'
 const ParticleEx = () => {
     // const[init, setInit] = useState(false);
 
+    //this hook doesn't seem to be doing anything except holding the variable name
     const particlesInit = useCallback(async (engine: Engine) => {
         console.log("Particles Init");
         await loadFull(engine);
@@ -17,9 +17,7 @@ const ParticleEx = () => {
     useEffect(() => {
         const initEngine = async () => {
           await initParticlesEngine(async (engine: Engine) => {
-            // Use loadSlim for basic features or loadFull for all features
             await loadFull(engine);
-            // or await loadFull(engine);
             console.log("initializing particles");
           });
           
@@ -36,15 +34,38 @@ const ParticleEx = () => {
         {/* useCallback version */}
         <Particles
                 id="tsparticles"
-                init={particlesInit}
+                // init={particlesInit}
                 options={{
+                    fullScreen: {
+                        enable: true,
+                        zIndex: -1
+                    },
                     preset: "snow",
                     particles: {
                         number: {
-                            value: 100,
+                            value: 800,
+                            density: {
+                                enable: false
+                            }
                         },
                         color: {
-                            value: "#ff0000",
+                            value: ["#89CFF0", "#BFEFFF", "#77BDE0", "#A5D3F0"] // Multiple icy blue shades
+                        },
+                        shape: {
+                            type: ["circle", "triangle", "polygon"], // Multiple shapes
+                            options: {
+                                polygon: {
+                                    sides: 6 // Hexagons (like ice crystals)
+                                }
+                            }
+                        },
+                        opacity: {
+                            value: { min: 0.3, max: 1 }, // Random opacity within range
+                            animation: {
+                                enable: true,
+                                speed: 1,
+                                sync: true
+                            }
                         },
                         move: {
                             enable: true,
