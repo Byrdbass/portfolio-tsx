@@ -1,6 +1,6 @@
 import { Parallax } from "react-parallax";
 import pokeBackground from '../../assets/images/backgroundForecast.jpeg' 
-import GsapAnimation from "./gasp";
+import GsapAnimation from "./gsap";
 
 
 const ParallaxSection = () => (
