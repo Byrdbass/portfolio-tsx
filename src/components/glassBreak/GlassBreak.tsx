@@ -135,7 +135,7 @@ const GlassBreak: React.FC = () => {
 
                         {/* Cracks SVG overlay */}
                         {cracked && (
-                            <svg className="cracks-overlay" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="cracks-overlay" path="../../assets/images/crackedGlassWide.svg">
                                 {cracks.map((crackPoint, idx) => (
                                     <g key={idx} opacity="0.8">
                                         {crackPoint.lines.map((line, lineIdx) => {

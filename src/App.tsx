@@ -1,4 +1,6 @@
-
+/// <reference types="vite-plugin-svgr/client" />
+import { ReactSVGElement } from 'react'
+import Glass from './assets/images/crackedGlassWide.svg?react'
 import './App.css'
 import GlassBreak from './components/glassBreak/GlassBreak'
 // import AnimatedComponent from './components/examples/framer-motion'
@@ -13,6 +15,7 @@ function App() {
   return (
     <>
       < GlassBreak />
+    <Glass />
       <ParticleEx />
       {/* <FadeIn /> */}
       {/* <ParallaxSection /> */}
