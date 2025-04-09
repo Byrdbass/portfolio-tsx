@@ -17,9 +17,9 @@ const LandingPage: React.FC = (): JSX.Element => {
             const scrollPosition = window.scrollY;
             const windowHeight = window.innerHeight;
 
-            const scrollPercentage = Math.min(scrollPosition / (windowHeight * 0.4), 1);
+            const scrollPercentage = Math.min(scrollPosition / (windowHeight * 0.1), 1);
             
-            if (scrollPercentage > 0.6) {
+            if (scrollPercentage > 0.1) {
                 setParticlesVisible(false);
               } else {
                 setParticlesVisible(true);

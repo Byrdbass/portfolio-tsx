@@ -24,12 +24,12 @@ const ParticlesBackground = () => {
     
     
     return (
-        <div className={`particles-outer-div ${particlesVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`particles-outer-div ${particlesVisible ? 'visible' : 'hidden'}`}>
         <Particles
                 id="tsparticles"
                 options={{
                     fullScreen: {
-                        enable: false,
+                        enable: true,
                         zIndex: -10
                     },
                     fpsLimit: 120,
