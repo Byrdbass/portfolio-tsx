@@ -1,47 +1,10 @@
-import { useCallback, useState, useEffect } from "react";
-import  { Particles, initParticlesEngine}  from "@tsparticles/react";
-import { loadFull } from "tsparticles";
-import { Engine } from "@tsparticles/engine";
-
-import './particlesEx.css'
-
-
-const ParticleEx = () => {
-    // const[init, setInit] = useState(false);
-
-    //this hook doesn't seem to be doing anything except holding the variable name
-    const particlesInit = useCallback(async (engine: Engine) => {
-        console.log("Particles Init");
-        await loadFull(engine);
-    }, []);
-
-    useEffect(() => {
-        const initEngine = async () => {
-          await initParticlesEngine(async (engine: Engine) => {
-            await loadFull(engine);
-            console.log("initializing particles");
-          });
-          
-        //   setInit(true);
-        };
-        
-        initEngine();
-      }, []);
-    
-    
-    return (
-        <>
-        {/* useCallback version */}
-        <Particles
-                id="tsparticles"
-                // init={particlesInit}
                 options={{
                     fullScreen: {
                         enable: true,
                         zIndex: -1
                     },
                     fpsLimit: 120,
-                    preset: "seaAnemone",
+                    // preset: "seaAnemone",
                     particles: {
                         number: {
                             value: 400,
@@ -53,7 +16,7 @@ const ParticleEx = () => {
                             value: ["#89CFF0", "#BFEFFF", "#77BDE0", "#A5D3F0"] // Multiple icy blue shades
                         },
                         shape: {
-                            type: ["circle", "triangle", "polygon", "square"], // Multiple shapes
+                            type: ["circle", "triangle", "polygon"], // Multiple shapes
                             options: {
                                 polygon: {
                                     sides: 6 // Hexagons (like ice crystals)
@@ -152,9 +115,3 @@ const ParticleEx = () => {
                         }
                     }
                 }}
-            />
-      </>
-    );
-}
-
-export default ParticleEx;

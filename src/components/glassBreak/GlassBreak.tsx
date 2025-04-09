@@ -116,70 +116,75 @@ const GlassBreak: React.FC = () => {
     };
 
     return (
-        <div className="container">
-            <div
-                ref={phoneRef}
-                className={`phone ${revealed ? 'revealed' : ''} 
-                ${disappearing ? 'disappearing' : ''}`}
+        <div className="glassbreak-outer-div">
+            <div className="glassbreak-inner-div">
+            <button
+                onClick={handleCrackGlass}
+                className="desktop-mode-button"
             >
-                {/* Phone frame */}
-                <div className="phone-frame">
-                    {/* Phone notch */}
-                    <div className="phone-notch"></div>
+                Desktop Mode
+            </button>
+                <div
+                    ref={phoneRef}
+                    className={`phone ${revealed ? 'revealed' : ''} 
+                ${disappearing ? 'disappearing' : ''}`}
+                >
+                    {/* Phone frame */}
+                    <div className="phone-frame">
+                        {/* Phone notch */}
+                        <div className="phone-notch"></div>
 
-                    {/* Phone screen (glass layer) */}
-                    <div
-                        ref={glassRef}
-                        className="phone-screen"
-                    >
-                        {/* Glass reflection overlay */}
-                        <div className="glass-reflection"></div>
+                        {/* Phone screen (glass layer) */}
+                        <div
+                            ref={glassRef}
+                            className="phone-screen"
+                        >
+                            {/* Glass reflection overlay */}
+                            <div className="glass-reflection"></div>
 
-                        {/* Cracks SVG overlay */}
-                        {cracked && <div className="cracked-glass-container">
-                            <CrackedGlassSVG className="cracked-glass-base" />
-                            {cracks.map((crackPoint, idx) => (
-                                <g key={idx} opacity="0.8">
-                                    {crackPoint.lines.map((line, lineIdx) => {
-                                        const endX = crackPoint.x + Math.cos(line.angle) * line.length;
-                                        const endY = crackPoint.y + Math.sin(line.angle) * line.length;
+                            {/* Cracks SVG overlay */}
+                            {cracked && <div className="cracked-glass-container">
+                                <CrackedGlassSVG className="cracked-glass-base" />
+                                {cracks.map((crackPoint, idx) => (
+                                    <g key={idx} opacity="0.8">
+                                        {crackPoint.lines.map((line, lineIdx) => {
+                                            const endX = crackPoint.x + Math.cos(line.angle) * line.length;
+                                            const endY = crackPoint.y + Math.sin(line.angle) * line.length;
 
-                                        return (
-                                            <line
-                                                key={`${idx}-${lineIdx}`}
-                                                x1={crackPoint.x}
-                                                y1={crackPoint.y}
-                                                x2={endX}
-                                                y2={endY}
-                                                stroke="white"
-                                                strokeWidth="1.5"
-                                                strokeOpacity="0.2"
-                                                className="crack-line"
-                                                style={{
-                                                    animationDelay: `${lineIdx * 50}ms`,
-                                                }}
-                                            />
-                                        );
-                                    })}
-                                </g>
-                            ))}
-                        </div>
-                        }
+                                            return (
+                                                <line
+                                                    key={`${idx}-${lineIdx}`}
+                                                    x1={crackPoint.x}
+                                                    y1={crackPoint.y}
+                                                    x2={endX}
+                                                    y2={endY}
+                                                    stroke="white"
+                                                    strokeWidth="1.5"
+                                                    strokeOpacity="0.2"
+                                                    className="crack-line"
+                                                    style={{
+                                                        animationDelay: `${lineIdx * 50}ms`,
+                                                    }}
+                                                />
+                                            );
+                                        })}
+                                    </g>
+                                ))}
+                            </div>
+                            }
 
-                        {/* Content of the phone screen */}
-                        <div className="phone-content">
-                            <h3 className="phone-title">Mobile View</h3>
-                            <p className="phone-description">Welcome to my portfolio</p>
-                            <button
-                                onClick={handleCrackGlass}
-                                className="desktop-mode-button"
-                            >
-                                Desktop Mode
-                            </button>
+                            {/* Content of the phone screen */}
+                            <div className="phone-content">
+                                <h3 className="phone-title">Mobile View</h3>
+                                <p className="phone-description">Welcome to my portfolio</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
+
 
             {/* Cracked pieces that fall when glass breaks (optional) */}
             {cracked && (
