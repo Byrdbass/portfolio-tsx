@@ -15,7 +15,6 @@ function App() {
   return (
     <>
       < GlassBreak />
-    <Glass />
       <ParticleEx />
       {/* <FadeIn /> */}
       {/* <ParallaxSection /> */}

@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './GlassBreak.css';
+import CrackedGlassSVG from '../../assets/images/crackedGlassWide.svg?react'
+// import GlassBreakSVG from './GlassBreakSVG'
 
 interface CrackPoint {
     x: number;
@@ -93,25 +95,25 @@ const GlassBreak: React.FC = () => {
 
     const handleCrackGlass = () => {
         if (cracked) return;
-        
+
         generateCracks();
         setCracked(true);
-        
+
         // Add shaking animation
         if (phoneRef.current) {
-          phoneRef.current.classList.add('shaking');
-          setTimeout(() => {
-            if (phoneRef.current) {
-              phoneRef.current.classList.remove('shaking');
-              
-              // Set timer to make phone disappear after crack animation completes
-              setTimeout(() => {
-                setDisappearing(true);
-              }, 1500); // Wait for cracks to fully form
-            }
-          }, 500);
+            phoneRef.current.classList.add('shaking');
+            setTimeout(() => {
+                if (phoneRef.current) {
+                    phoneRef.current.classList.remove('shaking');
+
+                    // Set timer to make phone disappear after crack animation completes
+                    setTimeout(() => {
+                        setDisappearing(true);
+                    }, 1500); // Wait for cracks to fully form
+                }
+            }, 500);
         }
-      };
+    };
 
     return (
         <div className="container">
@@ -134,35 +136,35 @@ const GlassBreak: React.FC = () => {
                         <div className="glass-reflection"></div>
 
                         {/* Cracks SVG overlay */}
-                        {cracked && (
-                            <svg className="cracks-overlay" path="../../assets/images/crackedGlassWide.svg">
-                                {cracks.map((crackPoint, idx) => (
-                                    <g key={idx} opacity="0.8">
-                                        {crackPoint.lines.map((line, lineIdx) => {
-                                            const endX = crackPoint.x + Math.cos(line.angle) * line.length;
-                                            const endY = crackPoint.y + Math.sin(line.angle) * line.length;
+                        {cracked && <div className="cracked-glass-container">
+                            <CrackedGlassSVG className="cracked-glass-base" />
+                            {cracks.map((crackPoint, idx) => (
+                                <g key={idx} opacity="0.8">
+                                    {crackPoint.lines.map((line, lineIdx) => {
+                                        const endX = crackPoint.x + Math.cos(line.angle) * line.length;
+                                        const endY = crackPoint.y + Math.sin(line.angle) * line.length;
 
-                                            return (
-                                                <line
-                                                    key={`${idx}-${lineIdx}`}
-                                                    x1={crackPoint.x}
-                                                    y1={crackPoint.y}
-                                                    x2={endX}
-                                                    y2={endY}
-                                                    stroke="white"
-                                                    strokeWidth="1.5" // Increased from 0.5
-                                                    strokeOpacity="0.2" // Increased from 0.8
-                                                    className="crack-line"
-                                                    style={{
-                                                        animationDelay: `${lineIdx * 50}ms`,
-                                                    }}
-                                                />
-                                            );
-                                        })}
-                                    </g>
-                                ))}
-                            </svg>
-                        )}
+                                        return (
+                                            <line
+                                                key={`${idx}-${lineIdx}`}
+                                                x1={crackPoint.x}
+                                                y1={crackPoint.y}
+                                                x2={endX}
+                                                y2={endY}
+                                                stroke="white"
+                                                strokeWidth="1.5"
+                                                strokeOpacity="0.2"
+                                                className="crack-line"
+                                                style={{
+                                                    animationDelay: `${lineIdx * 50}ms`,
+                                                }}
+                                            />
+                                        );
+                                    })}
+                                </g>
+                            ))}
+                        </div>
+                        }
 
                         {/* Content of the phone screen */}
                         <div className="phone-content">
