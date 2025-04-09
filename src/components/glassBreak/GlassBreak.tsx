@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './GlassBreak.css';
 import CrackedGlassSVG from '../../assets/images/crackedGlassWide.svg?react'
+import MobileProfilePic from '../mobile/mobileProfilePic/MobileProfilePic';
 // import GlassBreakSVG from './GlassBreakSVG'
 
 interface CrackPoint {
@@ -175,8 +176,7 @@ const GlassBreak: React.FC = () => {
 
                             {/* Content of the phone screen */}
                             <div className="phone-content">
-                                <h3 className="phone-title">Mobile View</h3>
-                                <p className="phone-description">Welcome to my portfolio</p>
+                                    <MobileProfilePic altText='picture of leland in an orange tie' />
                             </div>
                         </div>
                     </div>

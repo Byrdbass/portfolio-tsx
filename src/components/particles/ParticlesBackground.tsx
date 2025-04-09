@@ -1,19 +1,15 @@
-import { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import  { Particles, initParticlesEngine}  from "@tsparticles/react";
 import { loadFull } from "tsparticles";
 import { Engine } from "@tsparticles/engine";
-
 import './particlesEx.css'
+import ParticlesContext from "../../Providers/ParticlesProvider/ParticlesContext";
 
 
-const ParticleEx = () => {
+const ParticlesBackground = () => {
     // const[init, setInit] = useState(false);
-
+    const { particlesVisible } = React.useContext(ParticlesContext);
     //this hook doesn't seem to be doing anything except holding the variable name
-    const particlesInit = useCallback(async (engine: Engine) => {
-        console.log("Particles Init");
-        await loadFull(engine);
-    }, []);
 
     useEffect(() => {
         const initEngine = async () => {
@@ -21,8 +17,6 @@ const ParticleEx = () => {
             await loadFull(engine);
             console.log("initializing particles");
           });
-          
-        //   setInit(true);
         };
         
         initEngine();
@@ -30,18 +24,16 @@ const ParticleEx = () => {
     
     
     return (
-        <>
-        {/* useCallback version */}
+        <div className={`particles-outer-div ${particlesVisible ? 'opacity-100' : 'opacity-0'}`}>
         <Particles
                 id="tsparticles"
-                // init={particlesInit}
                 options={{
                     fullScreen: {
-                        enable: true,
-                        zIndex: -1
+                        enable: false,
+                        zIndex: -10
                     },
                     fpsLimit: 120,
-                    preset: "seaAnemone",
+                    // preset: "seaAnemone",
                     particles: {
                         number: {
                             value: 400,
@@ -153,8 +145,8 @@ const ParticleEx = () => {
                     }
                 }}
             />
-      </>
+      </div>
     );
 }
 
-export default ParticleEx;
+export default ParticlesBackground;
