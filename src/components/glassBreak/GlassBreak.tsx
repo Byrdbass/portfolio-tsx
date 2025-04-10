@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import './GlassBreak.css';
 import '../mobile/phone.css'
 import CrackedGlassSVG from '../../assets/images/crackedGlassWide.svg?react'
-import MobileProfilePic from '../mobile/mobileProfilePic/MobileProfilePic';
 import MobileHomePage from '../mobile/mobileHomePage/MobileHomePage';
 
 interface CrackPoint {

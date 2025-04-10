@@ -12,30 +12,31 @@ import ParticlesBackground from './components/particles/ParticlesBackground'
 import ParticlesContext from './Providers/ParticlesProvider/ParticlesContext'
 import { useState } from 'react'
 import CodeProjectsMobile from './components/mobile/mobileCodeProjects/CodeProjectsMobile'
-import DesktopContext from './Providers/Desktop/DesktopProvider'
+import { DesktopModeProvider } from './Providers/Desktop/DesktopProvider'
+
 
 
 function App() {
   const [particlesVisible, setParticlesVisible] = useState(true)
-  const [ DesktopView, setDesktopView] = useState(false);
 
   return (
     <>
-      <DesktopContext.Provider value={{ DesktopView, setDesktopView }}>
+      <DesktopModeProvider initialDesktopView={false}>
         <ParticlesContext.Provider value={{ particlesVisible, setParticlesVisible }}>
-          <ParallaxProvider>
+          <ParticlesBackground />
+          <CodeProjectsMobile />
+          {/* <ParallaxProvider>
             <ParallaxFix />
             <Router>
-              <ParticlesBackground />
-              <CodeProjectsMobile />
               <div className="AnimatedRoutes-wrapper">
 
                 <AnimatedRoutes />
               </div>
             </Router>
-          </ParallaxProvider>
+          </ParallaxProvider> */}
         </ParticlesContext.Provider>
-      </DesktopContext.Provider>
+      </DesktopModeProvider>
+
       {/* <FadeIn /> */}
       {/* <ParallaxSection /> */}
       {/* <GsapAnimation /> */}

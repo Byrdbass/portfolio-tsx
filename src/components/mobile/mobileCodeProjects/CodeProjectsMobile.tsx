@@ -1,7 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import '../phone.css'
 import '../../glassBreak/glassbreak.css'
 import './codeProjectsMobile.css'
+import ParticlesContext from "../../../Providers/ParticlesProvider/ParticlesContext";
+import { useDesktopMode } from "../../../Providers/Desktop/DesktopProvider";
 
 interface ImageData{
     src: string;
@@ -53,8 +55,9 @@ const screenContents: ScreenContent[] = [
     const phoneRef = useRef<HTMLDivElement>(null);
     const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
     const [isLoaded, setIsLoaded] = useState(false);
+    const {setParticlesVisible} = useContext(ParticlesContext);
     //TODO: MOVE THIS TO A PROVIDER
-    const [isDesktopMode, setIsDesktopMode] = useState(false);
+    const { desktopView, setDesktopView } = useDesktopMode();
   
     // Initialize phone animation
     useEffect(() => {
@@ -68,15 +71,20 @@ const screenContents: ScreenContent[] = [
     // Handle scroll effects
     useEffect(() => {
       const handleScroll = () => {
-        const scrollPosition = window.scrollY + window.innerHeight / 2;
-        
+        const scrollPositionMobilePage = window.scrollY + window.innerHeight / 2;
+        const scrollPositionParticles = Math.min(window.scrollY/ (window.innerHeight * .25), 1)
+        if (scrollPositionParticles > 0.1) {
+          setParticlesVisible(false);
+      } else {
+          setParticlesVisible(true);
+      }
         // Find which section is currently in view
         const activeIndex = sectionRefs.current.findIndex((section, index) => {
           if (!section) return false;
           const rect = section.getBoundingClientRect();
           const sectionTop = rect.top + window.scrollY;
           const sectionBottom = sectionTop + rect.height;
-          return scrollPosition >= sectionTop && scrollPosition < sectionBottom;
+          return scrollPositionMobilePage >= sectionTop && scrollPositionMobilePage < sectionBottom;
         });
         
         if (activeIndex !== -1 && activeIndex !== activeScreen) {
@@ -89,7 +97,7 @@ const screenContents: ScreenContent[] = [
     }, [activeScreen]);
   
     const toggleMode = () => {
-      setIsDesktopMode(!isDesktopMode);
+      setDesktopView(!desktopView);
     };
   
     return (
@@ -98,10 +106,10 @@ const screenContents: ScreenContent[] = [
           className="mode-toggle" 
           onClick={toggleMode}
         >
-          {isDesktopMode ? 'Switch to Mobile' : 'Switch to Desktop'}
+          {desktopView ? 'Switch to Mobile' : 'Switch to Desktop'}
         </button>
   
-        <div className={`phone-container ${isDesktopMode ? 'desktop-mode' : ''}`}>
+        <div className={`phone-container ${desktopView ? 'desktop-mode' : ''}`}>
           <div 
             ref={phoneRef} 
             className={`phone ${isLoaded ? 'loaded' : ''}`}
@@ -143,7 +151,7 @@ const screenContents: ScreenContent[] = [
               className="scroll-section"
               id={screen.id}
             >
-              {isDesktopMode && (
+              {desktopView && (
                 <div className="desktop-content">
                   <h2>{screen.title}</h2>
                   <p>{screen.description}</p>

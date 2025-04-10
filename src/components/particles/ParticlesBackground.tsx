@@ -1,33 +1,31 @@
 import React, { useCallback, useState, useEffect } from "react";
-import  { Particles, initParticlesEngine}  from "@tsparticles/react";
+import { Particles, initParticlesEngine } from "@tsparticles/react";
 import { loadFull } from "tsparticles";
 import { Engine } from "@tsparticles/engine";
 import './particlesEx.css'
 import ParticlesContext from "../../Providers/ParticlesProvider/ParticlesContext";
-import DesktopContext from "../../Providers/Desktop/DesktopProvider";
+import DesktopContext, { useDesktopMode } from "../../Providers/Desktop/DesktopProvider";
 
 
 const ParticlesBackground = () => {
-    // const[init, setInit] = useState(false);
     const { particlesVisible } = React.useContext(ParticlesContext);
-    const { DesktopView } = React.useContext(DesktopContext);
-    //this hook doesn't seem to be doing anything except holding the variable name
+    // const { desktopView, setDesktopView } = useDesktopMode();
 
     useEffect(() => {
         const initEngine = async () => {
-          await initParticlesEngine(async (engine: Engine) => {
-            await loadFull(engine);
-            // console.log("initializing particles");
-          });
+            await initParticlesEngine(async (engine: Engine) => {
+                await loadFull(engine);
+                // console.log("initializing particles");
+            });
         };
-        
+
         initEngine();
-      }, []);
-    
-    
+    }, []);
+
+
     return (
         <div className={`particles-outer-div ${particlesVisible ? 'visible' : 'hidden'}`}>
-        <Particles
+            <Particles
                 id="tsparticles"
                 options={{
                     fullScreen: {
@@ -77,17 +75,17 @@ const ParticlesBackground = () => {
                             opacity: 0.5,
                             width: 1,
                             triangles: {
-                              enable: false
+                                enable: false
                             },
                             // This makes links preferentially form horizontal and vertical
                             warp: false
-                          },
+                        },
                         // collisions: {
                         //     bounce: {
-                                
+
                         //     },
                         // },
-                        
+
                         move: {
                             enable: true,
                             speed: 1,
@@ -125,7 +123,7 @@ const ParticlesBackground = () => {
                     },
                     interactivity: {
                         detectsOn: "window",
-                        events:{
+                        events: {
                             onHover: {
                                 enable: true,
                                 mode: "repulse"
@@ -139,15 +137,15 @@ const ParticlesBackground = () => {
                             repulse: {
                                 distance: 50,
                                 duration: 1.0
-                              },
-                              push: {
+                            },
+                            push: {
                                 quantity: 8
-                              }                
+                            }
                         }
                     }
                 }}
             />
-      </div>
+        </div>
     );
 }
 
