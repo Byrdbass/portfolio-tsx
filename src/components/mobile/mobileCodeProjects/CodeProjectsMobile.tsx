@@ -300,24 +300,26 @@ export default function CodeProjectsMobile() {
           <div className="phone-frame">
             <div className="phone-notch"></div>
             <div className="phone-screen">
-              {mobileScreenContents.map((screen, index) => {
-                const isActive = index === activeScreen ? 'active' : '';
-                return (
-                  <div
-                    key={screen.id}
-                    className={`phone-content ${index === activeScreen ? 'active' : ''}`}
-                    style={{ backgroundColor: screen.backgroundColor }}
-                  >
-                    <h2 className="phone-title">{screen.title}</h2>
-                    <p className="phone-description">{screen.description}</p>
-                    {screen.component ? screen.component({ isActive }) : null}
-                    <a href={screen.githubRepo} target="_blank">
-                      <img src={screen.image?.src} alt={screen.image?.alt} width={screen.image?.width} />
-                    </a>
-                  </div>
-                )
-              }
-              )}
+              <div
+                className="phone-content active"
+                style={{ backgroundColor: mobileScreenContents[activeScreen].backgroundColor }}
+              >
+                <h2 className="phone-title">{mobileScreenContents[activeScreen].title}</h2>
+                <p className="phone-description">{mobileScreenContents[activeScreen].description}</p>
+                {mobileScreenContents[activeScreen].component ?
+                  mobileScreenContents[activeScreen].component({ isActive: "active" }) : null}
+                <a
+                  href={mobileScreenContents[activeScreen].githubRepo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src={mobileScreenContents[activeScreen].image?.src}
+                    alt={mobileScreenContents[activeScreen].image?.alt}
+                    width={mobileScreenContents[activeScreen].image?.width}
+                  />
+                </a>
+              </div>
               <div className="glass-reflection"></div>
 
               <div className="screen-indicator">
