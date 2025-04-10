@@ -2,11 +2,10 @@ import React, { JSX } from "react";
 import '../phone.css'
 import MobileProfilePic from "../mobileProfilePic/MobileProfilePic";
 
-
-const MobileHomePage: React.FC = (): JSX.Element => {
+const MobileHomePage: React.FC<{isActive: 'active' | ''}> = ({isActive}): JSX.Element => {
     return (
         <>
-            <div className="phone-content">
+            <div className={`phone-content ${isActive}`}>
                 <MobileProfilePic altText='picture of leland in an orange tie' />
                 <p className="phone-title">
                     I'm Leland Byrd
