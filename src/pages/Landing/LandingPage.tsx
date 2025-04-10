@@ -46,17 +46,17 @@ const LandingPage: React.FC = (): JSX.Element => {
             scrollTimerRef.current = setTimeout(() => {
                 // If scrolled beyond threshold, navigate
                 if (scrollPosition > windowHeight * 0.9) {
-                    navigate('/mobile');
+                    // navigate('/mobile');
                     setCanNavigate(false); // Temporarily disable navigation
                     window.scrollTo(0, 0);
                 } else if (scrollPosition < -windowHeight * 0.9) { 
                     // Only add this if you want to navigate on scroll up as well
-                    navigate('/');
+                    // navigate('/');
                     setCanNavigate(false); // Temporarily disable navigation
                     window.scrollTo(0, 0);
                 }
                 setIsScrolling(false);
-            }, 200); // Debounce time
+            }, 100); // Debounce time
         };
 
         window.addEventListener('scroll', handleScroll);

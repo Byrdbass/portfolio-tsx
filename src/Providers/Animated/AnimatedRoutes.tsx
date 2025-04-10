@@ -6,6 +6,8 @@ import MobileHomePage from "../../pages/MobileHome/MobileHomePage";
 import './animatedRoutes.css'
 import AnimatedPage from "./AnimatedPage";
 import AnimatedLandingPage from "./AnimatedMobileView/AnimatedLandingPage";
+import MobileTemplate from "../../components/mobile/mobileCodeProjects/mobileTemplate";
+import CodeProjectsMobile from "../../components/mobile/mobileCodeProjects/CodeProjectsMobile";
 
 //TODO: RENAME THIS TO ANIMATEDROUTESMOBILE
 const AnimatedRoutes: React.FC = () => {
@@ -39,17 +41,18 @@ const AnimatedRoutes: React.FC = () => {
             <Routes>
                 <Route path="/" element={
                     <AnimatedLandingPage direction={transitionDirection}>
+                        {/* <CodeProjectsMobile /> */}
                         <LandingPage />
                     </AnimatedLandingPage>
 
                 } />
-                <Route path="/mobile" element={
+                {/* <Route path="/mobile" element={
                     <AnimatedPage direction={transitionDirection}>
                         <MobileHomePage />
 
                     </AnimatedPage>
 
-                } />
+                } /> */}
                 {/* <Route path="/third-page" element={
                 <Parallax 
                 translateY={transitionDirection === 'down' ? [100, 0] : [100, 0]} 

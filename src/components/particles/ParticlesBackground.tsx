@@ -4,11 +4,13 @@ import { loadFull } from "tsparticles";
 import { Engine } from "@tsparticles/engine";
 import './particlesEx.css'
 import ParticlesContext from "../../Providers/ParticlesProvider/ParticlesContext";
+import DesktopContext from "../../Providers/Desktop/DesktopProvider";
 
 
 const ParticlesBackground = () => {
     // const[init, setInit] = useState(false);
     const { particlesVisible } = React.useContext(ParticlesContext);
+    const { DesktopView } = React.useContext(DesktopContext);
     //this hook doesn't seem to be doing anything except holding the variable name
 
     useEffect(() => {

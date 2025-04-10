@@ -1,0 +1,171 @@
+.app-container {
+    position: relative;
+    width: 100%;
+    min-height: 400vh; /* Height for all scroll sections */
+  }
+  
+  .phone-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
+  }
+  
+  /* Desktop mode positioning */
+  .phone-container.desktop-mode {
+    left: 25%;
+  }
+  
+  .phone {
+    position: relative;
+    width: 256px; /* 16rem */
+    height: 512px; /* 32rem */
+    background-color: #000;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+  }
+  
+  .phone.loaded {
+    transform: translateY(0);
+  }
+  
+  .phone-frame {
+    position: absolute;
+    inset: 0;
+    background-color: #2a2a2a;
+    border-radius: 24px;
+    border: 8px solid #333;
+  }
+  
+  .phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 24px;
+    background-color: #000;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+  
+  .phone-screen {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  
+  .glass-reflection {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), transparent);
+    pointer-events: none;
+    z-index: 5;
+  }
+  
+  .phone-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease;
+    padding: 20px;
+  }
+  
+  .phone-content.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .phone-title {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .phone-description {
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding: 0 16px;
+    margin-bottom: 32px;
+  }
+  
+  .screen-indicator {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    z-index: 6;
+  }
+  
+  .indicator-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .indicator-dot.active {
+    background-color: white;
+    transform: scale(1.2);
+  }
+  
+  .scroll-sections {
+    width: 100%;
+  }
+  
+  .scroll-section {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .desktop-content {
+    position: absolute;
+    right: 10%;
+    width: 40%;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    color: white;
+    transform: translateX(0);
+    transition: all 0.5s ease;
+  }
+  
+  .mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s ease;
+  }
+  
+  .mode-toggle:hover {
+    background-color: #555;
+  }
