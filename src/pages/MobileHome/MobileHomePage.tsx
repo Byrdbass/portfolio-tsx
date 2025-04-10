@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import ParticlesContext from "../../Providers/ParticlesProvider/ParticlesContext";
+import { Link } from "react-router-dom";
 
 const MobileHomePage: React.FC = () => {
     const { setParticlesVisible } = React.useContext(ParticlesContext);
@@ -10,6 +11,7 @@ const MobileHomePage: React.FC = () => {
       
     return (
         <div className="MobileHomePage-outer-div">
+            <Link to={'/'}> HOME </Link>
             <h1>THIS IS COMING SOON TO MOBILE HOME PAGE </h1>
         </div>
     )

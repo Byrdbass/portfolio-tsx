@@ -15,7 +15,7 @@ const ParticlesBackground = () => {
         const initEngine = async () => {
           await initParticlesEngine(async (engine: Engine) => {
             await loadFull(engine);
-            console.log("initializing particles");
+            // console.log("initializing particles");
           });
         };
         

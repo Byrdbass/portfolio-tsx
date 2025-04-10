@@ -1,0 +1,9 @@
+.mobileProfilePic-outer-div{
+    background-color: transparent;
+}
+.profilePic{
+    background-color: inherit;
+    position: absolute;
+    top: 25px;
+    left: 10px;
+}

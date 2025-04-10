@@ -1,6 +1,7 @@
 import React, { JSXElementConstructor } from "react";
 import ProfilePic from '../../../assets/images/ProfilePicMobile.jpg'
 import { JSX } from "react/jsx-dev-runtime";
+import './mobileProfilePic.css'
 
 interface PhotoProps {
     altText: string;

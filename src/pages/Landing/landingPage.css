@@ -1,5 +1,7 @@
 .landingPage-outer-div{
-    position: relative;
+    position: fixed;
+    top: 0;
+    z-index: 1;
     min-height: 100vh;
     display: flex;
     flex-direction: column;

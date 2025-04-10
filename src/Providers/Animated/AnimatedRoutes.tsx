@@ -5,6 +5,7 @@ import LandingPage from "../../pages/Landing/LandingPage";
 import MobileHomePage from "../../pages/MobileHome/MobileHomePage";
 import './animatedRoutes.css'
 import AnimatedPage from "./AnimatedPage";
+import AnimatedLandingPage from "./AnimatedMobileView/AnimatedLandingPage";
 
 //TODO: RENAME THIS TO ANIMATEDROUTESMOBILE
 const AnimatedRoutes: React.FC = () => {
@@ -19,7 +20,8 @@ const AnimatedRoutes: React.FC = () => {
         if (location !== prevLocation) {
             const prevIndex = pageOrder.indexOf(prevLocation.pathname);
             const currentIndex = pageOrder.indexOf(location.pathname);
-
+            console.log("location => " + location.pathname);
+            console.log("prevLocation " + prevLocation.pathname)
             if (prevIndex < currentIndex) {
                 setTransitionDirection('down');
             }
@@ -36,16 +38,15 @@ const AnimatedRoutes: React.FC = () => {
 
             <Routes>
                 <Route path="/" element={
-                    <AnimatedPage direction={transitionDirection}>
-
+                    <AnimatedLandingPage direction={transitionDirection}>
                         <LandingPage />
-                    </AnimatedPage>
+                    </AnimatedLandingPage>
 
                 } />
                 <Route path="/mobile" element={
                     <AnimatedPage direction={transitionDirection}>
-
                         <MobileHomePage />
+
                     </AnimatedPage>
 
                 } />

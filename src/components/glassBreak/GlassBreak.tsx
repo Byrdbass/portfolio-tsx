@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './GlassBreak.css';
+import '../mobile/phone.css'
 import CrackedGlassSVG from '../../assets/images/crackedGlassWide.svg?react'
 import MobileProfilePic from '../mobile/mobileProfilePic/MobileProfilePic';
-// import GlassBreakSVG from './GlassBreakSVG'
+import MobileHomePage from '../mobile/mobileHomePage/MobileHomePage';
 
 interface CrackPoint {
     x: number;
@@ -14,20 +15,25 @@ interface CrackPoint {
 }
 
 const GlassBreak: React.FC = () => {
-    const [revealed, setRevealed] = useState(false);
+    const [revealed, setRevealed] = useState(false); // Keep as false for animation
     const [cracked, setCracked] = useState(false);
     const [cracks, setCracks] = useState<CrackPoint[]>([]);
     const phoneRef = useRef<HTMLDivElement>(null);
     const glassRef = useRef<HTMLDivElement>(null);
     const [disappearing, setDisappearing] = useState(false);
 
-    // Trigger reveal animation on component mount
+    // Start reveal animation after a brief delay
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setRevealed(true);
-        }, 1000);
+        // Use requestAnimationFrame to ensure component is rendered before animation starts
+        const animationFrame = requestAnimationFrame(() => {
+            const timer = setTimeout(() => {
+                setRevealed(true);
+            }, 300); // Reduced from 1000ms to 300ms for faster animation
 
-        return () => clearTimeout(timer);
+            return () => clearTimeout(timer);
+        });
+
+        return () => cancelAnimationFrame(animationFrame);
     }, []);
 
     // Generate random crack patterns
@@ -119,12 +125,12 @@ const GlassBreak: React.FC = () => {
     return (
         <div className="glassbreak-outer-div">
             <div className="glassbreak-inner-div">
-            <button
-                onClick={handleCrackGlass}
-                className="desktop-mode-button"
-            >
-                Desktop Mode
-            </button>
+                <button
+                    onClick={handleCrackGlass}
+                    className="desktop-mode-button"
+                >
+                    Desktop Mode
+                </button>
                 <div
                     ref={phoneRef}
                     className={`phone ${revealed ? 'revealed' : ''} 
@@ -175,16 +181,11 @@ const GlassBreak: React.FC = () => {
                             }
 
                             {/* Content of the phone screen */}
-                            <div className="phone-content">
-                                    <MobileProfilePic altText='picture of leland in an orange tie' />
-                            </div>
+                                <MobileHomePage />
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
 
             {/* Cracked pieces that fall when glass breaks (optional) */}
             {cracked && (
