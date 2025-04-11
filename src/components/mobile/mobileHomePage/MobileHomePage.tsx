@@ -1,8 +1,11 @@
 import React, { JSX } from "react";
 import '../phone.css'
 import MobileProfilePic from "../mobileProfilePic/MobileProfilePic";
+import { ActiveClassProp } from "../../../types/mobileContent";
 
-const MobileHomePage: React.FC<{isActive: 'active' | ''}> = ({isActive}): JSX.Element => {
+type MobileHomePageProps = ActiveClassProp;
+
+const MobileHomePage: React.FC<MobileHomePageProps> = ({isActive}): JSX.Element => {
     return (
         <>
             <div className={`phone-content ${isActive}`}>
@@ -18,4 +21,4 @@ const MobileHomePage: React.FC<{isActive: 'active' | ''}> = ({isActive}): JSX.El
     )
 }
 
-export default MobileHomePage
+export default MobileHomePage;

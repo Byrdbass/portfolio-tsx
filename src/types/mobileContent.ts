@@ -1,11 +1,11 @@
 export interface ImageData {
     src: string;
     alt: string;
-    width?: number;
-    height?: number;
+    width?: string;
+    height?: string;
   }
-  //TODO: fix this!
-  export type ActiveClassProp = {
+
+  export interface ActiveClassProp {
     isActive: 'active' | '';
   }
   
@@ -13,10 +13,10 @@ export interface ImageData {
     id: string;
     title?: string;
     description?: string;
-    githubRepo?: URL;
-    hostedSite?: URL;
+    githubRepo?: string;
+    hostedSite?: string;
     image?: ImageData;
     backgroundColor?: string;
-    component?: (props: { isActive: 'active' | '' }) => React.ReactNode;
+    component?: React.ComponentType<ActiveClassProp>
   }
   
