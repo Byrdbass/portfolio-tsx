@@ -24,7 +24,6 @@ const CodeProjectsMobile: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, []);
-  console.log(sectionRefs.current)
   // Handle scroll effects
   useEffect(() => {
     const handleScroll = () => {

@@ -13,6 +13,65 @@ export const mobileScreenContents: MobileScreenContent[] = [
     component: MobileInstructions,
     backgroundColor: "transparent"
   },
+// clock-in
+{
+  id: "clock-in",
+  title: "Clock In",
+  description: "Clock In system and Quickbooks clone for company financial tracking, Airtable BackEnd",
+  githubRepo: "https://github.com/LelandByrd",
+  hostedSite: "https://clock-in-phi.vercel.app/",
+  image: {
+    src: "http://lelandbyrd.com/images/ClockIn-03302024.png",
+    alt: "Clock In system",
+    width: "256px",
+    height: "512px"
+  }
+},
+
+// ikigai-bot
+{
+  id: "ikigai-bot",
+  title: "Ikigai Bot",
+  description: "A bot to help student determine career ambitions and recommendations",
+  githubRepo: "https://github.com/LelandByrd",
+  hostedSite: "https://ikigaibot.vercel.app/",
+  image: {
+    src: "http://lelandbyrd.com/images/Ikigaibot.gif",
+    alt: "Ikigai chat bot",
+    width: "256px",
+    height: "512px"
+  }
+},
+
+// goalsetter-bot
+{
+  id: "goalsetter-bot",
+  title: "GoalSetter Bot",
+  description: "A chat bot created for teachers to set daily or weekly goals",
+  githubRepo: "https://github.com/LelandByrd",
+  hostedSite: "https://strivetogether-continuous.vercel.app/",
+  image: {
+    src: "http://lelandbyrd.com/images/GoalsetterForTeachers.gif",
+    alt: "Goalsetter app for Teachers",
+    width: "256px",
+    height: "512px"
+  }
+},
+
+// multitracks
+{
+  id: "multitracks",
+  title: "MultiTracks",
+  description: "An DotNET API created to showcase various Musician Profiles",
+  githubRepo: "https://github.com/Byrdbass/MultiTracks",
+  hostedSite: "",
+  image: {
+    src: "http://lelandbyrd.com/images/MultiTracks.com.gif",
+    alt: "gif of MultiTracks Music app",
+    width: "256px",
+    height: "512px"
+  }
+},
   {
     id: "poke-weather",
     title: "Poke Weather",
