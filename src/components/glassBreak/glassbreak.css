@@ -23,6 +23,14 @@
   .phone.revealed {
     transform: translateY(0);
   }
+
+  .cracked-glass-container{
+
+  }
+
+  .cracked-glass-base{
+
+  }
   
   .cracks-overlay {
     position: absolute;
@@ -35,7 +43,7 @@
   .crack-line {
     stroke-dasharray: 0 1000;
     stroke-dashoffset: 0;
-    animation: crackGrow .5s forwards;
+    animation: crackGrow 3.0s forwards;
     filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
   }
   

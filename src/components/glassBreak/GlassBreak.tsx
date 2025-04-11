@@ -3,15 +3,7 @@ import './GlassBreak.css';
 import '../mobile/phone.css'
 import CrackedGlassSVG from '../../assets/images/crackedGlassWide.svg?react'
 import MobileHomePage from '../mobile/mobileHomePage/MobileHomePage';
-
-interface CrackPoint {
-    x: number;
-    y: number;
-    lines: Array<{
-        angle: number;
-        length: number;
-    }>;
-}
+import { CrackPoint } from '../../types/glassBreak';
 
 const GlassBreak: React.FC = () => {
     const [revealed, setRevealed] = useState(false); // Keep as false for animation

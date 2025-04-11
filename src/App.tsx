@@ -23,7 +23,7 @@ function App() {
     <>
       <DesktopModeProvider initialDesktopView={false}>
         <ParticlesContext.Provider value={{ particlesVisible, setParticlesVisible }}>
-          <ParticlesBackground />
+          {/* <ParticlesBackground /> */}
           <CodeProjectsMobile />
           {/* <ParallaxProvider>
             <ParallaxFix />
