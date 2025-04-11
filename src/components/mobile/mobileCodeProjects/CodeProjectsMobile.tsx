@@ -6,7 +6,7 @@ import ParticlesContext from "../../../Providers/ParticlesProvider/ParticlesCont
 import { useDesktopMode } from "../../../Providers/Desktop/DesktopProvider";
 import { mobileScreenContents } from "../../../data/mobileScreenContent";
 import { CrackPoint } from "../../../types/glassBreak";
-import CrackedGlassSVG from '../../../assets/images/crackedGlass256x512min.svg?react'
+import CrackedGlassSVG from '../../../assets/images/crackedGlass256x512.svg?react'
 import React from "react";
 
 
