@@ -1,6 +1,5 @@
 /// <reference types="vite-plugin-svgr/client" />
 import './App.css'
-// import AnimatedComponent from './components/examples/framer-motion'
 // import GsapAnimation from './components/examples/gasp'
 // import ParallaxSection from './components/examples/parallax'
 // import FadeIn from './components/examples/reactSpring'
@@ -23,7 +22,7 @@ function App() {
     <>
       <DesktopModeProvider initialDesktopView={false}>
         <ParticlesContext.Provider value={{ particlesVisible, setParticlesVisible }}>
-          {/* <ParticlesBackground /> */}
+          <ParticlesBackground />
           <CodeProjectsMobile />
           {/* <ParallaxProvider>
             <ParallaxFix />
@@ -40,7 +39,6 @@ function App() {
       {/* <FadeIn /> */}
       {/* <ParallaxSection /> */}
       {/* <GsapAnimation /> */}
-      {/* <AnimatedComponent /> */}
     </>
   )
 }
