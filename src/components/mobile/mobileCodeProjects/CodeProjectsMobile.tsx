@@ -18,7 +18,6 @@ const CodeProjectsMobile: React.FC = () => {
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   // min swipe distance in px
   const minSwipeDistance = 50;
-
   //PROVIDERS
   const { setParticlesVisible } = useContext(ParticlesContext);
   const { desktopView, setDesktopView } = useDesktopMode();
@@ -35,76 +34,65 @@ const CodeProjectsMobile: React.FC = () => {
     return () => cancelAnimationFrame(animationFrame)
   }, []);
 
-  // Handle scroll effects
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPositionMobilePage = window.scrollY + window.innerHeight / 2;
+  // Handle Y axis scroll effects
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrollPositionMobilePage = window.scrollY + window.innerHeight / 2;
 
-      // handle particles transition
-      const scrollPositionParticles = Math.min(window.scrollY / (window.innerHeight * .25), 1)
-      if (scrollPositionParticles > 0.1) {
-        setParticlesVisible(false);
-      } else {
-        setParticlesVisible(true);
-      }
-      // Find which section is currently in view
-      const activeIndex = sectionRefs.current.findIndex((section, index) => {
-        if (!section) return false;
-        const rect = section.getBoundingClientRect();
-        const sectionTop = rect.top + window.scrollY;
-        const sectionBottom = sectionTop + rect.height;
-        return scrollPositionMobilePage >= sectionTop && scrollPositionMobilePage < sectionBottom;
-      });
+  //     // handle particles transition
+  //     const scrollPositionParticles = Math.min(window.scrollY / (window.innerHeight * .25), 1)
+  //     if (scrollPositionParticles > 0.1) {
+  //       setParticlesVisible(false);
+  //     } else {
+  //       setParticlesVisible(true);
+  //     }
+  //     // Find which section is currently in view
+  //     const activeIndex = sectionRefs.current.findIndex((section, index) => {
+  //       if (!section) return false;
+  //       const rect = section.getBoundingClientRect();
+  //       const sectionTop = rect.top + window.scrollY;
+  //       const sectionBottom = sectionTop + rect.height;
+  //       return scrollPositionMobilePage >= sectionTop && scrollPositionMobilePage < sectionBottom;
+  //     });
 
-      if (activeIndex !== -1 && activeIndex !== activeScreen) {
-        setActiveScreen(activeIndex);
+  //     if (activeIndex !== -1 && activeIndex !== activeScreen) {
+  //       setActiveScreen(activeIndex);
+  //     }
+  //   };
+
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, [activeScreen, setParticlesVisible]);
+
+// Add this useEffect to handle the wheel event with the non-passive option
+useEffect(() => {
+  const container = phoneRef.current;
+  
+  if (container && !desktopView) {
+    const wheelHandler = (e: globalThis.WheelEvent) => {
+      if (!desktopView) {
+        e.preventDefault();
+        
+        // Determine direction (positive deltaY means scroll down/right)
+        if (e.deltaY > 30 && activeScreen < mobileScreenContents.length - 1) {
+          // Scrolled right, go to next screen
+          setActiveScreen(prev => prev + 1);
+        } else if (e.deltaY < -30 && activeScreen > 0) {
+          // Scrolled left, go to previous screen
+          setActiveScreen(prev => prev - 1);
+        }
       }
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [activeScreen, setParticlesVisible]);
-
-  // Add this useEffect to prevent default scrolling when in mobile view
-useEffect(() => {
-  const preventDefaultScroll = (e: globalThis.WheelEvent) => {
-    if (!desktopView) {
-      e.preventDefault();
-    }
-  };
-
-  // Only add listener when in mobile mode
-  if (!desktopView) {
-    const phoneElement = phoneRef.current;
-    if (phoneElement) {
-      phoneElement.addEventListener('wheel', preventDefaultScroll, { passive: false });
-    }
+    
+    container.addEventListener('wheel', wheelHandler, { passive: false });
+    
+    return () => {
+      container.removeEventListener('wheel', wheelHandler);
+    };
   }
-
-  return () => {
-    const phoneElement = phoneRef.current;
-    if (phoneElement) {
-      phoneElement.removeEventListener('wheel', preventDefaultScroll);
-    }
-  };
-}, [desktopView]);
+}, [activeScreen, desktopView, mobileScreenContents.length]);
 
 // Add this function to handle wheel events for horizontal scrolling
-const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-  if (desktopView) return; // Only handle in mobile view
-  
-  e.preventDefault(); // Prevent default vertical scrolling
-  
-  // Determine direction (positive deltaY means scroll down/right)
-  if (e.deltaY > 30 && activeScreen < mobileScreenContents.length - 1) {
-    // Scrolled right, go to next screen
-    setActiveScreen(prev => prev + 1);
-  } else if (e.deltaY < -30 && activeScreen > 0) {
-    // Scrolled left, go to previous screen
-    setActiveScreen(prev => prev - 1);
-  }
-};
-
   const handleTouchStart:React.TouchEventHandler<HTMLDivElement> = (e: TouchEvent<HTMLDivElement>) => {
     if (desktopView) return; // Only track touches in mobile view
     setTouchEnd(null); // Reset touchEnd
@@ -173,7 +161,6 @@ const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          onWheel={handleWheel}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
         // style={{ originZ: 100}}
