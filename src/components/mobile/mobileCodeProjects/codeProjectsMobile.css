@@ -108,7 +108,9 @@
   right: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 8px;
+  margin-top: 12px;
   z-index: 6;
 }
 
@@ -116,14 +118,25 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .indicator-dot.active {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 9px;
+  height: 9px;
   transform: scale(1.2);
 }
+
+.indicator-more {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
 
 .scroll-sections {
   width: 100%;

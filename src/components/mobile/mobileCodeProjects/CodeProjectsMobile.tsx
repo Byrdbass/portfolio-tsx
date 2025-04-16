@@ -95,8 +95,7 @@ const CodeProjectsMobile: React.FC = () => {
 
       //estimating var delta based off of which axis is greater in value (which diaganol might be read)
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      console.log(delta);
-      //TODO: why 30?
+
       if (delta > 0 && delta < 1 && activeScreen < mobileScreenContents.length - 1) {
         navigateTo(activeScreen + 1);
         e.preventDefault();
@@ -224,16 +223,56 @@ const CodeProjectsMobile: React.FC = () => {
               </div>
 
               <div className="screen-indicator">
-                {mobileScreenContents.map((_, index) => {
-                  const showDot = index === activeScreen || (index >= Math.max(0, activeScreen - 4) && index <= Math.min(mobileScreenContents.length - 1, activeScreen + 4))
-                  return showDot ? (
-                    <div
-                      key={index}
-                      className={`indicator-dot ${index === activeScreen ? 'active' : ''}`}
-                      onClick={() => handleDotClick(index)}
-                    />
-                  ) : null;
-                })}
+                <div className="screen-indicator">
+                  {(() => {
+                    const totalDots = mobileScreenContents.length;
+                    const visibleDots = 7; // Total dots to display at once
+                    const halfVisible = Math.floor(visibleDots / 2);
+
+                    // Calculate the start and end of the visible range
+                    let startDot = Math.max(0, activeScreen - halfVisible);
+                    let endDot = Math.min(totalDots - 1, startDot + visibleDots - 1);
+
+                    // Adjust start if we're near the end to always show visibleDots
+                    if (endDot - startDot + 1 < visibleDots && startDot > 0) {
+                      startDot = Math.max(0, endDot - visibleDots + 1);
+                    }
+
+                    // Create the dots array
+                    const dots = [];
+
+                    // Add "more before" indicator if needed
+                    if (startDot > 0) {
+                      dots.push(
+                        <div key="more-before" className="indicator-more" onClick={() => handleDotClick(startDot - 1)}>
+                          ⬅️
+                        </div>
+                      );
+                    }
+
+                    // Add the visible dots
+                    for (let i = startDot; i <= endDot; i++) {
+                      dots.push(
+                        <div
+                          key={i}
+                          className={`indicator-dot ${i === activeScreen ? 'active' : ''}`}
+                          onClick={() => handleDotClick(i)}
+                        />
+                      );
+                    }
+
+                    // Add "more after" indicator if needed
+                    if (endDot < totalDots - 1) {
+                      dots.push(
+                        <div key="more-after" className="indicator-more" onClick={() => handleDotClick(endDot + 1)}>
+                          ➡️
+                        </div>
+                      );
+                    }
+
+                    return dots;
+                  })()}
+                </div>
               </div>
             </div>
           </div>
