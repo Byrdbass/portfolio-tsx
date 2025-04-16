@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext, TouchEvent } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import '../phone.css'
 import '../../glassBreak/glassbreak.css'
 import './codeProjectsMobile.css'
@@ -6,13 +6,14 @@ import ParticlesContext from "../../../Providers/ParticlesProvider/ParticlesCont
 import { useDesktopMode } from "../../../Providers/Desktop/DesktopProvider";
 import { mobileScreenContents } from "../../../data/mobileScreenContent";
 import { motion } from "motion/react";
-
+import { Events, scroller } from "react-scroll";
 
 const CodeProjectsMobile: React.FC = () => {
   const [activeScreen, setActiveScreen] = useState(0);
   const phoneRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [phoneRevealed, setPhoneRevealed] = useState(false);
+  const [isScrolling, setIsScrolling] = useState<boolean>(false);
   //TOUCH/SWIPE
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
@@ -34,73 +35,90 @@ const CodeProjectsMobile: React.FC = () => {
     return () => cancelAnimationFrame(animationFrame)
   }, []);
 
-  // Handle Y axis scroll effects
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrollPositionMobilePage = window.scrollY + window.innerHeight / 2;
-
-  //     // handle particles transition
-  //     const scrollPositionParticles = Math.min(window.scrollY / (window.innerHeight * .25), 1)
-  //     if (scrollPositionParticles > 0.1) {
-  //       setParticlesVisible(false);
-  //     } else {
-  //       setParticlesVisible(true);
-  //     }
-  //     // Find which section is currently in view
-  //     const activeIndex = sectionRefs.current.findIndex((section, index) => {
-  //       if (!section) return false;
-  //       const rect = section.getBoundingClientRect();
-  //       const sectionTop = rect.top + window.scrollY;
-  //       const sectionBottom = sectionTop + rect.height;
-  //       return scrollPositionMobilePage >= sectionTop && scrollPositionMobilePage < sectionBottom;
-  //     });
-
-  //     if (activeIndex !== -1 && activeIndex !== activeScreen) {
-  //       setActiveScreen(activeIndex);
-  //     }
-  //   };
-
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, [activeScreen, setParticlesVisible]);
-
-// Add this useEffect to handle the wheel event with the non-passive option
-useEffect(() => {
-  const container = phoneRef.current;
+  //react-scroll events
+  useEffect(()=>{
+    Events.scrollEvent.register('begin', () => {
+      setIsScrolling(true);
+    });
   
-  if (container && !desktopView) {
-    const wheelHandler = (e: globalThis.WheelEvent) => {
-      if (!desktopView) {
-        e.preventDefault();
-        
-        // Determine direction (positive deltaY means scroll down/right)
-        if (e.deltaY > 30 && activeScreen < mobileScreenContents.length - 1) {
-          // Scrolled right, go to next screen
-          setActiveScreen(prev => prev + 1);
-        } else if (e.deltaY < -30 && activeScreen > 0) {
-          // Scrolled left, go to previous screen
-          setActiveScreen(prev => prev - 1);
-        }
-      }
-    };
-    
-    container.addEventListener('wheel', wheelHandler, { passive: false });
-    
+    Events.scrollEvent.register('end', () => {
+      setIsScrolling(false);
+    })
+  
     return () => {
-      container.removeEventListener('wheel', wheelHandler);
-    };
+      Events.scrollEvent.remove('begin');
+      Events.scrollEvent.remove('end');
+    }
+  },[])
+
+  // Handle Y axis scroll effects for desktop mode
+  useEffect(() => {
+    if(desktopView){
+      const handleScroll = () => {
+        const scrollPositionMobilePage = window.scrollY + window.innerHeight / 2;
+  
+        // handle particles transition
+        const scrollPositionParticles = Math.min(window.scrollY / (window.innerHeight * .25), 1)
+        if (scrollPositionParticles > 0.1) {
+          setParticlesVisible(false);
+        } else {
+          setParticlesVisible(true);
+        }
+        // Find which section is currently in view
+        const activeIndex = sectionRefs.current.findIndex((section, index) => {
+          if (!section) return false;
+          const rect = section.getBoundingClientRect();
+          const sectionTop = rect.top + window.scrollY;
+          const sectionBottom = sectionTop + rect.height;
+          return scrollPositionMobilePage >= sectionTop && scrollPositionMobilePage < sectionBottom;
+        });
+  
+        if (activeIndex !== -1 && activeIndex !== activeScreen) {
+          setActiveScreen(activeIndex);
+        }
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [activeScreen, setParticlesVisible, desktopView]);
+
+
+useEffect(() => {
+  if(desktopView) return;
+
+  const phoneElement = phoneRef.current;
+  if (!phoneElement) return;
+
+  const handleWheel = (e: WheelEvent) => {
+    if (isScrolling) return;
+
+    //estimating var delta based off of which axis is greater in value (which diaganol might be read)
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+
+    //TODO: why 30?
+    if( delta > 5 && activeScreen < mobileScreenContents.length -1){
+      navigateTo(activeScreen + 1);
+      e.preventDefault();
+    }
+    else if(delta < -5 && activeScreen > 0){
+      navigateTo(activeScreen - 1);
+      e.preventDefault();
+    }
   }
-}, [activeScreen, desktopView, mobileScreenContents.length]);
+
+  phoneElement.addEventListener('wheel', handleWheel, {passive: false});
+  return () => phoneElement.removeEventListener('wheel', handleWheel);
+}, [activeScreen, desktopView, isScrolling])
 
 // Add this function to handle wheel events for horizontal scrolling
-  const handleTouchStart:React.TouchEventHandler<HTMLDivElement> = (e: TouchEvent<HTMLDivElement>) => {
+  const handleTouchStart:React.TouchEventHandler<HTMLDivElement> = (e: React.TouchEvent<HTMLDivElement>) => {
     if (desktopView) return; // Only track touches in mobile view
     setTouchEnd(null); // Reset touchEnd
     setTouchStart(e.targetTouches[0].clientX);
   };
 
-  const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
-    console.log(e)
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (desktopView) return; // Only track touches in mobile view
     setTouchEnd(e.targetTouches[0].clientX);
   };
@@ -114,22 +132,10 @@ useEffect(() => {
     
     if (isLeftSwipe && activeScreen < mobileScreenContents.length - 1) {
       // Swiped left, go to next screen
-      setActiveScreen(prev => prev + 1);
-      
-      // Optionally, scroll to the corresponding section
-      if (sectionRefs.current[activeScreen + 1]) {
-        sectionRefs.current[activeScreen + 1]?.scrollIntoView({ behavior: 'smooth' });
-      }
+      navigateTo(activeScreen + 1);
     }
-    
-    if (isRightSwipe && activeScreen > 0) {
-      // Swiped right, go to previous screen
-      setActiveScreen(prev => prev - 1);
-      
-      // Optionally, scroll to the corresponding section
-      if (sectionRefs.current[activeScreen - 1]) {
-        sectionRefs.current[activeScreen - 1]?.scrollIntoView({ behavior: 'smooth' });
-      }
+    else if (isRightSwipe && activeScreen > 0) {
+      navigateTo(activeScreen - 1)
     }
     
     // Reset
@@ -137,9 +143,27 @@ useEffect(() => {
     setTouchEnd(null);
   };
 
+  //Navigate function for react-scroll
+  const navigateTo = (index: number) => {
+    setActiveScreen(index);
+
+    if(desktopView){
+      scroller.scrollTo(mobileScreenContents[index].id, {
+        //TODO: play with these values for optimal control
+        duration: 800,
+        smooth: true,
+        offset: -50
+      })
+    }
+  }
+
   const toggleMode = () => {
     setDesktopView(!desktopView);
   };
+
+  const handleDotClick = (index: number) => {
+    navigateTo(index)
+  }
 
   return (
     <div className="app-container">
@@ -204,6 +228,7 @@ useEffect(() => {
                   <div
                     key={index}
                     className={`indicator-dot ${index === activeScreen ? 'active' : ''}`}
+                    onClick={() => handleDotClick(index)}
                   />
                 ))}
               </div>
