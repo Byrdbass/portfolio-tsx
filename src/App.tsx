@@ -10,7 +10,7 @@ import AnimatedRoutes from './Providers/Animated/AnimatedRoutes'
 import ParticlesBackground from './components/particles/ParticlesBackground'
 import ParticlesContext from './Providers/ParticlesProvider/ParticlesContext'
 import { useState } from 'react'
-import CodeProjectsMobile from './components/mobile/mobileCodeProjects/CodeProjectsMobile'
+import CodeProjectsMobile from './pages/mobile/mobileCodeProjects/CodeProjectsMobile'
 import { DesktopModeProvider } from './Providers/Desktop/DesktopProvider'
 
 

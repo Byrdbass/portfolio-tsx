@@ -6,8 +6,8 @@ import MobileHomePage from "../../pages/MobileHome/MobileHomePage";
 import './animatedRoutes.css'
 import AnimatedPage from "./AnimatedPage";
 import AnimatedLandingPage from "./AnimatedMobileView/AnimatedLandingPage";
-import MobileTemplate from "../../components/mobile/mobileCodeProjects/mobileTemplate";
-import CodeProjectsMobile from "../../components/mobile/mobileCodeProjects/CodeProjectsMobile";
+import MobileTemplate from "../../pages/mobile/mobileCodeProjects/mobileTemplate";
+import CodeProjectsMobile from "../../pages/mobile/mobileCodeProjects/CodeProjectsMobile";
 
 //TODO: RENAME THIS TO ANIMATEDROUTESMOBILE
 const AnimatedRoutes: React.FC = () => {

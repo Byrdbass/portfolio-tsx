@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './GlassBreak.css';
 import '../mobile/phone.css'
 import CrackedGlassSVG from '../../assets/images/crackedGlassWide.svg?react'
-import MobileHomePage from '../mobile/mobileHomePage/MobileHomePage';
+import MobileHomePage from '../../pages/mobile/mobileHomePage/MobileHomePage';
 import { CrackPoint } from '../../types/glassBreak';
 
 const GlassBreak: React.FC = () => {

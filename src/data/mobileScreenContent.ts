@@ -1,6 +1,6 @@
 import { MobileScreenContent } from "../types/mobileContent";
-import MobileHomePage from "../components/mobile/mobileHomePage/MobileHomePage.tsx";
-import MobileInstructions from "../components/mobile/mobileInstructions/MobileInstructions.tsx";
+import MobileHomePage from "../pages/mobile/mobileHomePage/MobileHomePage.tsx";
+import MobileInstructions from "../pages/mobile/mobileInstructions/MobileInstructions.tsx";
 
 export const mobileScreenContents: MobileScreenContent[] = [
   {

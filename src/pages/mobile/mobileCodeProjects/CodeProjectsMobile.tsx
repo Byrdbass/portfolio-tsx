@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import '../phone.css'
-import '../../glassBreak/glassbreak.css'
+import '../../../components/glassBreak/glassbreak.css'
 import './codeProjectsMobile.css'
 import ParticlesContext from "../../../Providers/ParticlesProvider/ParticlesContext";
 import { useDesktopMode } from "../../../Providers/Desktop/DesktopProvider";
