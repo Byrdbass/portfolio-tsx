@@ -12,6 +12,7 @@ import ParticlesContext from './Providers/ParticlesProvider/ParticlesContext'
 import { useState } from 'react'
 import CodeProjectsMobile from './pages/mobile/mobileCodeProjects/CodeProjectsMobile'
 import { DesktopModeProvider } from './Providers/Desktop/DesktopProvider'
+import { ActiveScreenProvider } from './Providers/ActiveScreenProvider/ActiveScreenContext'
 
 
 
@@ -23,7 +24,9 @@ function App() {
       <DesktopModeProvider initialDesktopView={false}>
         <ParticlesContext.Provider value={{ particlesVisible, setParticlesVisible }}>
           <ParticlesBackground />
-          <CodeProjectsMobile />
+          <ActiveScreenProvider>
+            {/* TODO: can we set default home route to automatically redirect to '/mobile' */}
+            <CodeProjectsMobile />
           {/* <ParallaxProvider>
             <ParallaxFix />
             <Router>
@@ -33,6 +36,8 @@ function App() {
               </div>
             </Router>
           </ParallaxProvider> */}
+
+          </ActiveScreenProvider>
         </ParticlesContext.Provider>
       </DesktopModeProvider>
 

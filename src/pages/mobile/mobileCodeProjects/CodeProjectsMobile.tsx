@@ -4,12 +4,12 @@ import '../../../components/glassBreak/glassbreak.css'
 import './codeProjectsMobile.css'
 import ParticlesContext from "../../../Providers/ParticlesProvider/ParticlesContext";
 import { useDesktopMode } from "../../../Providers/Desktop/DesktopProvider";
+import { useActiveScreen } from "../../../Providers/ActiveScreenProvider/ActiveScreenContext";
 import { mobileScreenContents } from "../../../data/mobileScreenContent";
 import { motion } from "motion/react";
 import { Events, scroller } from "react-scroll";
 
 const CodeProjectsMobile: React.FC = () => {
-  const [activeScreen, setActiveScreen] = useState(0);
   const phoneRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [phoneRevealed, setPhoneRevealed] = useState(false);
@@ -22,6 +22,7 @@ const CodeProjectsMobile: React.FC = () => {
   //PROVIDERS
   const { setParticlesVisible } = useContext(ParticlesContext);
   const { desktopView, setDesktopView } = useDesktopMode();
+  const { activeScreen, setActiveScreen, navigateTo, totalScreens} = useActiveScreen();
 
   // Initialize phone animation
   useEffect(() => {
@@ -81,9 +82,9 @@ const CodeProjectsMobile: React.FC = () => {
       window.addEventListener('scroll', handleScroll);
       return () => window.removeEventListener('scroll', handleScroll);
     }
-  }, [activeScreen, setParticlesVisible, desktopView]);
+  }, [activeScreen, setActiveScreen, setParticlesVisible, desktopView]);
 
-
+  //track horizontal whee movement for mobile view
   useEffect(() => {
     if (desktopView) return;
 
@@ -108,7 +109,7 @@ const CodeProjectsMobile: React.FC = () => {
 
     phoneElement.addEventListener('wheel', handleWheel, { passive: false });
     return () => phoneElement.removeEventListener('wheel', handleWheel);
-  }, [activeScreen, desktopView, isScrolling])
+  }, [activeScreen, totalScreens, navigateTo, desktopView, isScrolling])
 
   // Add this function to handle wheel events for horizontal scrolling
   const handleTouchStart: React.TouchEventHandler<HTMLDivElement> = (e: React.TouchEvent<HTMLDivElement>) => {
@@ -143,9 +144,10 @@ const CodeProjectsMobile: React.FC = () => {
   };
 
   //Navigate function for react-scroll
-  const navigateTo = (index: number) => {
-    setActiveScreen(index);
+  const handleNavigation = (index: number) => {
+    navigateTo(index);
 
+    //TODO:THIS may need to be false
     if (desktopView) {
       scroller.scrollTo(mobileScreenContents[index].id, {
         //TODO: play with these values for optimal control
@@ -159,10 +161,6 @@ const CodeProjectsMobile: React.FC = () => {
   const toggleMode = () => {
     setDesktopView(!desktopView);
   };
-
-  const handleDotClick = (index: number) => {
-    navigateTo(index)
-  }
 
   return (
     <div className="app-container">
@@ -225,13 +223,12 @@ const CodeProjectsMobile: React.FC = () => {
               <div className="screen-indicator">
                 <div className="screen-indicator">
                   {(() => {
-                    const totalDots = mobileScreenContents.length;
                     const visibleDots = 7; // Total dots to display at once
                     const halfVisible = Math.floor(visibleDots / 2);
 
                     // Calculate the start and end of the visible range
                     let startDot = Math.max(0, activeScreen - halfVisible);
-                    let endDot = Math.min(totalDots - 1, startDot + visibleDots - 1);
+                    let endDot = Math.min(totalScreens - 1, startDot + visibleDots - 1);
 
                     // Adjust start if we're near the end to always show visibleDots
                     if (endDot - startDot + 1 < visibleDots && startDot > 0) {
@@ -244,7 +241,7 @@ const CodeProjectsMobile: React.FC = () => {
                     // Add "more before" indicator if needed
                     if (startDot > 0) {
                       dots.push(
-                        <div key="more-before" className="indicator-more" onClick={() => handleDotClick(startDot - 1)}>
+                        <div key="more-before" className="indicator-more" onClick={() => handleNavigation(startDot - 1)}>
                           ⬅️
                         </div>
                       );
@@ -256,15 +253,15 @@ const CodeProjectsMobile: React.FC = () => {
                         <div
                           key={i}
                           className={`indicator-dot ${i === activeScreen ? 'active' : ''}`}
-                          onClick={() => handleDotClick(i)}
+                          onClick={() => handleNavigation(i)}
                         />
                       );
                     }
 
                     // Add "more after" indicator if needed
-                    if (endDot < totalDots - 1) {
+                    if (endDot < totalScreens - 1) {
                       dots.push(
-                        <div key="more-after" className="indicator-more" onClick={() => handleDotClick(endDot + 1)}>
+                        <div key="more-after" className="indicator-more" onClick={() => handleNavigation(endDot + 1)}>
                           ➡️
                         </div>
                       );
