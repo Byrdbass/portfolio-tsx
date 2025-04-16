@@ -36,27 +36,27 @@ const CodeProjectsMobile: React.FC = () => {
   }, []);
 
   //react-scroll events
-  useEffect(()=>{
+  useEffect(() => {
     Events.scrollEvent.register('begin', () => {
       setIsScrolling(true);
     });
-  
+
     Events.scrollEvent.register('end', () => {
       setIsScrolling(false);
     })
-  
+
     return () => {
       Events.scrollEvent.remove('begin');
       Events.scrollEvent.remove('end');
     }
-  },[])
+  }, [])
 
   // Handle Y axis scroll effects for desktop mode
   useEffect(() => {
-    if(desktopView){
+    if (desktopView) {
       const handleScroll = () => {
         const scrollPositionMobilePage = window.scrollY + window.innerHeight / 2;
-  
+
         // handle particles transition
         const scrollPositionParticles = Math.min(window.scrollY / (window.innerHeight * .25), 1)
         if (scrollPositionParticles > 0.1) {
@@ -72,47 +72,47 @@ const CodeProjectsMobile: React.FC = () => {
           const sectionBottom = sectionTop + rect.height;
           return scrollPositionMobilePage >= sectionTop && scrollPositionMobilePage < sectionBottom;
         });
-  
+
         if (activeIndex !== -1 && activeIndex !== activeScreen) {
           setActiveScreen(activeIndex);
         }
       };
-  
+
       window.addEventListener('scroll', handleScroll);
       return () => window.removeEventListener('scroll', handleScroll);
     }
   }, [activeScreen, setParticlesVisible, desktopView]);
 
 
-useEffect(() => {
-  if(desktopView) return;
+  useEffect(() => {
+    if (desktopView) return;
 
-  const phoneElement = phoneRef.current;
-  if (!phoneElement) return;
+    const phoneElement = phoneRef.current;
+    if (!phoneElement) return;
 
-  const handleWheel = (e: WheelEvent) => {
-    if (isScrolling) return;
+    const handleWheel = (e: WheelEvent) => {
+      if (isScrolling) return;
 
-    //estimating var delta based off of which axis is greater in value (which diaganol might be read)
-    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-
-    //TODO: why 30?
-    if( delta > 5 && activeScreen < mobileScreenContents.length -1){
-      navigateTo(activeScreen + 1);
-      e.preventDefault();
+      //estimating var delta based off of which axis is greater in value (which diaganol might be read)
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      console.log(delta);
+      //TODO: why 30?
+      if (delta > 0 && delta < 1 && activeScreen < mobileScreenContents.length - 1) {
+        navigateTo(activeScreen + 1);
+        e.preventDefault();
+      }
+      else if (delta < 0 && delta > -1 && activeScreen > 0) {
+        navigateTo(activeScreen - 1);
+        e.preventDefault();
+      }
     }
-    else if(delta < -5 && activeScreen > 0){
-      navigateTo(activeScreen - 1);
-      e.preventDefault();
-    }
-  }
 
-  phoneElement.addEventListener('wheel', handleWheel, {passive: false});
-  return () => phoneElement.removeEventListener('wheel', handleWheel);
-}, [activeScreen, desktopView, isScrolling])
+    phoneElement.addEventListener('wheel', handleWheel, { passive: false });
+    return () => phoneElement.removeEventListener('wheel', handleWheel);
+  }, [activeScreen, desktopView, isScrolling])
 
-// Add this function to handle wheel events for horizontal scrolling
-  const handleTouchStart:React.TouchEventHandler<HTMLDivElement> = (e: React.TouchEvent<HTMLDivElement>) => {
+  // Add this function to handle wheel events for horizontal scrolling
+  const handleTouchStart: React.TouchEventHandler<HTMLDivElement> = (e: React.TouchEvent<HTMLDivElement>) => {
     if (desktopView) return; // Only track touches in mobile view
     setTouchEnd(null); // Reset touchEnd
     setTouchStart(e.targetTouches[0].clientX);
@@ -125,11 +125,11 @@ useEffect(() => {
 
   const handleTouchEnd = () => {
     if (desktopView || touchStart === null || touchEnd === null) return;
-    
+
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
-    
+
     if (isLeftSwipe && activeScreen < mobileScreenContents.length - 1) {
       // Swiped left, go to next screen
       navigateTo(activeScreen + 1);
@@ -137,7 +137,7 @@ useEffect(() => {
     else if (isRightSwipe && activeScreen > 0) {
       navigateTo(activeScreen - 1)
     }
-    
+
     // Reset
     setTouchStart(null);
     setTouchEnd(null);
@@ -147,7 +147,7 @@ useEffect(() => {
   const navigateTo = (index: number) => {
     setActiveScreen(index);
 
-    if(desktopView){
+    if (desktopView) {
       scroller.scrollTo(mobileScreenContents[index].id, {
         //TODO: play with these values for optimal control
         duration: 800,
@@ -203,7 +203,7 @@ useEffect(() => {
                     href={mobileScreenContents[activeScreen].hostedSite}
                     target="_blank"
                     rel="noopener noreferrer"
-                    >
+                  >
                     🚀</a>
                   : null}
                 <p className="phone-description">{mobileScreenContents[activeScreen].description}</p>
@@ -224,13 +224,16 @@ useEffect(() => {
               </div>
 
               <div className="screen-indicator">
-                {mobileScreenContents.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`indicator-dot ${index === activeScreen ? 'active' : ''}`}
-                    onClick={() => handleDotClick(index)}
-                  />
-                ))}
+                {mobileScreenContents.map((_, index) => {
+                  const showDot = index === activeScreen || (index >= Math.max(0, activeScreen - 4) && index <= Math.min(mobileScreenContents.length - 1, activeScreen + 4))
+                  return showDot ? (
+                    <div
+                      key={index}
+                      className={`indicator-dot ${index === activeScreen ? 'active' : ''}`}
+                      onClick={() => handleDotClick(index)}
+                    />
+                  ) : null;
+                })}
               </div>
             </div>
           </div>
