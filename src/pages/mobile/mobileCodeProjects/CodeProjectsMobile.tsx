@@ -55,43 +55,40 @@ const CodeProjectsMobile: React.FC = () => {
   }, []);
 
   // Handle Y axis scroll effects for desktop mode
-  // useEffect(() => {
-  //   if (desktopView) {
-  //     const handleScroll = () => {
-  //       const scrollPositionMobilePage =
-  //         window.scrollY + window.innerHeight / 2;
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPositionMobilePage = window.scrollY + window.innerHeight / 2;
 
-  //       // handle particles transition
-  //       const scrollPositionParticles = Math.min(
-  //         window.scrollY / (window.innerHeight * 0.25),
-  //         1
-  //       );
-  //       if (scrollPositionParticles > 0.1) {
-  //         setParticlesVisible(false);
-  //       } else {
-  //         setParticlesVisible(true);
-  //       }
-  //       // Find which section is currently in view
-  //       const activeIndex = sectionRefs.current.findIndex((section, index) => {
-  //         if (!section) return false;
-  //         const rect = section.getBoundingClientRect();
-  //         const sectionTop = rect.top + window.scrollY;
-  //         const sectionBottom = sectionTop + rect.height;
-  //         return (
-  //           scrollPositionMobilePage >= sectionTop &&
-  //           scrollPositionMobilePage < sectionBottom
-  //         );
-  //       });
+      // handle particles transition
+      const scrollPositionParticles = Math.min(
+        window.scrollY / (window.innerHeight * 0.25),
+        1
+      );
+      // if (scrollPositionParticles > 0.1) {
+      //   setParticlesVisible(false);
+      // } else {
+      //   setParticlesVisible(true);
+      // }
+      // Find which section is currently in view
+      const activeIndex = sectionRefs.current.findIndex((section, index) => {
+        if (!section) return false;
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + window.scrollY;
+        const sectionBottom = sectionTop + rect.height;
+        return (
+          scrollPositionMobilePage >= sectionTop &&
+          scrollPositionMobilePage < sectionBottom
+        );
+      });
 
-  //       if (activeIndex !== -1 && activeIndex !== activeScreen) {
-  //         setActiveScreen(activeIndex);
-  //       }
-  //     };
+      if (activeIndex !== -1 && activeIndex !== activeScreen) {
+        setActiveScreen(activeIndex);
+      }
+    };
 
-  //     window.addEventListener("scroll", handleScroll);
-  //     return () => window.removeEventListener("scroll", handleScroll);
-  //   }
-  // }, [activeScreen, setActiveScreen, setParticlesVisible, desktopView]);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [activeScreen, setActiveScreen, setParticlesVisible, desktopView]);
 
   //track horizontal whee movement for mobile view
   useEffect(() => {
