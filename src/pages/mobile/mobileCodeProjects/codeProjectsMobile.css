@@ -6,7 +6,6 @@
 
 .phone-container {
   position: fixed;
-  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
@@ -16,10 +15,7 @@
   transition: all 0.5s ease;
 }
 
-/* Desktop mode positioning */
-.phone-container.desktop-mode {
-  left: 25%;
-}
+
 
 .phone {
   position: relative;

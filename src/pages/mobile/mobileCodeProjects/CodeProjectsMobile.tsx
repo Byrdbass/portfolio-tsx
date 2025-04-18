@@ -171,6 +171,7 @@ const CodeProjectsMobile: React.FC = () => {
 
   const toggleMode = () => {
     setDesktopView(!desktopView);
+    setPhoneRevealed(false);
   };
 
   return (
@@ -187,11 +188,11 @@ const CodeProjectsMobile: React.FC = () => {
       </Link>
 
       <motion.div
-        className={`phone-container ${desktopView ? "desktop-mode" : ""}`}
+        className={`phone-container`}
       >
         <motion.div
           ref={phoneRef}
-          className={`phone ${phoneRevealed ? "loaded" : ""}`}
+          className={`phone`}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}

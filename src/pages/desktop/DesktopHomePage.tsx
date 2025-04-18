@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion, useAnimate } from "motion/react";
+import { AnimatePresence, motion, useAnimate, useInView } from "motion/react";
 import { useActiveScreen } from "../../Providers/ActiveScreenProvider/ActiveScreenContext";
 import { mobileScreenContents } from "../../data/mobileScreenContent";
 import { Opacity } from "@tsparticles/engine";
 import { backInOut, easeIn, easeInOut, easeOut } from "motion";
 import { Link } from "react-router-dom";
 import { useDesktopMode } from "../../Providers/Desktop/DesktopProvider";
+import '../mobile/mobileCodeProjects/codeProjectsMobile.css'
 
 const DesktopHomePage: React.FC = () => {
   const [isProjectVisible, setIsProjectVisible] = useState<boolean>(false);
@@ -17,10 +18,16 @@ const DesktopHomePage: React.FC = () => {
 
   //hook from motion
   const [scope, animate] = useAnimate();
+  const isInView = useInView(scope);
 
   useEffect(() => {
-    animate("div", { opacity: 1 }, { duration: 2 });
-  }, []);
+    if (isInView){
+        animate(scope.current, { opacity: 1 }, { duration: 2 });
+    }
+    // else{
+    //     animate(scope.current, { opacity: 0 }, { duration: 2 });
+    // }
+  }, [isInView]);
 
   const revealProject = () => {
     setIsProjectVisible(!isProjectVisible);
@@ -37,8 +44,6 @@ const DesktopHomePage: React.FC = () => {
           onClick={toggleMode}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.8 }}
-          whileDrag={{ scale: 0.9, rotate: 10 }}
-          drag
         >
           {desktopView ? "Switch to Mobile" : "Switch to Desktop"}
         </motion.button>
@@ -49,10 +54,10 @@ const DesktopHomePage: React.FC = () => {
             key={index}
             style={{
               backgroundColor: "cyan",
-              margin: "20px",
-              width: 350,
-              height: "50vh",
-              display: "grid",
+            //   margin: "20px",
+            //   width: 350,
+            //   height: "50vh",
+            //   display: "grid",
             }}
           >
             {/* TITLE */}

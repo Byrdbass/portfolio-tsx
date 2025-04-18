@@ -12,10 +12,6 @@
     /* Reduced from 1s to 0.5s for faster animation */
 }
 
-.phone.loaded {
-    transform: translateY(0);
-  }
-
 .phone-frame {
     position: absolute;
     inset: 0;

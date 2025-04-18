@@ -1,5 +1,6 @@
 /// <reference types="vite-plugin-svgr/client" />
 import "./App.css";
+
 import { useState } from "react";
 import { DesktopModeProvider } from "./Providers/Desktop/DesktopProvider";
 import ParticlesContext from "./Providers/ParticlesProvider/ParticlesContext";
@@ -14,30 +15,28 @@ import AnimatedRoutes from "./Providers/Animated/AnimatedRoutes";
 import ParticlesBackground from "./components/particles/ParticlesBackground";
 import CodeProjectsMobile from "./pages/mobile/mobileCodeProjects/CodeProjectsMobile";
 import DesktopHomePage from "./pages/desktop/DesktopHomePage";
+import RouteHandler from "./routes/RouteHandler";
 
 function App() {
   const [particlesVisible, setParticlesVisible] = useState(true);
-
+  // if location is NOT desktop -> this value is false
+  const initialDesktopView = window.location.pathname === "/desktop"
   return (
     <>
-      <DesktopModeProvider initialDesktopView={false}>
+      <DesktopModeProvider initialDesktopView={initialDesktopView}>
         <ParticlesContext.Provider
           value={{ particlesVisible, setParticlesVisible }}
         >
           <ParticlesBackground />
           <ActiveScreenProvider>
-            <ParallaxProvider>
-              <ParallaxFix />
               <Router>
-                <div className="AnimatedRoutes-wrapper">
-                <Routes>
-                  <Route path="/" element={<Navigate to="/mobile" replace />} />
-                  <Route path="/mobile" element={<CodeProjectsMobile />}></Route>
-                  <Route path="/desktop" element={<DesktopHomePage />}></Route>
-                </Routes>
-                </div>
+                {/* <div className="AnimatedRoutes-wrapper"> */}
+                <RouteHandler />
+                {/* </div> */}
               </Router>
-            </ParallaxProvider>
+            {/* <ParallaxProvider>
+              <ParallaxFix />
+            </ParallaxProvider> */}
           </ActiveScreenProvider>
         </ParticlesContext.Provider>
       </DesktopModeProvider>
