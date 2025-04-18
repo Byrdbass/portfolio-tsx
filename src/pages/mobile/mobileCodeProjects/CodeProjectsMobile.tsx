@@ -196,8 +196,8 @@ const CodeProjectsMobile: React.FC = () => {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          // initial={{ opacity: 0 }}
+          // whileInView={{ opacity: 1 }}
           // style={{ originZ: 100}}
         >
           <div className="phone-frame">
