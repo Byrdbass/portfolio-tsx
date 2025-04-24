@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useAnimate, useInView } from "motion/react";
 import { useActiveScreen } from "../../Providers/ActiveScreenProvider/ActiveScreenContext";
 import { mobileScreenContents } from "../../data/mobileScreenContent";
@@ -12,8 +12,9 @@ import './desktopHomePage.css'
 const DesktopHomePage: React.FC = () => {
   const [isProjectVisible, setIsProjectVisible] = useState<boolean>(false);
   const firstProject = mobileScreenContents[3];
+  const scrollRef = useRef(null);
   // TODO: join this with a shift method of future desktop components
-  const desktopScreenContents = mobileScreenContents.filter((_, index) => index >=2 )
+  const desktopScreenContents = mobileScreenContents.filter((_, index) => index >= 2)
 
   //PROVIDERS
   const { desktopView, setDesktopView } = useDesktopMode();
@@ -24,8 +25,8 @@ const DesktopHomePage: React.FC = () => {
   const isInView = useInView(scope);
 
   useEffect(() => {
-    if (isInView){
-        animate(scope.current, { opacity: 1 }, { duration: 2 });
+    if (isInView) {
+      animate(scope.current, { opacity: 1 }, { duration: 2 });
     }
     // else{
     //     animate(scope.current, { opacity: 0 }, { duration: 2 });
@@ -40,7 +41,9 @@ const DesktopHomePage: React.FC = () => {
   };
 
   return (
-    <div className="projects-outer-container">
+    <div className="projects-outer-container"
+    ref={scrollRef}
+    >
       <Link to="/mobile">
         <motion.button
           className="mode-toggle"
@@ -52,14 +55,46 @@ const DesktopHomePage: React.FC = () => {
         </motion.button>
       </Link>
       <motion.div
-            className="projects-outer-div"
-            initial={{x: "-50%", y: "-50%" , opacity: 0}}
-            animate={{x: "0%", y: "0%", opacity: 1, type: "spring" }}
-            exit={{x: 110}}
-            >
+        className="projects-outer-div"
+        initial={{ 
+          // x: "-50%", 
+          // y: "-50%", 
+          z: -100,
+          opacity: 0, 
+          scale: 0.2, 
+        }}
+        transition={{ ease: "easeIn", duration: 2 }}
+        animate={{
+          x: "0%",
+          y: "0%",
+          z: 0,
+          opacity: 1,
+          type: "spring",
+          scale: 1.0,
+        }}
+        // exit={{ease}}
+        >
         {desktopScreenContents.map((val, index) => (
-          <div
-            className="projects-inner-div"
+          <motion.div
+          className="projects-inner-div"
+          // initial={{ opacity: 0}}
+          // whileInView={{ opacity: 1}}
+          // viewport={{ root: scrollRef}}
+          transition={{
+            duration: 3, 
+            // repeat: 1,
+            times: [0, 0.9, 0.5, 0.8, 1]
+
+          }}
+          animate={{
+            x: [-100, 100, 0],
+            rotate: [720, -720, -45, 45, -45, 0],
+            // scale: [1, 2, 2, 1, 1],
+            borderRadius: ["50%", "0%", "50%", "0%", "50%"],
+            backgroundColor: "var(--animate-div)"
+            }}
+            whileHover={{ scale: 1.12 }}
+            whileTap={{ scale: 0.9 }}
             key={index}
 
           >
@@ -94,7 +129,7 @@ const DesktopHomePage: React.FC = () => {
               alt={desktopScreenContents[index].image?.alt}
               width={250}
             />
-          </div>
+          </motion.div>
         ))}
       </motion.div>
 

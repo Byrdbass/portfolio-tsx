@@ -1,5 +1,5 @@
 .projects-outer-container{
-
+    overflow: scroll;
 }
 
 .projects-outer-div{
@@ -19,7 +19,7 @@
     align-items: center;
     height: 35vh;
     width: 30vw;
-    background-color: cyan;
+    background-color: var(--white);
     padding: 10px;
     margin: 20px;
 }
