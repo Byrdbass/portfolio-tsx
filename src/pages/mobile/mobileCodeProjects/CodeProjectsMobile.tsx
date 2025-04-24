@@ -189,6 +189,23 @@ const CodeProjectsMobile: React.FC = () => {
 
       <motion.div
         className={`phone-container`}
+        initial={{
+          x: "-100%",
+          y: "-100%",
+          opacity: 0,
+          scale: 0.1
+        }}
+        transition={{
+          type: "tween",
+        }}
+        animate={{
+          x: "-40%",
+          y: "-75%",
+          scale: 1,
+          opacity: 1
+        }}
+        // drag
+        // dragDirectionLock
       >
         <motion.div
           ref={phoneRef}

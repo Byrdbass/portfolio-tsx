@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useAnimate, useInView } from "motion/react";
 import { useActiveScreen } from "../../Providers/ActiveScreenProvider/ActiveScreenContext";
 import { mobileScreenContents } from "../../data/mobileScreenContent";
-import { Opacity } from "@tsparticles/engine";
 import { backInOut, easeIn, easeInOut, easeOut } from "motion";
 import { Link } from "react-router-dom";
 import { useDesktopMode } from "../../Providers/Desktop/DesktopProvider";
@@ -54,43 +53,52 @@ const DesktopHomePage: React.FC = () => {
           {desktopView ? "Switch to Mobile" : "Switch to Desktop"}
         </motion.button>
       </Link>
+      
       <motion.div
         className="projects-outer-div"
-        initial={{ 
-          // x: "-50%", 
-          // y: "-50%", 
-          z: -100,
-          opacity: 0, 
-          scale: 0.2, 
-        }}
-        transition={{ ease: "easeIn", duration: 2 }}
-        animate={{
-          x: "0%",
-          y: "0%",
-          z: 0,
-          opacity: 1,
-          type: "spring",
-          scale: 1.0,
-        }}
-        // exit={{ease}}
+        // initial={{ 
+        //   x: "-50%", 
+        //   y: "-50%", 
+        //   z: "-100%",
+        //   opacity: 0, 
+        //   scale: 0.2, 
+        // }}
+        // transition={{ 
+        //   ease: "easeIn", 
+        //   duration: 1 
+        // }}
+        // animate={{
+        //   x: "0%",
+        //   y: "0%",
+        //   z: 0,
+        //   opacity: 1,
+        //   type: "spring",
+        //   scale: 1.0,
+        // }}
+        // exit={{}}
         >
         {desktopScreenContents.map((val, index) => (
           <motion.div
           className="projects-inner-div"
-          // initial={{ opacity: 0}}
+          initial={{ 
+            opacity: 0,
+            scale: 0.2
+          }}
           // whileInView={{ opacity: 1}}
           // viewport={{ root: scrollRef}}
           transition={{
-            duration: 3, 
+            duration: 1.5, 
             // repeat: 1,
-            times: [0, 0.9, 0.5, 0.8, 1]
+            // times: [0, 0.9, 0.5, 0.8, 1]
 
           }}
           animate={{
-            x: [-100, 100, 0],
-            rotate: [720, -720, -45, 45, -45, 0],
+            // x: [-100, 100, 0],
+            rotate: [360, 0],
             // scale: [1, 2, 2, 1, 1],
-            borderRadius: ["50%", "0%", "50%", "0%", "50%"],
+            opacity: 1,
+            scale: 1,
+            borderRadius: ["50%", "0%", "50%", "25%", "50%"],
             backgroundColor: "var(--animate-div)"
             }}
             whileHover={{ scale: 1.12 }}
