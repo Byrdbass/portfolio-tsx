@@ -1,0 +1,25 @@
+.projects-outer-container{
+
+}
+
+.projects-outer-div{
+    width: 95vw;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+}
+
+.projects-inner-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 35vh;
+    width: 30vw;
+    background-color: cyan;
+    padding: 10px;
+    margin: 20px;
+}

@@ -7,6 +7,7 @@ import { backInOut, easeIn, easeInOut, easeOut } from "motion";
 import { Link } from "react-router-dom";
 import { useDesktopMode } from "../../Providers/Desktop/DesktopProvider";
 import '../mobile/mobileCodeProjects/codeProjectsMobile.css'
+import './desktopHomePage.css'
 
 const DesktopHomePage: React.FC = () => {
   const [isProjectVisible, setIsProjectVisible] = useState<boolean>(false);
@@ -37,7 +38,7 @@ const DesktopHomePage: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="projects-outer-container">
       <Link to="/mobile">
         <motion.button
           className="mode-toggle"
@@ -48,17 +49,17 @@ const DesktopHomePage: React.FC = () => {
           {desktopView ? "Switch to Mobile" : "Switch to Desktop"}
         </motion.button>
       </Link>
-      <motion.div ref={scope}>
-        {mobileScreenContents.map((val, index) => (
+      <motion.div
+            className="projects-outer-div"
+            initial={{x: "-50%", y: "-50%" , opacity: 0}}
+            animate={{x: "0%", y: "0%", opacity: 1, type: "spring" }}
+            exit={{x: 110}}
+            >
+        {mobileScreenContents.filter((_, index) => index >=2 ).map((val, index) => (
           <div
+            className="projects-inner-div"
             key={index}
-            style={{
-              backgroundColor: "cyan",
-            //   margin: "20px",
-            //   width: 350,
-            //   height: "50vh",
-            //   display: "grid",
-            }}
+
           >
             {/* TITLE */}
             <h2>{mobileScreenContents[index].title}</h2>
@@ -120,7 +121,7 @@ const DesktopHomePage: React.FC = () => {
           </motion.div>
         ) : null}
       </AnimatePresence>
-    </>
+    </div>
   );
 };
 
