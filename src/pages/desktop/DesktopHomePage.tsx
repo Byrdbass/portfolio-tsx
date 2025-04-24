@@ -12,6 +12,8 @@ import './desktopHomePage.css'
 const DesktopHomePage: React.FC = () => {
   const [isProjectVisible, setIsProjectVisible] = useState<boolean>(false);
   const firstProject = mobileScreenContents[3];
+  // TODO: join this with a shift method of future desktop components
+  const desktopScreenContents = mobileScreenContents.filter((_, index) => index >=2 )
 
   //PROVIDERS
   const { desktopView, setDesktopView } = useDesktopMode();
@@ -55,19 +57,19 @@ const DesktopHomePage: React.FC = () => {
             animate={{x: "0%", y: "0%", opacity: 1, type: "spring" }}
             exit={{x: 110}}
             >
-        {mobileScreenContents.filter((_, index) => index >=2 ).map((val, index) => (
+        {desktopScreenContents.map((val, index) => (
           <div
             className="projects-inner-div"
             key={index}
 
           >
             {/* TITLE */}
-            <h2>{mobileScreenContents[index].title}</h2>
-            {mobileScreenContents[index].hostedSite ? (
+            <h2>{desktopScreenContents[index].title}</h2>
+            {desktopScreenContents[index].hostedSite ? (
               // DEPLOYED ICON
               <a
                 className="deployed-icon"
-                href={mobileScreenContents[index].hostedSite}
+                href={desktopScreenContents[index].hostedSite}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -76,11 +78,11 @@ const DesktopHomePage: React.FC = () => {
             ) : null}
             {/* DESCRIPTION */}
             <p className="desktop-description">
-              {mobileScreenContents[index].description}
+              {desktopScreenContents[index].description}
             </p>
             {/* GITHUB REPO */}
             <a
-              href={mobileScreenContents[index].githubRepo}
+              href={desktopScreenContents[index].githubRepo}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -88,8 +90,8 @@ const DesktopHomePage: React.FC = () => {
               Link to repo on Github{" "}
             </a>
             <img
-              src={mobileScreenContents[index].image?.src}
-              alt={mobileScreenContents[index].image?.alt}
+              src={desktopScreenContents[index].image?.src}
+              alt={desktopScreenContents[index].image?.alt}
               width={250}
             />
           </div>
