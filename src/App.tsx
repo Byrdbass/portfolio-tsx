@@ -1,7 +1,7 @@
 /// <reference types="vite-plugin-svgr/client" />
 import "./App.css";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { DesktopModeProvider } from "./Providers/Desktop/DesktopProvider";
 import ParticlesContext from "./Providers/ParticlesProvider/ParticlesContext";
 import { ActiveScreenProvider } from "./Providers/ActiveScreenProvider/ActiveScreenContext";
@@ -18,11 +18,12 @@ import DesktopHomePage from "./pages/desktop/home/DesktopHomePage";
 import RouteHandler from "./routes/RouteHandler";
 
 function App() {
+  const scrollContainerRef = useRef(null)
   const [particlesVisible, setParticlesVisible] = useState(true);
   // if location is NOT desktop -> this value is false
   const initialDesktopView = window.location.pathname === "/desktop"
   return (
-    <>
+    <div ref={scrollContainerRef}>
       <DesktopModeProvider initialDesktopView={initialDesktopView}>
         <ParticlesContext.Provider
           value={{ particlesVisible, setParticlesVisible }}
@@ -44,7 +45,7 @@ function App() {
       {/* <FadeIn /> */}
       {/* <ParallaxSection /> */}
       {/* <GsapAnimation /> */}
-    </>
+    </div>
   );
 }
 
