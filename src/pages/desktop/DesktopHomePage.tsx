@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useAnimate, useInView } from "motion/react";
+import { AnimatePresence, motion, useAnimate, useInView, useScroll } from "motion/react";
 import { useActiveScreen } from "../../Providers/ActiveScreenProvider/ActiveScreenContext";
 import { mobileScreenContents } from "../../data/mobileScreenContent";
 import { backInOut, easeIn, easeInOut, easeOut } from "motion";
@@ -20,6 +20,7 @@ const DesktopHomePage: React.FC = () => {
   // const {activeScreen, setActiveScreen, navigateTo, totalScreens } = useActiveScreen();
 
   //hook from motion
+  const { scrollYProgress } = useScroll();
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
 
@@ -43,6 +44,10 @@ const DesktopHomePage: React.FC = () => {
     <div className="projects-outer-container"
     ref={scrollRef}
     >
+      <motion.div className="progress-bar-X" style={{
+        scaleX: scrollYProgress,
+        originX: 0
+        }}/>
       <Link to="/mobile">
         <motion.button
           className="mode-toggle"
@@ -143,7 +148,7 @@ const DesktopHomePage: React.FC = () => {
 
       {/* <motion.div ref={scope} style={{margin: "60px"}}>Regalar Div</motion.div> */}
 
-      <motion.button
+      {/* <motion.button
         style={{ margin: "60px", fontSize: "60px", borderRadius: "50px" }}
         onClick={revealProject}
         whileHover={{ scale: 1.2 }}
@@ -165,7 +170,7 @@ const DesktopHomePage: React.FC = () => {
             <img src={firstProject.image?.src} alt="" />
           </motion.div>
         ) : null}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </div>
   );
 };
