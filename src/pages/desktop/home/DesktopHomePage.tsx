@@ -105,23 +105,16 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
           return (
             <motion.div
               className="projects-inner-div"
-              // ref={projectRef}
               initial={{
                 opacity: 0,
                 scale: 0.2
               }}
-              // whileInView={{ opacity: 1}}
-              // viewport={{ root: scrollContainerRef}}
               transition={{
                 duration: 1.5,
-                // repeat: 1,
-                // times: [0, 0.9, 0.5, 0.8, 1]
-
               }}
               animate={{
                 x: [-100, 100, 0],
                 rotate: [360, 0],
-                // scale: [1, 2, 2, 1, 1],
                 opacity: 1,
                 scale: 1,
                 borderRadius: ["50%", "100%", "0%", "100%", "25%"],
