@@ -1,0 +1,37 @@
+.projects-outer-container{
+    position: relative;
+}
+
+.progress-bar-X{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20px;
+    background-color: #ff0088;
+
+}
+
+.projects-outer-div{
+    width: 95vw;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    z-index: -9;
+}
+
+.projects-inner-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 35vh;
+    width: 30vw;
+    background-color: var(--white);
+    padding: 10px;
+    margin: 20px;
+}

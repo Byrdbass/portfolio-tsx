@@ -1,0 +1,10 @@
+.desktop-header-container{
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    /* height: 35vh; */
+    width: 100vw;
+    margin-bottom: 20px;
+    /* background-color: var(--navy); */
+}
