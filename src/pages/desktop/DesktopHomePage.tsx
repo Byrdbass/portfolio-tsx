@@ -93,12 +93,12 @@ const DesktopHomePage: React.FC = () => {
 
           }}
           animate={{
-            // x: [-100, 100, 0],
+            x: [-100, 100, 0],
             rotate: [360, 0],
             // scale: [1, 2, 2, 1, 1],
             opacity: 1,
             scale: 1,
-            borderRadius: ["50%", "0%", "50%", "25%", "50%"],
+            borderRadius: ["50%", "100%", "0%", "100%", "25%"],
             backgroundColor: "var(--animate-div)"
             }}
             whileHover={{ scale: 1.12 }}
