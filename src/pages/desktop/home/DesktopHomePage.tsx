@@ -25,6 +25,8 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
 
   //hook from motion
   const scrollContainerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [visibleProjects, setVisibleProjects] = useState<number[]>([]);
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
 
   const { scrollYProgress } = useScroll();
@@ -35,16 +37,24 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
       margin: "100px 0px"
   })
 
+  const shouldRenderProject = (index: number) => {
+    // Initial render - render first few projects
+    if (visibleProjects.length === 0 && index < 3) return true;
+    // Otherwise, only render if in visible array
+    return visibleProjects.includes(index);
+  };
+
   const toggleMode = () => {
     setDesktopView(!desktopView);
   };
 
-  console.log(activeProjectIndex)
+  console.log(containerRef)
   console.log(scrollYProgress);
 
   return (
     <div className="projects-outer-container"
-      ref={scrollContainerRef}
+      ref={containerRef}
+      
     >
       {/* TODO: do we want this progress bar? */}
       {/* <motion.div className="progress-bar-X" style={{
@@ -63,7 +73,7 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
       </Link>
       <DesktopHeader />
       <motion.section
-        viewport={{ root: scrollContainerRef }}
+        // viewport={{ root: scrollContainerRef }}
 
         style={{ maskImage }}
         className="projects-outer-div"

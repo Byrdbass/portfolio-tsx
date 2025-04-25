@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import CodeProjectsMobile from "../pages/mobile/mobileCodeProjects/CodeProjectsMobile";
 import DesktopHomePage from "../pages/desktop/home/DesktopHomePage";
+import DesktopHomePage2 from "../pages/desktop/DesktopHomePage2/DesktopHomePage2";
 
 function RouteHandler() {
   const location = useLocation();
@@ -26,7 +27,7 @@ function RouteHandler() {
     <Routes>
       <Route path="/" element={<Navigate to="/mobile" replace />} />
       <Route path="/mobile" element={<CodeProjectsMobile />}></Route>
-      <Route path="/desktop" element={<DesktopHomePage />}></Route>
+      <Route path="/desktop" element={<DesktopHomePage2 />}></Route>
     </Routes>
   );
 }
