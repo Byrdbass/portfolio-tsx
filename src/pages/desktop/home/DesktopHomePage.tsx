@@ -21,30 +21,19 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
   const desktopScreenContents = mobileScreenContents.filter((_, index) => index >= 2)
 
   //PROVIDERS
-  const { desktopView, setDesktopView } = useDesktopMode();
-  // const {activeScreen, setActiveScreen, navigateTo, totalScreens } = useActiveScreen();
+  const { desktopView, setDesktopView } = useDesktopMode();;
 
   //hook from motion
   const scrollContainerRef = useRef(null);
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
 
-  const { scrollYProgress } = useScroll({
-    target: scrollContainerRef,
-    offset: ["end center", "start start"],
-    layoutEffect: true
-  });
+  const { scrollYProgress } = useScroll();
   const maskImage: MotionValue<string> = useScrollOverflowMask(scrollYProgress);
   const isInView = useInView(scrollContainerRef, {
       // amount: 0.9,
       // once: true
       margin: "100px 0px"
   })
-
-  useEffect(() => {
-    if (isInView) {
-      // setActiveProjectIndex(index);
-    }
-  }, [isInView])
 
   const toggleMode = () => {
     setDesktopView(!desktopView);
@@ -74,9 +63,8 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
       </Link>
       <DesktopHeader />
       <motion.section
-        // ref={scrollContainerRef}
         viewport={{ root: scrollContainerRef }}
-        // layout={false}
+
         style={{ maskImage }}
         className="projects-outer-div"
         transition={{
@@ -90,18 +78,6 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
         }}
       >
         {desktopScreenContents.map((val, index) => {
-          // const projectRef = useRef(null);
-          // const isInView = useInView(projectRef, {
-          //   amount: 0.9,
-          //   once: false
-          // })
-
-          // useEffect(() => {
-          //   if(isInView){
-          //     setActiveProjectIndex(index);
-          //   }
-          // }, [isInView, index])
-
           return (
             <motion.div
               className="projects-inner-div"
