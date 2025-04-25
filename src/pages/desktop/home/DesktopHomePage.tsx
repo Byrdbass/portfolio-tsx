@@ -86,7 +86,7 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
           damping: 6
         }}
         animate={{
-          y: "34%",
+          y: "5%",
         }}
       >
         {desktopScreenContents.map((val, index) => {

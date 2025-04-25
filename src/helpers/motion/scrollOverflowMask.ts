@@ -3,8 +3,8 @@ import { mask } from "motion/react-client";
 
 const top = "0%";
 const bottom = "100%";
-const topInset = "20%";
-const bottomInset = "80%";
+const topInset = "5%";
+const bottomInset = "95%";
 const transparent = '#0000';
 const opaque = "#000";
 
