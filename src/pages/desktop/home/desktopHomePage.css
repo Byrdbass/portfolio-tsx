@@ -16,7 +16,7 @@
 .projects-outer-div{
     position: relative;
     width: 95vw;
-    height: fit-content;
+    /* height: 100vh; */
     display: flex;
     flex-wrap: wrap;
     /* flex-direction: column; */
@@ -31,7 +31,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 35vh;
+    min-height: 35vh;
     width: 30vw;
     background-color: var(--white);
     padding: 10px;
