@@ -14,7 +14,7 @@ import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-d
 import AnimatedRoutes from "./Providers/Animated/AnimatedRoutes";
 import ParticlesBackground from "./components/particles/ParticlesBackground";
 import CodeProjectsMobile from "./pages/mobile/mobileCodeProjects/CodeProjectsMobile";
-import DesktopHomePage from "./pages/desktop/DesktopHomePage";
+import DesktopHomePage from "./pages/desktop/home/DesktopHomePage";
 import RouteHandler from "./routes/RouteHandler";
 
 function App() {

@@ -7,7 +7,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import CodeProjectsMobile from "../pages/mobile/mobileCodeProjects/CodeProjectsMobile";
-import DesktopHomePage from "../pages/desktop/DesktopHomePage";
+import DesktopHomePage from "../pages/desktop/home/DesktopHomePage";
 
 function RouteHandler() {
   const location = useLocation();

@@ -176,6 +176,7 @@ const CodeProjectsMobile: React.FC = () => {
 
   return (
     <div className="app-container">
+      {/* TODO: MODIFY THIS TO BE IT'S OWN COMPONENT */}
       <Link to="/desktop">
         <motion.button
           className="mode-toggle"

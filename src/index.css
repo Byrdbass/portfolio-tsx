@@ -1,7 +1,8 @@
 :root {
-  --animate-div: #2A9D8F;
+  --teal: #2A9D8F;
   --gold: #E9C46A;
-  --white: #ffffff
+  --white: #ffffff;
+  --navy: #264653;
   
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
