@@ -27,7 +27,7 @@ function RouteHandler() {
     <Routes>
       <Route path="/" element={<Navigate to="/mobile" replace />} />
       <Route path="/mobile" element={<CodeProjectsMobile />}></Route>
-      <Route path="/desktop" element={<DesktopHomePage2 />}></Route>
+      <Route path="/desktop" element={<DesktopHomePage />}></Route>
     </Routes>
   );
 }

@@ -9,6 +9,7 @@ import '../../mobile/mobileCodeProjects/codeProjectsMobile.css'
 import './desktopHomePage.css'
 import DesktopHeader from "../../../components/header/DesktopHeader";
 import useScrollOverflowMask from "../../../helpers/motion/scrollOverflowMask";
+import DesktopProjects from "../../../components/Projects/DesktopProjects";
 
 interface ScrollProps {
 
@@ -26,16 +27,16 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
   //hook from motion
   const scrollContainerRef = useRef(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [visibleProjects, setVisibleProjects] = useState<number[]>([]);
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [visibleProjects, setVisibleProjects] = useState<number[]>([0,1,2]);
+  // const [activeProjectIndex, setActiveProjectIndex] = useState(0);
 
   const { scrollYProgress } = useScroll();
   const maskImage: MotionValue<string> = useScrollOverflowMask(scrollYProgress);
-  const isInView = useInView(scrollContainerRef, {
-      // amount: 0.9,
-      // once: true
-      margin: "100px 0px"
-  })
+  // const isInView = useInView(scrollContainerRef, {
+  //     amount: 0.9,
+  //     once: true
+  //     margin: "100px 0px"
+  // })
 
   const shouldRenderProject = (index: number) => {
     // Initial render - render first few projects
@@ -48,13 +49,12 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
     setDesktopView(!desktopView);
   };
 
-  console.log(containerRef)
-  console.log(scrollYProgress);
+  // console.log(containerRef.current?.textContent)
+  // console.log(scrollYProgress.hasAnimated);
 
   return (
     <div className="projects-outer-container"
-      ref={containerRef}
-      
+
     >
       {/* TODO: do we want this progress bar? */}
       {/* <motion.div className="progress-bar-X" style={{
@@ -73,8 +73,7 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
       </Link>
       <DesktopHeader />
       <motion.section
-        // viewport={{ root: scrollContainerRef }}
-
+        ref={containerRef}
         style={{ maskImage }}
         className="projects-outer-div"
         transition={{
@@ -87,63 +86,32 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
           y: "5%",
         }}
       >
-        {desktopScreenContents.map((val, index) => {
-          return (
-            <motion.div
-              className="projects-inner-div"
-              initial={{
-                opacity: 0,
-                scale: 0.2
-              }}
-              transition={{
-                duration: 1.5,
-              }}
-              animate={{
-                x: [-100, 100, 0],
-                rotate: [360, 0],
-                opacity: 1,
-                scale: 1,
-                borderRadius: ["50%", "100%", "0%", "100%", "25%"],
-                backgroundColor: "var(--teal)"
-              }}
-              whileHover={{ scale: 1.12 }}
-              whileTap={{ scale: 0.9 }}
-              key={index}
+        {desktopScreenContents.map((content, index) => {
+          if (shouldRenderProject(index)) {
+            return (
+              <DesktopProjects
+                key={index}
+                content={content}
+                index={index}
+                onVisibilityChange={(isVisible: boolean) => {
+                  if (isVisible) {
+                    // Add this project to visible array
+                    setVisibleProjects(prev =>
+                      prev.includes(index) ? prev : [...prev, index]
+                    );
 
-            >
-              {/* TITLE */}
-              <h2>{desktopScreenContents[index].title}</h2>
-              {desktopScreenContents[index].hostedSite ? (
-                // DEPLOYED ICON
-                <a
-                  className="deployed-icon"
-                  href={desktopScreenContents[index].hostedSite}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  🚀
-                </a>
-              ) : null}
-              {/* DESCRIPTION */}
-              <p className="desktop-description">
-                {desktopScreenContents[index].description}
-              </p>
-              {/* GITHUB REPO */}
-              <a
-                href={desktopScreenContents[index].githubRepo}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {" "}
-                Link to repo on Github{" "}
-              </a>
-              <img
-                src={desktopScreenContents[index].image?.src}
-                alt={desktopScreenContents[index].image?.alt}
-                width={250}
+                    // Also add adjacent projects for smoother scrolling
+                    const adjacent = [index - 2, index - 1, index + 1, index + 2]
+                      .filter(i => i >= 0 && i < desktopScreenContents.length);
+
+                    setVisibleProjects(prev =>
+                      [...new Set([...prev, ...adjacent])]
+                    );
+                  }
+                }}
               />
-            </motion.div>
-          )
+            );
+          }
         }
 
 

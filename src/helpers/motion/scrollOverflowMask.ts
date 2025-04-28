@@ -10,7 +10,7 @@ const opaque = "#000";
 
 export default function useScrollOverflowMask(scrollProgress: MotionValue<number>):MotionValue<string> {
     const maskImage = useMotionValue(
-        `linear-gradient(0deg, ${opaque}, ${opaque} ${top}, ${opaque} ${bottomInset}, ${transparent})`
+        `linear-gradient(to bottom, ${opaque}, ${opaque} ${top}, ${opaque} ${bottomInset}, ${transparent})`
     )
 
     useMotionValueEvent(scrollProgress, "change", (value) => {
