@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, MotionValue, useAnimate, useInView, useScroll } from "motion/react";
 import { useActiveScreen } from "../../../Providers/ActiveScreenProvider/ActiveScreenContext";
 import { mobileScreenContents } from "../../../data/mobileScreenContent";
@@ -16,8 +16,6 @@ interface ScrollProps {
 }
 
 const DesktopHomePage: React.FC<ScrollProps> = () => {
-  const [isProjectVisible, setIsProjectVisible] = useState<boolean>(false);
-
   // TODO: join this with a shift method of future desktop components
   const desktopScreenContents = mobileScreenContents.filter((_, index) => index >= 2)
 
@@ -25,28 +23,35 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
   const { desktopView, setDesktopView } = useDesktopMode();;
 
   //hook from motion
-  const scrollContainerRef = useRef(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [visibleProjects, setVisibleProjects] = useState<number[]>([0,1,2]);
-  // const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [visibleProjects, setVisibleProjects] = useState<number[]>([0,1,2,3]);
 
   const { scrollYProgress } = useScroll();
   const maskImage: MotionValue<string> = useScrollOverflowMask(scrollYProgress);
-  // const isInView = useInView(scrollContainerRef, {
-  //     amount: 0.9,
-  //     once: true
-  //     margin: "100px 0px"
-  // })
 
-  const shouldRenderProject = (index: number) => {
-    // Initial render - render first few projects
-    if (visibleProjects.length === 0 && index < 3) return true;
-    // Otherwise, only render if in visible array
-    return visibleProjects.includes(index);
-  };
+    // Use useCallback to prevent recreation of this function on every render
+    const handleVisibilityChange = useCallback((projectIndex: number, isVisible: boolean) => {
+      if (isVisible) {
+        setVisibleProjects(prev => {
+          // Skip update if project is already in the array
+          if (prev.includes(projectIndex)) return prev;
+          
+          // Calculate adjacent indices
+          const adjacent = [projectIndex-3, projectIndex - 2, projectIndex - 1, projectIndex + 1, projectIndex + 2, projectIndex + 3]
+            .filter(i => i >= 0 && i < desktopScreenContents.length);
+          
+          // Create new array with unique values
+          return [...new Set([...prev, projectIndex, ...adjacent])];
+        });
+      }
+    }, [desktopScreenContents.length]);
 
   const toggleMode = () => {
     setDesktopView(!desktopView);
+  };
+
+  const isProjectVisible = (index: number) => {
+    return visibleProjects.includes(index);
   };
 
   // console.log(containerRef.current?.textContent)
@@ -87,31 +92,17 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
         }}
       >
         {desktopScreenContents.map((content, index) => {
-          if (shouldRenderProject(index)) {
+
             return (
               <DesktopProjects
                 key={index}
                 content={content}
                 index={index}
-                onVisibilityChange={(isVisible: boolean) => {
-                  if (isVisible) {
-                    // Add this project to visible array
-                    setVisibleProjects(prev =>
-                      prev.includes(index) ? prev : [...prev, index]
-                    );
-
-                    // Also add adjacent projects for smoother scrolling
-                    const adjacent = [index - 2, index - 1, index + 1, index + 2]
-                      .filter(i => i >= 0 && i < desktopScreenContents.length);
-
-                    setVisibleProjects(prev =>
-                      [...new Set([...prev, ...adjacent])]
-                    );
-                  }
-                }}
+                isVisible={isProjectVisible(index)}
+                onVisibilityChange={handleVisibilityChange}
               />
             );
-          }
+          
         }
 
 
