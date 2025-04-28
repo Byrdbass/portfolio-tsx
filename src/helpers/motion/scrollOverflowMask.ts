@@ -17,13 +17,13 @@ export default function useScrollOverflowMask(scrollProgress: MotionValue<number
         if (value === 0) {
             animate(
                 maskImage,
-                `linear-gradient(0deg, ${opaque}, ${opaque} ${top}, ${opaque} ${bottomInset}, ${transparent})`
+                `linear-gradient(to bottom, ${opaque}, ${opaque})`
             )
         }
         else if (value === 1) {
             animate(
                 maskImage,
-                `linear-gradient(0deg, ${transparent}, ${opaque} ${topInset}, ${opaque} ${bottom}, ${opaque})`
+                `linear-gradient(to top, ${opaque}, ${opaque})`
             )
         }
         else if (

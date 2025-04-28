@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from "react";
-import { useInView, motion } from "motion/react";
+import React, { useRef, useEffect, useState } from "react";
+import { useInView, motion, useScroll, MotionValue } from "motion/react";
+import useScrollOverflowMask from "../../helpers/motion/scrollOverflowMask";
 
 interface DesktopProjectsProps {
     content: any;
@@ -7,6 +8,8 @@ interface DesktopProjectsProps {
     isVisible: boolean;
     onVisibilityChange: (index: number, isVisible: boolean) => void;
   }
+
+  type ViewportPosition = "top" | "middle" | "bottom" | "outside";
 
   const DesktopProjects: React.FC<DesktopProjectsProps> = ({ content, index, isVisible, onVisibilityChange }) => {    
     const ref = useRef(null);
@@ -16,6 +19,47 @@ interface DesktopProjectsProps {
     })
      // Use a ref to track previous value to avoid unnecessary updates
     const wasInViewRef = useRef(false);
+    const [viewportPosition, setViewportPosition] = useState<ViewportPosition>("outside");
+
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start end", "end start"]
+    });
+    const baselineMask: MotionValue<string> = useScrollOverflowMask(scrollYProgress);
+
+      // Function to determine if element is at the top or bottom of viewport
+      useEffect(() => {
+        const checkViewportPosition = () => {
+          if (!ref.current) return;
+          
+          const rect = ref.current.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+          
+          const topThreshold = viewportHeight * 0.15; // Consider "top" if within 15% of viewport top
+          const bottomThreshold = viewportHeight * 0.85; // Consider "bottom" if within 15% of viewport bottom
+          
+          if (rect.top < topThreshold && rect.bottom > 0) {
+            setViewportPosition("top");
+          } else if (rect.bottom > bottomThreshold && rect.top < viewportHeight) {
+            setViewportPosition("bottom");
+          } else if (rect.top >= 0 && rect.bottom <= viewportHeight) {
+            setViewportPosition("middle");
+          } else {
+            setViewportPosition("outside");
+          }
+        };
+    
+        // Create unsubscribe function for the scrollYProgress changes
+        const unsubscribe = scrollYProgress.on("change", () => {
+          checkViewportPosition();
+        });
+        
+        // Initial check
+        checkViewportPosition();
+        
+        // Cleanup subscription
+        return () => unsubscribe();
+      }, [scrollYProgress]);
 
     useEffect(() => {
         // Only trigger callback when visibility actually changes
@@ -24,6 +68,19 @@ interface DesktopProjectsProps {
           onVisibilityChange(index, isInView);
         }
       }, [isInView, index, onVisibilityChange]);
+
+        // Generate position-based mask
+  const getMaskStyle = () => {
+    if (viewportPosition === "top") {
+      return "linear-gradient(to bottom, transparent, black 20%)";
+    } else if (viewportPosition === "bottom") {
+      return "linear-gradient(to top, transparent, black 20%)";
+    }
+    return "none"; // No mask for middle or outside
+  };
+
+  // Dynamic mask based on viewport position
+  const dynamicMask = viewportPosition !== "middle" && isVisible ? getMaskStyle() : "none";
 
 
     return (
@@ -50,7 +107,9 @@ interface DesktopProjectsProps {
                 whileTap={{ scale: 0.9 }}
                 style={{
                     // This keeps projects in the DOM but adjusts their appearance
-                    pointerEvents: isVisible ? "auto" : "none"
+                    pointerEvents: isVisible ? "auto" : "none",
+                    maskImage: dynamicMask,
+                    WebkitMaskImage: dynamicMask
                   }}
                 key={index}
 
