@@ -9,10 +9,10 @@ const transparent = '#0000';
 const opaque = "#000";
 
 export default function useScrollOverflowMask(scrollProgress: MotionValue<number>):MotionValue<string> {
+    //THIS OCCURS WHEN PAGE LOADS
     const maskImage = useMotionValue(
-        `linear-gradient(to bottom, ${opaque}, ${opaque} ${top}, ${opaque} ${bottomInset}, ${transparent})`
+        `linear-gradient(to bottom, ${opaque}, ${opaque})`
     )
-
     useMotionValueEvent(scrollProgress, "change", (value) => {
         if (value === 0) {
             animate(
@@ -23,7 +23,7 @@ export default function useScrollOverflowMask(scrollProgress: MotionValue<number
         else if (value === 1) {
             animate(
                 maskImage,
-                `linear-gradient(1deg, ${transparent}, ${opaque} ${topInset}, ${opaque} ${bottom}, ${opaque})`
+                `linear-gradient(0deg, ${transparent}, ${opaque} ${topInset}, ${opaque} ${bottom}, ${opaque})`
             )
         }
         else if (
@@ -32,7 +32,7 @@ export default function useScrollOverflowMask(scrollProgress: MotionValue<number
          ){
             animate(
                 maskImage,
-                `linear-gradient(2deg, ${transparent}, ${opaque} ${topInset}, ${opaque} ${bottomInset}, ${transparent})`
+                `linear-gradient(0deg, ${transparent}, ${opaque} ${topInset}, ${opaque} ${bottomInset}, ${transparent})`
             )
          }
 
