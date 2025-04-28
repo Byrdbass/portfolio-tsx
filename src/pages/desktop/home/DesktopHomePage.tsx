@@ -25,26 +25,37 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
   //hook from motion
   const containerRef = useRef<HTMLDivElement>(null);
   const [visibleProjects, setVisibleProjects] = useState<number[]>([0,1,2,3]);
+  const [currentCenter, setCurrentCenter] = useState<number>(0);
+  const visibilityWindow = 6;
 
   const { scrollYProgress } = useScroll();
   const maskImage: MotionValue<string> = useScrollOverflowMask(scrollYProgress);
 
+
+
     // Use useCallback to prevent recreation of this function on every render
     const handleVisibilityChange = useCallback((projectIndex: number, isVisible: boolean) => {
       if (isVisible) {
-        setVisibleProjects(prev => {
-          // Skip update if project is already in the array
-          if (prev.includes(projectIndex)) return prev;
-          
-          // Calculate adjacent indices
-          const adjacent = [projectIndex-3, projectIndex - 2, projectIndex - 1, projectIndex + 1, projectIndex + 2, projectIndex + 3]
-            .filter(i => i >= 0 && i < desktopScreenContents.length);
-          
-          // Create new array with unique values
-          return [...new Set([...prev, projectIndex, ...adjacent])];
-        });
+        // Update the center of our visibility window
+        setCurrentCenter(projectIndex);
       }
-    }, [desktopScreenContents.length]);
+    }, []);
+  
+    // Update visible projects whenever the center changes
+    useEffect(() => {
+      // Calculate the range of visible projects based on current center
+      const halfWindow = Math.floor(visibilityWindow / 2);
+      const start = Math.max(0, currentCenter - halfWindow);
+      const end = Math.min(desktopScreenContents.length - 1, currentCenter + halfWindow);
+      
+      // Create array of visible project indices
+      const newVisibleProjects = [];
+      for (let i = start; i <= end; i++) {
+        newVisibleProjects.push(i);
+      }
+      console.log(newVisibleProjects);
+      setVisibleProjects(newVisibleProjects);
+    }, [currentCenter, desktopScreenContents.length]);
 
   const toggleMode = () => {
     setDesktopView(!desktopView);
