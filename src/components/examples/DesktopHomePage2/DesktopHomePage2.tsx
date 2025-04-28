@@ -51,7 +51,7 @@ const DesktopHomePage2: React.FC = () => {
                 key={index}
                 content={content}
                 index={index}
-                onVisibilityChange={(isVisible) => {
+                onVisibilityChange={(isVisible: boolean) => {
                   if (isVisible) {
                     // Add this project to visible array
                     setVisibleProjects(prev => 

@@ -3,7 +3,12 @@
   --gold: #E9C46A;
   --white: #ffffff;
   --navy: #264653;
-  
+  --hue-0: var(--gold);
+  --hue-1: #f08;
+  --hue-2: #d0e;
+  --hue-3: #91f;
+  --hue-4: #1e75f7;
+  --hue-5: #0cdcf7;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;

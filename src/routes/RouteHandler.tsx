@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import CodeProjectsMobile from "../pages/mobile/mobileCodeProjects/CodeProjectsMobile";
 import DesktopHomePage from "../pages/desktop/home/DesktopHomePage";
-import DesktopHomePage2 from "../pages/desktop/DesktopHomePage2/DesktopHomePage2";
+import DesktopHomePage2 from "../components/examples/DesktopHomePage2/DesktopHomePage2";
 
 function RouteHandler() {
   const location = useLocation();
