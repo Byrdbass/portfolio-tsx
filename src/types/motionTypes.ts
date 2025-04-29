@@ -1,0 +1,1 @@
+export type ViewportPosition = "top" | "middle" | "bottom" | "outside";

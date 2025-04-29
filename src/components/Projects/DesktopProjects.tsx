@@ -1,15 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useInView, motion, useScroll, MotionValue } from "motion/react";
-import useScrollOverflowMask from "../../helpers/motion/scrollOverflowMask";
-
-interface DesktopProjectsProps {
-    content: any;
-    index: number;
-    isVisible: boolean;
-    onVisibilityChange: (index: number, isVisible: boolean) => void;
-}
-
-type ViewportPosition = "top" | "middle" | "bottom" | "outside";
+import useScrollOverflowGrid from "../../helpers/motion/scrollOverflowGrid";
+import { ViewportPosition } from "../../types/motionTypes";
+import { DesktopProjectsProps } from "../../types/desktopContent";
 
 const DesktopProjects: React.FC<DesktopProjectsProps> = ({ content, index, isVisible, onVisibilityChange }) => {
     const ref = useRef(null);
@@ -25,7 +18,7 @@ const DesktopProjects: React.FC<DesktopProjectsProps> = ({ content, index, isVis
         target: ref,
         offset: ["start end", "end start"]
     });
-    const baselineMask: MotionValue<string> = useScrollOverflowMask(scrollYProgress);
+    const maskStyles = useScrollOverflowGrid(scrollYProgress);
 
     // Function to determine if element is at the top or bottom of viewport
     useEffect(() => {
@@ -35,8 +28,8 @@ const DesktopProjects: React.FC<DesktopProjectsProps> = ({ content, index, isVis
             const rect = ref.current.getBoundingClientRect();
             const viewportHeight = window.innerHeight;
 
-            const topThreshold = viewportHeight * 0.15; // Consider "top" if within 15% of viewport top
-            const bottomThreshold = viewportHeight * 0.85; // Consider "bottom" if within 15% of viewport bottom
+            const topThreshold = viewportHeight * 0.5; // % of viewport
+            const bottomThreshold = viewportHeight * 0.95; 
 
             if (rect.top < topThreshold && rect.bottom > 0) {
                 setViewportPosition("top");
@@ -70,17 +63,38 @@ const DesktopProjects: React.FC<DesktopProjectsProps> = ({ content, index, isVis
     }, [isInView, index, onVisibilityChange]);
 
     // Generate position-based mask
-    const getMaskStyle = () => {
-        if (viewportPosition === "top") {
-            return "linear-gradient(to bottom, transparent, black 20%)";
-        } else if (viewportPosition === "bottom") {
-            return "linear-gradient(to top, transparent, black 20%)";
-        }
-        return "none"; // No mask for middle or outside
+   // Get the appropriate style object based on viewport position
+   const getStylesBasedOnPosition = () => {
+    const currentStyles = maskStyles.get();
+    
+    if (viewportPosition === "top" || viewportPosition === "bottom") {
+        // Apply the grid effect when at top or bottom
+        return {
+            maskImage: currentStyles.maskImage,
+            WebkitMaskImage: currentStyles.maskImage,
+            backgroundImage: currentStyles.backgroundImage,
+            backgroundSize: currentStyles.backgroundSize,
+            backdropFilter: currentStyles.backdropFilter
+        };
+    }
+    
+    // No mask effect for middle or outside viewport
+    return {
+        maskImage: "none",
+        WebkitMaskImage: "none",
+        backgroundImage: "none",
+        backgroundSize: "0px 0px",
+        backdropFilter: "none"
     };
+};
 
-    // Dynamic mask based on viewport position
-    const dynamicMask = viewportPosition !== "middle" && isVisible ? getMaskStyle() : "none";
+const effectiveStyles = isVisible ? getStylesBasedOnPosition() : {
+    maskImage: "none",
+    WebkitMaskImage: "none",
+    backgroundImage: "none",
+    backgroundSize: "0px 0px",
+    backdropFilter: "none"
+};
 
 
     return (
@@ -112,8 +126,7 @@ const DesktopProjects: React.FC<DesktopProjectsProps> = ({ content, index, isVis
                     transform: isVisible ? "none" : "translateY(10px)",
                     // Apply a transition effect for smooth appearance/disappearance
                     transition: "opacity 0.3s, transform 0.3s, scale 0.3s",
-                    maskImage: dynamicMask,
-                    WebkitMaskImage: dynamicMask
+                    // ...effectiveStyles
                 }}
                 key={index}
 

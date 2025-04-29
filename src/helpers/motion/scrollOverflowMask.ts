@@ -39,3 +39,9 @@ export default function useScrollOverflowMask(scrollProgress: MotionValue<number
         })
         return maskImage
 }
+
+/**
+ *     background-image: radial-gradient(var(--trans) 1px, var(--black) 1px);
+    background-size: 4px 4px;
+    backdrop-filter: blur(3px);
+ */

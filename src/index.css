@@ -3,6 +3,9 @@
   --gold: #E9C46A;
   --white: #ffffff;
   --navy: #264653;
+  --gray-1: hsl(208.42, 36.54%, 20.39%);
+  --black: hsl(0, 0%, 0%);
+  --trans: #0000;
   --hue-0: var(--gold);
   --hue-1: #f08;
   --hue-2: #d0e;
@@ -66,7 +69,7 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: var(--gray-1);
     background-color: #ffffff;
   }
   a:hover {
