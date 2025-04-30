@@ -1,0 +1,15 @@
+.switchLayout-outer-div{
+    position: relative;
+    z-index: 1;
+    top: 10px;
+    left: 20px;
+    height: 50px;
+    width: 50px;
+
+    background-color: var(--white);
+}
+
+.switchLayout-button{
+    color: var(--black);
+    background-color: var(--white);
+}

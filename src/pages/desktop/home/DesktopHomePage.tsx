@@ -11,6 +11,7 @@ import DesktopHeader from "../../../components/header/DesktopHeader";
 import useScrollOverflowMask from "../../../helpers/motion/scrollOverflowMask";
 import DesktopProjects from "../../../components/Projects/DesktopProjects";
 import useScrollOverflowGrid from "../../../helpers/motion/scrollOverflowGrid";
+import SwitchLayoutButton from "../../../components/buttons/switchLayoutButton/switchLayoutButton";
 
 interface ScrollProps {
 
@@ -106,7 +107,9 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
         scaleX: scrollYProgress,
         originX: 0
         }}/> */}
+        <SwitchLayoutButton />
       <Link to="/mobile">
+      {/* TODO: ANIMATE BACKGROUND WHEN CLICKED */}
         <motion.button
           className="mode-toggle"
           onClick={toggleMode}
