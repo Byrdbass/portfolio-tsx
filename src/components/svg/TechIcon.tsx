@@ -30,13 +30,14 @@ const TechIcon: React.FC<TechIconProps> = ({ icon, isSelected = false }) => {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '12px',
+        marginTop: '0px',
         borderRadius: '8px',
         backgroundColor: isSelected ? `${icon.color}20` : 'transparent',
         border: isSelected ? `2px solid ${icon.color}` : '2px solid transparent'
       }}
     >
-      <div 
-        className="icon-container"
+      <motion.div 
+        className="icon-image-container"
         style={{
           width: '64px',
           height: '64px',
@@ -55,7 +56,7 @@ const TechIcon: React.FC<TechIconProps> = ({ icon, isSelected = false }) => {
             objectFit: 'contain'
           }}
         />
-      </div>
+      </motion.div>
       <motion.span
         className="tech-name"
         style={{
@@ -74,7 +75,7 @@ const TechIcon: React.FC<TechIconProps> = ({ icon, isSelected = false }) => {
           textTransform: 'capitalize'
         }}
       >
-        {icon.type}
+        {icon.techType}
       </motion.span>
     </motion.div>
   );

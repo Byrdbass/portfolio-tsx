@@ -39,13 +39,11 @@ const ProjectNavBar: React.FC = (): JSX.Element => {
         }
     }
 
-    const color = `var(--hue-${selectedItem})`
-
     return (
         <motion.nav style={container}>
             <motion.button
                 initial={false}
-                animate={{ backgroundColor: color }}
+                animate={{ backgroundColor: currentIcon.color }}
                 aria-label="Previous"
                 style={button}
                 onClick={() => setSlide(-1)}
@@ -59,10 +57,10 @@ const ProjectNavBar: React.FC = (): JSX.Element => {
                 initial={false}
                 mode="popLayout"
             >
-                <Slide key={selectedItemId} 
+                <TechSlide key={selectedItemId} 
                 direction={direction}
                 techIcon={currentIcon}
-                color={color} />
+                color={currentIcon.backgroundColor} />
             </AnimatePresence>
             <motion.button
                 initial={false}
@@ -75,10 +73,6 @@ const ProjectNavBar: React.FC = (): JSX.Element => {
             >
                 <ArrowRight />
             </motion.button>
-            <div className="mt-6 text-center">
-        <h3 className="text-lg font-medium">Current Technology:</h3>
-        <p style={{ color: currentIcon.color }}>{currentIcon.name} ({currentIcon.type})</p>
-      </div>
         </motion.nav>
     )
 }
@@ -89,7 +83,7 @@ interface SlideProps {
     color: string;
 }
 
-const Slide = forwardRef<HTMLDivElement, SlideProps>(function Slide(
+const TechSlide = forwardRef<HTMLDivElement, SlideProps>(function Slide(
     { color, techIcon },
     ref: React.Ref<HTMLDivElement>
 ) {
@@ -111,7 +105,6 @@ const Slide = forwardRef<HTMLDivElement, SlideProps>(function Slide(
             exit={{ opacity: 0, x: direction * -50 }}
             style={{ ...box, backgroundColor: color }}
         >
-            Tech Used
             <TechIcon icon={techIcon} isSelected={true} />
         </motion.div>
     )
@@ -155,8 +148,10 @@ const container: React.CSSProperties = {
 }
 
 const box: React.CSSProperties = {
-    width: 150,
-    height: 150,
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    top: "10px",
     backgroundColor: "#0cdcf7",
     borderRadius: "10px",
 }
