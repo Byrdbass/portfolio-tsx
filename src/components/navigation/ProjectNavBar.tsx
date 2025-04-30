@@ -1,28 +1,42 @@
 import React, { JSX } from "react";
 import { AnimatePresence, motion, usePresenceData, wrap } from "motion/react"
 import { forwardRef, SVGProps, useState } from "react"
+import TechIcon from "../svg/TechIcon";
+import { techIconsData } from "../../data/techIconData";
+import { TechIcon as TechIconType } from "../../types/techIcons";
 import LeftArrowNormal from "../svg/LeftArrowNormal";
 
 const ProjectNavBar: React.FC = (): JSX.Element => {
     const items = [1, 2, 3, 4, 5, 6]
     const [selectedItem, setSelectedItem] = useState(items[0])
+    const [selectedItemId, setSelectedItemId] = useState<number>(techIconsData[0].id);
     const [direction, setDirection] = useState<1 | -1>(1)
     const [leftArrowAnimating, setLeftArrowAnimating] = useState(false);
     const [rightArrowAnimating, setRightArrowAnimating] = useState(false);
 
+      // Find the current icon by ID
+  const currentIcon = techIconsData.find(icon => icon.id === selectedItemId) || techIconsData[0];
+  
+  // Find the current index for wrapping
+  const currentIndex = techIconsData.findIndex(icon => icon.id === selectedItemId);
+
     function setSlide(newDirection: 1 | -1) {
-        const nextItem = wrap(1, items.length, selectedItem + newDirection)
-        setSelectedItem(nextItem)
+    // Use the index for wrapping calculation
+    const nextIndex = wrap(0, techIconsData.length - 1, currentIndex + newDirection);
+    // Get the icon ID from the calculated index
+    const nextItemId = techIconsData[nextIndex].id;
+
+        setSelectedItemId(nextItemId)
         setDirection(newDirection)
 
         if (newDirection === -1) {
             setLeftArrowAnimating(true);
             //TODO: PLAY WITH TIMING - match with transition prop in svg 
             setTimeout(() => setLeftArrowAnimating(false), 400);
-          } else {
+        } else {
             setRightArrowAnimating(true);
             setTimeout(() => setRightArrowAnimating(false), 400);
-          }
+        }
     }
 
     const color = `var(--hue-${selectedItem})`
@@ -35,35 +49,48 @@ const ProjectNavBar: React.FC = (): JSX.Element => {
                 aria-label="Previous"
                 style={button}
                 onClick={() => setSlide(-1)}
-                whileFocus={{ outline: `2px solid ${color}` }}
+                whileFocus={{ outline: `2px solid ${currentIcon.color}` }}
                 whileTap={{ scale: 0.9 }}
             >
-            <LeftArrowNormal isAnimating={leftArrowAnimating} {...iconsProps}/>
+                <LeftArrowNormal isAnimating={leftArrowAnimating} {...iconsProps} />
             </motion.button>
             <AnimatePresence
                 custom={direction}
                 initial={false}
                 mode="popLayout"
             >
-                <Slide key={selectedItem} color={color} />
+                <Slide key={selectedItemId} 
+                direction={direction}
+                techIcon={currentIcon}
+                color={color} />
             </AnimatePresence>
             <motion.button
                 initial={false}
-                animate={{ backgroundColor: color }}
+                animate={{ backgroundColor: currentIcon.color }}
                 aria-label="Next"
                 style={button}
                 onClick={() => setSlide(1)}
-                whileFocus={{ outline: `2px solid ${color}` }}
+                whileFocus={{ outline: `2px solid ${currentIcon.color}` }}
                 whileTap={{ scale: 0.9 }}
             >
                 <ArrowRight />
             </motion.button>
+            <div className="mt-6 text-center">
+        <h3 className="text-lg font-medium">Current Technology:</h3>
+        <p style={{ color: currentIcon.color }}>{currentIcon.name} ({currentIcon.type})</p>
+      </div>
         </motion.nav>
     )
 }
 
-const Slide = forwardRef(function Slide(
-    { color }: { color: string },
+interface SlideProps {
+    techIcon: TechIconType;
+    direction: number;
+    color: string;
+}
+
+const Slide = forwardRef<HTMLDivElement, SlideProps>(function Slide(
+    { color, techIcon },
     ref: React.Ref<HTMLDivElement>
 ) {
     const direction = usePresenceData()
@@ -83,7 +110,10 @@ const Slide = forwardRef(function Slide(
             }}
             exit={{ opacity: 0, x: direction * -50 }}
             style={{ ...box, backgroundColor: color }}
-        />
+        >
+            Tech Used
+            <TechIcon icon={techIcon} isSelected={true} />
+        </motion.div>
     )
 })
 

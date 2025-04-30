@@ -1,7 +1,7 @@
 import { easeInOut, easeOut, motion } from "motion/react";
-import React, { SVGProps } from "react";
+import React from "react";
 
-const LeftArrowNormal:React.FC<any>= ({isAnimating, ...iconProps}) => {
+const LeftArrowNormal:React.FC<{ isAnimating?: boolean }>= ({isAnimating, ...iconProps}) => {
     return (
         <motion.svg
             {...iconProps}
