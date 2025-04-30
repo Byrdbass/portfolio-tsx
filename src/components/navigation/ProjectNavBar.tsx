@@ -7,11 +7,22 @@ const ProjectNavBar: React.FC = (): JSX.Element => {
     const items = [1, 2, 3, 4, 5, 6]
     const [selectedItem, setSelectedItem] = useState(items[0])
     const [direction, setDirection] = useState<1 | -1>(1)
+    const [leftArrowAnimating, setLeftArrowAnimating] = useState(false);
+    const [rightArrowAnimating, setRightArrowAnimating] = useState(false);
 
     function setSlide(newDirection: 1 | -1) {
         const nextItem = wrap(1, items.length, selectedItem + newDirection)
         setSelectedItem(nextItem)
         setDirection(newDirection)
+
+        if (newDirection === -1) {
+            setLeftArrowAnimating(true);
+            //TODO: PLAY WITH TIMING - match with transition prop in svg 
+            setTimeout(() => setLeftArrowAnimating(false), 400);
+          } else {
+            setRightArrowAnimating(true);
+            setTimeout(() => setRightArrowAnimating(false), 400);
+          }
     }
 
     const color = `var(--hue-${selectedItem})`
@@ -27,7 +38,7 @@ const ProjectNavBar: React.FC = (): JSX.Element => {
                 whileFocus={{ outline: `2px solid ${color}` }}
                 whileTap={{ scale: 0.9 }}
             >
-            <LeftArrowNormal {...iconsProps}/>
+            <LeftArrowNormal isAnimating={leftArrowAnimating} {...iconsProps}/>
             </motion.button>
             <AnimatePresence
                 custom={direction}
@@ -91,14 +102,6 @@ const iconsProps: SVGProps<SVGSVGElement> = {
     strokeLinejoin: "round",
 }
 
-function ArrowLeft() {
-    return (
-        <svg {...iconsProps}>
-            <path d="m12 19-7-7 7-7" />
-            <path d="M19 12H5" />
-        </svg>
-    )
-}
 
 function ArrowRight() {
     return (
@@ -129,7 +132,7 @@ const box: React.CSSProperties = {
 }
 
 const button: React.CSSProperties = {
-    // backgroundColor: "#0cdcf7",
+    backgroundColor: "#0cdcf7",
     width: 40,
     height: 40,
     borderRadius: "50%",
