@@ -36,7 +36,7 @@ const ParticlesBackground = () => {
                     // preset: "seaAnemone",
                     particles: {
                         number: {
-                            value: 400,
+                            value: 200,
                             density: {
                                 enable: false,
                             }
@@ -90,10 +90,17 @@ const ParticlesBackground = () => {
                             enable: true,
                             speed: 1,
                             direction: "none",
-                            random: false,
-                            straight: false,
+                            random: true,
+                            straight: true,
                             outModes: {
                                 default: "bounce"
+                            },
+                            attract:{
+                                enable: true,
+                                rotate: {
+                                    x: 1200,
+                                    y: 900
+                                }
                             },
                             path: {
                                 enable: true,
