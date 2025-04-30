@@ -1,8 +1,9 @@
 import React, { JSX } from "react";
 import { AnimatePresence, motion, usePresenceData, wrap } from "motion/react"
 import { forwardRef, SVGProps, useState } from "react"
+import LeftArrowNormal from "../svg/LeftArrowNormal";
 
-const ProjectNavBar: React.FC = ():JSX.Element => {
+const ProjectNavBar: React.FC = (): JSX.Element => {
     const items = [1, 2, 3, 4, 5, 6]
     const [selectedItem, setSelectedItem] = useState(items[0])
     const [direction, setDirection] = useState<1 | -1>(1)
@@ -26,7 +27,7 @@ const ProjectNavBar: React.FC = ():JSX.Element => {
                 whileFocus={{ outline: `2px solid ${color}` }}
                 whileTap={{ scale: 0.9 }}
             >
-                <ArrowLeft />
+            <LeftArrowNormal {...iconsProps}/>
             </motion.button>
             <AnimatePresence
                 custom={direction}
@@ -128,7 +129,7 @@ const box: React.CSSProperties = {
 }
 
 const button: React.CSSProperties = {
-    backgroundColor: "#0cdcf7",
+    // backgroundColor: "#0cdcf7",
     width: 40,
     height: 40,
     borderRadius: "50%",
