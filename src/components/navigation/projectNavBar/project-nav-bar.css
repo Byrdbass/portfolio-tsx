@@ -26,6 +26,11 @@
     /* align-content: space-between; */
 }
 
+.empty-placeholder-button{
+    width: 153px;
+    height: 29px;
+}
+
   .arrow-button {
     background-color: #0cdcf7;
     width: 40px;

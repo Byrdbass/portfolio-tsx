@@ -9,6 +9,7 @@ import {
 import CodeProjectsMobile from "../pages/mobile/mobileCodeProjects/CodeProjectsMobile";
 import DesktopHomePage from "../pages/desktop/home/DesktopHomePage";
 import DesktopHomePage2 from "../components/examples/DesktopHomePage2/DesktopHomePage2";
+import SwitchLayoutButton from "../components/buttons/switchLayoutButton/switchLayoutButton";
 
 function RouteHandler() {
   const location = useLocation();

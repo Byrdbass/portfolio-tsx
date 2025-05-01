@@ -79,7 +79,7 @@ const ProjectNavBar: React.FC = (): JSX.Element => {
                 <ArrowRight />
             </motion.button>
             <div className="button-outer-div">
-                <SwitchLayoutButton />
+                <div className="empty-placeholder-button"></div>
                 <ResumeButton />
 
             </div>

@@ -6,9 +6,11 @@ import ParticlesContext from "../../../Providers/ParticlesProvider/ParticlesCont
 import { useDesktopMode } from "../../../Providers/Desktop/DesktopProvider";
 import { useActiveScreen } from "../../../Providers/ActiveScreenProvider/ActiveScreenContext";
 import { mobileScreenContents } from "../../../data/mobileScreenContent";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { Events, scroller } from "react-scroll";
 import { Link } from "react-router-dom";
+import SwitchLayoutButton from "../../../components/buttons/switchLayoutButton/switchLayoutButton";
+// import SwitchLayoutButton from "../../../components/buttons/switchLayoutButton/switchLayoutButton";
 
 const CodeProjectsMobile: React.FC = () => {
   const phoneRef = useRef<HTMLDivElement>(null);
@@ -176,18 +178,6 @@ const CodeProjectsMobile: React.FC = () => {
 
   return (
     <div className="app-container">
-      {/* TODO: MODIFY THIS TO BE IT'S OWN COMPONENT */}
-      <Link to="/desktop">
-        <motion.button
-          className="mode-toggle"
-          onClick={toggleMode}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.8 }}
-        >
-          {desktopView ? "Switch to Mobile" : "Switch to Desktop"}
-        </motion.button>
-      </Link>
-
       <motion.div
         className={`phone-container`}
         initial={{
@@ -205,8 +195,8 @@ const CodeProjectsMobile: React.FC = () => {
           scale: 1,
           opacity: 1
         }}
-        // drag
-        // dragDirectionLock
+      // drag
+      // dragDirectionLock
       >
         <motion.div
           ref={phoneRef}
@@ -214,9 +204,9 @@ const CodeProjectsMobile: React.FC = () => {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          // initial={{ opacity: 0 }}
-          // whileInView={{ opacity: 1 }}
-          // style={{ originZ: 100}}
+        // initial={{ opacity: 0 }}
+        // whileInView={{ opacity: 1 }}
+        // style={{ originZ: 100}}
         >
           <div className="phone-frame">
             <div className="phone-notch"></div>
@@ -247,9 +237,9 @@ const CodeProjectsMobile: React.FC = () => {
                 </p>
                 {mobileScreenContents[activeScreen].component
                   ? React.createElement(
-                      mobileScreenContents[activeScreen].component,
-                      { isActive: "active" }
-                    )
+                    mobileScreenContents[activeScreen].component,
+                    { isActive: "active" }
+                  )
                   : null}
                 <a
                   href={mobileScreenContents[activeScreen].githubRepo}
@@ -303,9 +293,8 @@ const CodeProjectsMobile: React.FC = () => {
                       dots.push(
                         <div
                           key={i}
-                          className={`indicator-dot ${
-                            i === activeScreen ? "active" : ""
-                          }`}
+                          className={`indicator-dot ${i === activeScreen ? "active" : ""
+                            }`}
                           onClick={() => handleNavigation(i)}
                         />
                       );

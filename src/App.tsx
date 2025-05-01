@@ -16,6 +16,7 @@ import ParticlesBackground from "./components/particles/ParticlesBackground";
 import CodeProjectsMobile from "./pages/mobile/mobileCodeProjects/CodeProjectsMobile";
 import DesktopHomePage from "./pages/desktop/home/DesktopHomePage";
 import RouteHandler from "./routes/RouteHandler";
+import SwitchLayoutButton from "./components/buttons/switchLayoutButton/switchLayoutButton";
 
 function App() {
   const scrollContainerRef = useRef(null)
@@ -30,11 +31,12 @@ function App() {
         >
           <ParticlesBackground />
           <ActiveScreenProvider>
-              <Router>
-                {/* <div className="AnimatedRoutes-wrapper"> */}
-                <RouteHandler />
-                {/* </div> */}
-              </Router>
+            <Router>
+              <SwitchLayoutButton />
+              {/* <div className="AnimatedRoutes-wrapper"> */}
+              <RouteHandler />
+              {/* </div> */}
+            </Router>
             {/* <ParallaxProvider>
               <ParallaxFix />
             </ParallaxProvider> */}
