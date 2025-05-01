@@ -53,7 +53,7 @@ const ParticlesBackground = () => {
                             }
                         },
                         opacity: {
-                            value: { min: 0.3, max: 1 }, // Random opacity within range
+                            value: { min: 0.01, max: 1 }, // Random opacity within range
                             animation: {
                                 enable: true,
                                 speed: 1,
@@ -88,7 +88,7 @@ const ParticlesBackground = () => {
 
                         move: {
                             enable: true,
-                            speed: .1,
+                            speed: .13,
                             direction: "none",
                             random: true,
                             straight: true,

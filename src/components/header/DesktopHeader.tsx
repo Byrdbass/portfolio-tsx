@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 // TODO: do we want a different format for desktop profile image?
 import MobileProfilePic from "../../pages/mobile/mobileProfilePic/MobileProfilePic";
 import './desktopHeader.css'
-import ProjectNavBar from "../navigation/ProjectNavBar";
+import ProjectNavBar from "../navigation/projectNavBar/ProjectNavBar";
 
 interface HeaderProps{
     isMaskActive?: boolean;

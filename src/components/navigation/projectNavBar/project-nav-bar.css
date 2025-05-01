@@ -1,0 +1,40 @@
+.project-nav-bar-container{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    gap: 10,
+}
+
+.tech-slide-outer-div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    top: 10px;
+    background-color: #0cdcf7;
+    border-radius: 10px;
+  }
+  
+.button-outer-div{
+    display: flex;
+    /* height: 35vh; */
+    position: absolute;
+    right: 20px;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    /* align-content: space-between; */
+}
+
+  .arrow-button {
+    background-color: #0cdcf7;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    outline-offset: 2px;
+  }

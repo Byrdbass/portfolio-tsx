@@ -1,0 +1,10 @@
+.resume-button{
+    padding: 10px 15px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s ease;
+}

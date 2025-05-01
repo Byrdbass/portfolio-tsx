@@ -17,6 +17,7 @@ const SwitchLayoutButton: React.FC = ():JSX.Element => {
         >
 
         <Link to= {desktopView ? "/mobile" : "/desktop"}>
+              {/* TODO: ANIMATE BACKGROUND WHEN CLICKED */}
         <motion.button
           className="switchLayout-button"
           onClick={toggleMode}

@@ -107,8 +107,7 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
         scaleX: scrollYProgress,
         originX: 0
         }}/> */}
-      <Link to="/mobile">
-      {/* TODO: ANIMATE BACKGROUND WHEN CLICKED */}
+      {/* <Link to="/mobile">
         <motion.button
           className="mode-toggle"
           onClick={toggleMode}
@@ -117,7 +116,7 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
         >
           {desktopView ? "Switch to Mobile" : "Switch to Desktop"}
         </motion.button>
-      </Link>
+      </Link> */}
       <DesktopHeader
         isMaskActive={isMaskActive}
         maskStyle={currentMaskStyle}

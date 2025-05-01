@@ -1,12 +1,13 @@
 import React, { JSX } from "react";
 import { AnimatePresence, motion, usePresenceData, wrap } from "motion/react"
 import { forwardRef, SVGProps, useState } from "react"
-import TechIcon from "../svg/TechIcon";
-import { techIconsData } from "../../data/techIconData";
-import { TechIcon as TechIconType } from "../../types/techIcons";
-import LeftArrowNormal from "../svg/LeftArrowNormal";
-import SwitchLayoutButton from "../buttons/switchLayoutButton/switchLayoutButton";
-import ResumeButton from "../buttons/resumeButton/ResumeButton";
+import TechIcon from "../../svg/TechIcon";
+import { techIconsData } from "../../../data/techIconData";
+import { TechIcon as TechIconType } from "../../../types/techIcons";
+import LeftArrowNormal from "../../svg/LeftArrowNormal";
+import SwitchLayoutButton from "../../buttons/switchLayoutButton/switchLayoutButton";
+import ResumeButton from "../../buttons/resumeButton/ResumeButton";
+import './project-nav-bar.css';
 
 const ProjectNavBar: React.FC = (): JSX.Element => {
     const items = [1, 2, 3, 4, 5, 6]
@@ -16,17 +17,17 @@ const ProjectNavBar: React.FC = (): JSX.Element => {
     const [leftArrowAnimating, setLeftArrowAnimating] = useState(false);
     const [rightArrowAnimating, setRightArrowAnimating] = useState(false);
 
-      // Find the current icon by ID
-  const currentIcon = techIconsData.find(icon => icon.id === selectedItemId) || techIconsData[0];
-  
-  // Find the current index for wrapping
-  const currentIndex = techIconsData.findIndex(icon => icon.id === selectedItemId);
+    // Find the current icon by ID
+    const currentIcon = techIconsData.find(icon => icon.id === selectedItemId) || techIconsData[0];
+
+    // Find the current index for wrapping
+    const currentIndex = techIconsData.findIndex(icon => icon.id === selectedItemId);
 
     function setSlide(newDirection: 1 | -1) {
-    // Use the index for wrapping calculation
-    const nextIndex = wrap(0, techIconsData.length - 1, currentIndex + newDirection);
-    // Get the icon ID from the calculated index
-    const nextItemId = techIconsData[nextIndex].id;
+        // Use the index for wrapping calculation
+        const nextIndex = wrap(0, techIconsData.length - 1, currentIndex + newDirection);
+        // Get the icon ID from the calculated index
+        const nextItemId = techIconsData[nextIndex].id;
 
         setSelectedItemId(nextItemId)
         setDirection(newDirection)
@@ -42,12 +43,13 @@ const ProjectNavBar: React.FC = (): JSX.Element => {
     }
 
     return (
-        <motion.nav style={container}>
+        <motion.nav className="project-nav-bar-container">
             <motion.button
+                className="arrow-button"
                 initial={false}
                 animate={{ backgroundColor: currentIcon.color }}
                 aria-label="Previous"
-                style={button}
+                // style={button}
                 onClick={() => setSlide(-1)}
                 whileFocus={{ outline: `2px solid ${currentIcon.color}` }}
                 whileTap={{ scale: 0.9 }}
@@ -59,16 +61,17 @@ const ProjectNavBar: React.FC = (): JSX.Element => {
                 initial={false}
                 mode="popLayout"
             >
-                <TechSlide key={selectedItemId} 
-                direction={direction}
-                techIcon={currentIcon}
-                color={currentIcon.backgroundColor} />
+                <TechSlide key={selectedItemId}
+                    direction={direction}
+                    techIcon={currentIcon}
+                    color={currentIcon.backgroundColor} />
             </AnimatePresence>
             <motion.button
+                className="arrow-button"
                 initial={false}
                 animate={{ backgroundColor: currentIcon.color }}
                 aria-label="Next"
-                style={button}
+                // style={button}
                 onClick={() => setSlide(1)}
                 whileFocus={{ outline: `2px solid ${currentIcon.color}` }}
                 whileTap={{ scale: 0.9 }}
@@ -76,8 +79,8 @@ const ProjectNavBar: React.FC = (): JSX.Element => {
                 <ArrowRight />
             </motion.button>
             <div className="button-outer-div">
-            <SwitchLayoutButton />
-            <ResumeButton />
+                <SwitchLayoutButton />
+                <ResumeButton />
 
             </div>
         </motion.nav>
@@ -97,6 +100,7 @@ const TechSlide = forwardRef<HTMLDivElement, SlideProps>(function Slide(
     const direction = usePresenceData()
     return (
         <motion.div
+            className="tech-slide-outer-div"
             ref={ref}
             initial={{ opacity: 0, x: direction * 50 }}
             animate={{
@@ -110,7 +114,10 @@ const TechSlide = forwardRef<HTMLDivElement, SlideProps>(function Slide(
                 },
             }}
             exit={{ opacity: 0, x: direction * -50 }}
-            style={{ ...box, backgroundColor: color }}
+            style={{
+                // ...box, 
+                backgroundColor: color
+            }}
         >
             <TechIcon icon={techIcon} isSelected={true} />
         </motion.div>
@@ -146,34 +153,30 @@ function ArrowRight() {
  * ==============   Styles   ================
  */
 
-const container: React.CSSProperties = {
-    display: "flex",
-    position: "relative",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 10,
-}
+// const container: React.CSSProperties = {
 
-const box: React.CSSProperties = {
-    position: "relative",
-    display: "flex",
-    flexDirection: "column",
-    top: "10px",
-    backgroundColor: "#0cdcf7",
-    borderRadius: "10px",
-}
+// }
 
-const button: React.CSSProperties = {
-    backgroundColor: "#0cdcf7",
-    width: 40,
-    height: 40,
-    borderRadius: "50%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative",
-    zIndex: 1,
-    outlineOffset: 2,
-}
+// const box: React.CSSProperties = {
+//     position: "relative",
+//     display: "flex",
+//     flexDirection: "column",
+//     top: "10px",
+//     backgroundColor: "#0cdcf7",
+//     borderRadius: "10px",
+// }
+
+// const button: React.CSSProperties = {
+//     backgroundColor: "#0cdcf7",
+//     width: 40,
+//     height: 40,
+//     borderRadius: "50%",
+//     display: "flex",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     position: "relative",
+//     zIndex: 1,
+//     outlineOffset: 2,
+// }
 
 export default ProjectNavBar;
