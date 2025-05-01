@@ -5,6 +5,8 @@ import TechIcon from "../svg/TechIcon";
 import { techIconsData } from "../../data/techIconData";
 import { TechIcon as TechIconType } from "../../types/techIcons";
 import LeftArrowNormal from "../svg/LeftArrowNormal";
+import SwitchLayoutButton from "../buttons/switchLayoutButton/switchLayoutButton";
+import ResumeButton from "../buttons/resumeButton/ResumeButton";
 
 const ProjectNavBar: React.FC = (): JSX.Element => {
     const items = [1, 2, 3, 4, 5, 6]
@@ -73,6 +75,11 @@ const ProjectNavBar: React.FC = (): JSX.Element => {
             >
                 <ArrowRight />
             </motion.button>
+            <div className="button-outer-div">
+            <SwitchLayoutButton />
+            <ResumeButton />
+
+            </div>
         </motion.nav>
     )
 }

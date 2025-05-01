@@ -45,7 +45,7 @@ const ParticlesBackground = () => {
                             value: ["#89CFF0", "#BFEFFF", "#77BDE0", "#A5D3F0"] // Multiple icy blue shades
                         },
                         shape: {
-                            type: ["circle", "triangle", "polygon", "square"], // Multiple shapes
+                            type: ["triangle", "square"], // Multiple shapes
                             options: {
                                 polygon: {
                                     sides: 6 // Hexagons (like ice crystals)
@@ -88,7 +88,7 @@ const ParticlesBackground = () => {
 
                         move: {
                             enable: true,
-                            speed: 1,
+                            speed: .1,
                             direction: "none",
                             random: true,
                             straight: true,
@@ -96,10 +96,11 @@ const ParticlesBackground = () => {
                                 default: "bounce"
                             },
                             attract:{
-                                enable: true,
+                                // TODO: on landing page, turn this on
+                                enable: false,
                                 rotate: {
-                                    x: 1200,
-                                    y: 900
+                                    x: 10,
+                                    y: 10
                                 }
                             },
                             path: {
@@ -119,13 +120,6 @@ const ParticlesBackground = () => {
                                 // length: 3
 
                             }
-                            // attract: {
-                            //     enable: false,
-                            //     rotate: {
-                            //         x: 600,
-                            //         y: 1200
-                            //     }
-                            // }
                         },
                     },
                     interactivity: {

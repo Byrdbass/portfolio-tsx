@@ -107,7 +107,6 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
         scaleX: scrollYProgress,
         originX: 0
         }}/> */}
-        <SwitchLayoutButton />
       <Link to="/mobile">
       {/* TODO: ANIMATE BACKGROUND WHEN CLICKED */}
         <motion.button
