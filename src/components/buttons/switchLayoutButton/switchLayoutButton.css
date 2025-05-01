@@ -1,19 +1,16 @@
 .switchLayout-outer-div{
-    /* position: absolute; */
     z-index: 11; /* above phone element */
     width: 12rem;
 }
 
 .switchLayout-button{
     padding: 10px 15px;
-    /* width: 140px; */
     background-color: #333;
     color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     z-index: 12;
-    /* transition: all 0.3s ease; */
 }
 
 .switchLayout-button:hover{

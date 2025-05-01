@@ -29,9 +29,6 @@ const SwitchLayoutButton: React.FC = ():JSX.Element => {
       }}
       >
         <motion.button
-            initial={{
-                // opacity: 0
-            }}
             transition={{
                 type: "tween",
                 duration: 1
@@ -42,10 +39,8 @@ const SwitchLayoutButton: React.FC = ():JSX.Element => {
           className="switchLayout-button"
           onClick={toggleMode}
           whileHover={{ scale: 1.1 }}
-        //   whileFocus={{ opacity: 0}}
           whileTap={{ 
             scale: 0.8,
-        // opacity: 0
         }}
         >
           {desktopView ? "Switch to Mobile" : "Switch to Desktop"}
