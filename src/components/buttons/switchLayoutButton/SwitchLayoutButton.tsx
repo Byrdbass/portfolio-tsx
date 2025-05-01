@@ -18,7 +18,8 @@ const SwitchLayoutButton: React.FC = ():JSX.Element => {
     return (
       <motion.div className="switchLayout-outer-div"
       animate={{
-        x: desktopView ? 400 : 0
+        x: desktopView ? [200,400] : [200, 0]
+
 
       }}
       style={{

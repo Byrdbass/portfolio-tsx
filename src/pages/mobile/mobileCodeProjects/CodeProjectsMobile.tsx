@@ -8,9 +8,6 @@ import { useActiveScreen } from "../../../Providers/ActiveScreenProvider/ActiveS
 import { mobileScreenContents } from "../../../data/mobileScreenContent";
 import { AnimatePresence, motion } from "motion/react";
 import { Events, scroller } from "react-scroll";
-import { Link } from "react-router-dom";
-import SwitchLayoutButton from "../../../components/buttons/switchLayoutButton/switchLayoutButton";
-// import SwitchLayoutButton from "../../../components/buttons/switchLayoutButton/switchLayoutButton";
 
 const CodeProjectsMobile: React.FC = () => {
   const phoneRef = useRef<HTMLDivElement>(null);
@@ -171,20 +168,16 @@ const CodeProjectsMobile: React.FC = () => {
     }
   };
 
-  const toggleMode = () => {
-    setDesktopView(!desktopView);
-    setPhoneRevealed(false);
-  };
 
   return (
     <div className="app-container">
       <motion.div
         className={`phone-container`}
         initial={{
-          x: "-100%",
+          x: "0%",
           y: "-100%",
           opacity: 0,
-          scale: 0.1
+          scale: 4
         }}
         transition={{
           type: "tween",
