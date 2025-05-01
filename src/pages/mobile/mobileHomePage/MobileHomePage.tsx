@@ -3,6 +3,7 @@ import '../phone.css'
 import MobileProfilePic from "../mobileProfilePic/MobileProfilePic";
 import { ActiveClassProp } from "../../../types/mobileContent";
 import { motion } from "motion/react";
+import ResumeButton from "../../../components/buttons/resumeButton/ResumeButton";
 
 type MobileHomePageProps = ActiveClassProp;
 
@@ -17,12 +18,7 @@ const MobileHomePage: React.FC<MobileHomePageProps> = ({isActive}): JSX.Element 
                 <p className="phone-description">
                     I'm a Software Engineer
                 </p>
-                <motion.button
-                whileHover={{scale: 1.2}}
-                
-                >
-                    Resume (coming soon)
-                </motion.button>
+                <ResumeButton />
             </div>
         </>
     )

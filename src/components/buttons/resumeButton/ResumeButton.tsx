@@ -10,8 +10,8 @@ const ResumeButton: React.FC = ():JSX.Element => {
             initial={{}}
             transition={{}}
             animate={{}}
-            whileHover={{}}
-            whileTap={{}}
+            whileHover={{scale: 1.1}}
+            whileTap={{scale: .8}}
             >
                 Download Resume
             </motion.button>
