@@ -1,16 +1,17 @@
-.app-container {
+.phone-app-container {
   position: relative;
-  width: 100%;
-  min-height: 400vh; /* Height for all scroll sections */
+  display: flex;
+  align-items: center;
+  height: 100vh;
 }
 
 .mobile-switch-layout-outer-div{
-  position: absolute;
+  /* position: absolute; */
   z-index: 11;
 }
 
 .phone-container {
-  position: fixed;
+  /* position: fixed; */
   z-index: 10;
   display: flex;
   justify-content: center;

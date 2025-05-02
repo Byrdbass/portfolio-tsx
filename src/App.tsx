@@ -24,7 +24,7 @@ function App() {
   // if location is NOT desktop -> this value is false
   const initialDesktopView = window.location.pathname === "/desktop"
   return (
-    <div ref={scrollContainerRef}>
+    <div className="app-outer-div scroll-container" ref={scrollContainerRef}>
       <DesktopModeProvider initialDesktopView={initialDesktopView}>
         <ParticlesContext.Provider
           value={{ particlesVisible, setParticlesVisible }}

@@ -170,7 +170,7 @@ const CodeProjectsMobile: React.FC = () => {
 
 
   return (
-    <div className="app-container">
+    <div className="phone-app-container">
       <motion.div
         className={`phone-container`}
         initial={{
@@ -183,8 +183,8 @@ const CodeProjectsMobile: React.FC = () => {
           type: "tween",
         }}
         animate={{
-          x: "-40%",
-          y: "-75%",
+          x: "0%",
+          y: "-108%",
           scale: 1,
           opacity: 1
         }}

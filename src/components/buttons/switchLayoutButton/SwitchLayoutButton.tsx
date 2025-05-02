@@ -23,9 +23,9 @@ const SwitchLayoutButton: React.FC = ():JSX.Element => {
 
       }}
       style={{
-        position: desktopView ? "fixed" : "absolute", 
-        right: desktopView ? 408 : 485,
-        top: desktopView ? 28 : 84
+        position: desktopView ? "fixed" : "relative", 
+        right: desktopView ? 408 : 0,
+        top: desktopView ? 28 : "5vh"
       }}
       >
         <motion.button
