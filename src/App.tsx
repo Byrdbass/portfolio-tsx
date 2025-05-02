@@ -17,7 +17,7 @@ import CodeProjectsMobile from "./pages/mobile/mobileCodeProjects/CodeProjectsMo
 import DesktopHomePage from "./pages/desktop/home/DesktopHomePage";
 import RouteHandler from "./routes/RouteHandler";
 import SwitchLayoutButton from "./components/buttons/switchLayoutButton/switchLayoutButton";
-import { ResumeModalProvider } from "./Providers/ModalProvider/ResumeModalProvider/ResumeModalProvider";
+import { ResumeModalProvider, useResumeModal } from "./Providers/ModalProvider/ResumeModalProvider/ResumeModalProvider";
 import ResumeDownLoadConfirm from "./components/modals/resumeDownloadConfirm/ResumeDownloadConfirm";
 
 function App() {
@@ -33,15 +33,15 @@ function App() {
         >
           <ParticlesBackground />
           <ActiveScreenProvider>
-            <ResumeModalProvider initialResumeModal={false}>
               <Router>
+            <ResumeModalProvider>
                 <ResumeDownLoadConfirm />
                 <SwitchLayoutButton />
                 {/* <div className="AnimatedRoutes-wrapper"> */}
                 <RouteHandler />
                 {/* </div> */}
-              </Router>
             </ResumeModalProvider>
+              </Router>
             {/* <ParallaxProvider>
               <ParallaxFix />
             </ParallaxProvider> */}

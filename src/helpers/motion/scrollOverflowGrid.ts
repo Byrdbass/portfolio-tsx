@@ -41,7 +41,7 @@ export default function useScrollOverflowGrid(scrollProgress: MotionValue<number
             animate(maskStyles, {
                 maskImage: `radial-gradient(${transparent} 1px, var(--black) 1px)`,
                 backgroundImage: `radial-gradient(${transparent} 1px, var(--black) 1px)`,
-                backgroundSize: '4px 4px',
+                backgroundSize: '7px 7px',
                 backdropFilter: 'blur(3px)'
             });
         }

@@ -2,21 +2,19 @@ import { createContext, ReactNode, useContext, useState } from "react";
 
 interface ResumeModalContextType{
     isResumeModalOpen: boolean;
-    setResumeModalOpen: (value: boolean) => void;
+    setResumeModalOpen: (isOpen: boolean) => void;
 }
 
 const ResumeModalContext = createContext<ResumeModalContextType | undefined >(undefined);
 
 interface ResumeModalProviderProps{
     children: ReactNode;
-    initialResumeModal?: boolean;
 }
 
 export const ResumeModalProvider: React.FC<ResumeModalProviderProps> = ({
-    children,
-    initialResumeModal = false
+    children
 }) => {
-    const[ isResumeModalOpen, setResumeModalOpen ] = useState<boolean>(initialResumeModal);
+    const[ isResumeModalOpen, setResumeModalOpen ] = useState<boolean>(false);
 
     const value = {
         isResumeModalOpen,

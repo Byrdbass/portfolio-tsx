@@ -34,14 +34,6 @@ const ResumeButton: React.FC = ():JSX.Element => {
             >
                 Download Resume
             </motion.button>
-        {/* TODO: move this logic to a provider */}
-            <ResumeDownloadConfirm 
-                isResumeDownloadOpen={isResumeModalOpen}
-                onClose={() => setResumeModalOpen(false)}
-                onDownloadFull={handleDownloadFull}
-                onDownloadBasic={handleDownloadBasic}
-            />
-
         </motion.section>
     )
 }
