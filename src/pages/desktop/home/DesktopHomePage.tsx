@@ -22,7 +22,7 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
   const desktopScreenContents = mobileScreenContents.filter((_, index) => index >= 2)
 
   //PROVIDERS
-  const { desktopView, setDesktopView } = useDesktopMode();;
+  const { isDesktopViewActive, setDesktopView } = useDesktopMode();;
 
   //hook from motion
   const containerRef = useRef<HTMLDivElement>(null);
@@ -90,7 +90,7 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
   }, [currentCenter, desktopScreenContents.length]);
 
   const toggleMode = () => {
-    setDesktopView(!desktopView);
+    setDesktopView(!isDesktopViewActive);
   };
 
   const isProjectVisible = (index: number) => {
@@ -114,7 +114,7 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.8 }}
         >
-          {desktopView ? "Switch to Mobile" : "Switch to Desktop"}
+          {isDesktopViewActive ? "Switch to Mobile" : "Switch to Desktop"}
         </motion.button>
       </Link> */}
       <DesktopHeader

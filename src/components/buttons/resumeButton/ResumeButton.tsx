@@ -2,25 +2,26 @@ import { motion } from "motion/react";
 import React, { JSX, useState } from "react";
 import './resume-button.css'
 import ResumeDownloadConfirm from "../../modals/resumeDownloadConfirm/ResumeDownloadConfirm";
+import { useResumeModal } from "../../../Providers/ModalProvider/ResumeModalProvider/ResumeModalProvider";
 
 const ResumeButton: React.FC = ():JSX.Element => {
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const { isResumeModalOpen, setResumeModalOpen } = useResumeModal();
     
     const handleDownloadFull = () => {
         console.log("Downloading full resume");
         // Add your download logic here
-        setModalOpen(false);
+        setResumeModalOpen(false);
     };
     
     const handleDownloadBasic = () => {
         console.log("Downloading basic resume");
         // Add your download logic here
-        setModalOpen(false);
+        setResumeModalOpen(false);
     };
 
     return (
         <motion.section
-        className={`${modalOpen ? 'reveal-modal' : ''}`}
+        className={`${isResumeModalOpen ? 'reveal-modal' : ''}`}
         >
             <motion.button 
             className="resume-button"
@@ -29,14 +30,14 @@ const ResumeButton: React.FC = ():JSX.Element => {
             animate={{}}
             whileHover={{scale: 1.1}}
             whileTap={{scale: .8}}
-            onClick={() => setModalOpen(true)}
+            onClick={() => setResumeModalOpen(true)}
             >
                 Download Resume
             </motion.button>
-
+        {/* TODO: move this logic to a provider */}
             <ResumeDownloadConfirm 
-                isResumeDownloadOpen={modalOpen}
-                onClose={() => setModalOpen(false)}
+                isResumeDownloadOpen={isResumeModalOpen}
+                onClose={() => setResumeModalOpen(false)}
                 onDownloadFull={handleDownloadFull}
                 onDownloadBasic={handleDownloadBasic}
             />

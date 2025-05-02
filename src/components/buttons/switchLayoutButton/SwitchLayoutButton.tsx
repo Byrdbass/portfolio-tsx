@@ -5,7 +5,7 @@ import { useDesktopMode } from "../../../Providers/Desktop/DesktopProvider";
 import './switchLayoutButton.css'
 
 const SwitchLayoutButton: React.FC = ():JSX.Element => {
-    const { desktopView, setDesktopView } = useDesktopMode();
+    const { isDesktopViewActive: desktopView, setDesktopView } = useDesktopMode();
     const navigate = useNavigate();
   
     const toggleMode = () => {

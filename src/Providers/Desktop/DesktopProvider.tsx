@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 // Define the context type
 interface DesktopModeContextType {
-  desktopView: boolean;
+  isDesktopViewActive: boolean;
   setDesktopView: (value: boolean) => void;
 }
 
@@ -20,10 +20,10 @@ export const DesktopModeProvider: React.FC<DesktopModeProviderProps> = ({
   children, 
   initialDesktopView = false 
 }) => {
-  const [desktopView, setDesktopView] = useState<boolean>(initialDesktopView);
+  const [isDesktopViewActive, setDesktopView] = useState<boolean>(initialDesktopView);
 
   const value = {
-    desktopView,
+    isDesktopViewActive,
     setDesktopView
   };
 

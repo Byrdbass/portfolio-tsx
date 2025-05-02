@@ -21,7 +21,7 @@ const CodeProjectsMobile: React.FC = () => {
   const minSwipeDistance = 50;
   //PROVIDERS
   const { setParticlesVisible } = useContext(ParticlesContext);
-  const { desktopView, setDesktopView } = useDesktopMode();
+  const { isDesktopViewActive, setDesktopView } = useDesktopMode();
   const { activeScreen, setActiveScreen, navigateTo, totalScreens } =
     useActiveScreen();
 
@@ -87,11 +87,11 @@ const CodeProjectsMobile: React.FC = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [activeScreen, setActiveScreen, setParticlesVisible, desktopView]);
+  }, [activeScreen, setActiveScreen, setParticlesVisible, isDesktopViewActive]);
 
   //track horizontal whee movement for mobile view
   useEffect(() => {
-    if (desktopView) return;
+    if (isDesktopViewActive) return;
 
     const phoneElement = phoneRef.current;
     if (!phoneElement) return;
@@ -118,24 +118,24 @@ const CodeProjectsMobile: React.FC = () => {
 
     phoneElement.addEventListener("wheel", handleWheel, { passive: false });
     return () => phoneElement.removeEventListener("wheel", handleWheel);
-  }, [activeScreen, totalScreens, navigateTo, desktopView, isScrolling]);
+  }, [activeScreen, totalScreens, navigateTo, isDesktopViewActive, isScrolling]);
 
   // Add this function to handle wheel events for horizontal scrolling
   const handleTouchStart: React.TouchEventHandler<HTMLDivElement> = (
     e: React.TouchEvent<HTMLDivElement>
   ) => {
-    if (desktopView) return; // Only track touches in mobile view
+    if (isDesktopViewActive) return; // Only track touches in mobile view
     setTouchEnd(null); // Reset touchEnd
     setTouchStart(e.targetTouches[0].clientX);
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (desktopView) return; // Only track touches in mobile view
+    if (isDesktopViewActive) return; // Only track touches in mobile view
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
   const handleTouchEnd = () => {
-    if (desktopView || touchStart === null || touchEnd === null) return;
+    if (isDesktopViewActive || touchStart === null || touchEnd === null) return;
 
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
@@ -158,7 +158,7 @@ const CodeProjectsMobile: React.FC = () => {
     navigateTo(index);
 
     //TODO:THIS may need to be false
-    if (desktopView) {
+    if (isDesktopViewActive) {
       scroller.scrollTo(mobileScreenContents[index].id, {
         //TODO: play with these values for optimal control
         duration: 800,
@@ -323,7 +323,7 @@ const CodeProjectsMobile: React.FC = () => {
             className="scroll-section"
             id={screen.id}
           >
-            {desktopView && (
+            {isDesktopViewActive && (
               <div className="desktop-content">
                 <h2>{screen.title}</h2>
                 <p>{screen.description}</p>
