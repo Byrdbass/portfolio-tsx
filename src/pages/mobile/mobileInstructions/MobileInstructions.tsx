@@ -2,7 +2,7 @@ import React, { JSX } from "react";
 import '../phone.css'
 
 
-const MobileInstructions: React.FC<{isActive: 'active' | ''}> = ({isActive}): JSX.Element => {
+const MobileInstructions: React.FC<{isActive: 'active' | ''}> = ({}): JSX.Element => {
     return(
         <div>
             <p className="phone-title">

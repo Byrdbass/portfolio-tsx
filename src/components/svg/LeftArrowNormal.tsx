@@ -1,4 +1,6 @@
-import { easeInOut, easeOut, motion } from "motion/react";
+import { 
+    // easeInOut, easeOut, 
+    motion } from "motion/react";
 import React from "react";
 
 const LeftArrowNormal:React.FC<{ isAnimating?: boolean }>= ({isAnimating, ...iconProps}) => {

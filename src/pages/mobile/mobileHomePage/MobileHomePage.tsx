@@ -2,7 +2,7 @@ import React, { JSX } from "react";
 import '../phone.css'
 import MobileProfilePic from "../mobileProfilePic/MobileProfilePic";
 import { ActiveClassProp } from "../../../types/mobileContent";
-import { motion } from "motion/react";
+// import { motion } from "motion/react";
 import ResumeButton from "../../../components/buttons/resumeButton/ResumeButton";
 
 type MobileHomePageProps = ActiveClassProp;

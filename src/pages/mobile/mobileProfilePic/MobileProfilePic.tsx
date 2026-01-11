@@ -1,4 +1,4 @@
-import React, { JSXElementConstructor } from "react";
+import React from "react";
 import ProfilePic from '../../../assets/images/ProfilePicMobile.png'
 import { JSX } from "react/jsx-dev-runtime";
 import './mobileProfilePic.css'

@@ -1,23 +1,23 @@
 import { motion } from "motion/react";
-import React, { JSX, useState } from "react";
+import React, { JSX } from "react";
 import './resume-button.css'
-import ResumeDownloadConfirm from "../../modals/resumeDownloadConfirm/ResumeDownloadConfirm";
+// import ResumeDownloadConfirm from "../../modals/resumeDownloadConfirm/ResumeDownloadConfirm";
 import { useResumeModal } from "../../../Providers/ModalProvider/ResumeModalProvider/ResumeModalProvider";
 
 const ResumeButton: React.FC = ():JSX.Element => {
     const { isResumeModalOpen, setResumeModalOpen } = useResumeModal();
     
-    const handleDownloadFull = () => {
-        console.log("Downloading full resume");
-        // Add your download logic here
-        setResumeModalOpen(false);
-    };
+    // const handleDownloadFull = () => {
+    //     console.log("Downloading full resume");
+    //     // Add your download logic here
+    //     setResumeModalOpen(false);
+    // };
     
-    const handleDownloadBasic = () => {
-        console.log("Downloading basic resume");
-        // Add your download logic here
-        setResumeModalOpen(false);
-    };
+    // const handleDownloadBasic = () => {
+    //     console.log("Downloading basic resume");
+    //     // Add your download logic here
+    //     setResumeModalOpen(false);
+    // };
 
     return (
         <motion.section

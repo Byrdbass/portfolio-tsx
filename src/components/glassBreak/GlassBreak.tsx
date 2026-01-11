@@ -172,7 +172,7 @@ const GlassBreak: React.FC = () => {
                             }
 
                             {/* Content of the phone screen */}
-                                <MobileHomePage />
+                                <MobileHomePage isActive='active'/>
                         </div>
                     </div>
                 </div>

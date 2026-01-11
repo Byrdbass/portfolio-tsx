@@ -1,8 +1,8 @@
 import { animate, useMotionValue, useMotionValueEvent, MotionValue } from "motion/react";
-import { mask } from "motion/react-client";
+// import { mask } from "motion/react-client";
 
-const top = "0%";
-const bottom = "100%";
+// const top = "0%";
+// const bottom = "100%";
 const topInset = "5%";
 const bottomInset = "95%";
 const transparent = '#0000';

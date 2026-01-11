@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "motion/react";
-import React, { JSX, useState } from "react";
+import React, { JSX } from "react";
 import './resume-download-confirm.css'
 import { useResumeModal } from "../../../Providers/ModalProvider/ResumeModalProvider/ResumeModalProvider";
 

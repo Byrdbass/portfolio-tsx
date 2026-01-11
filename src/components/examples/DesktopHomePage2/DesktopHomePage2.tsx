@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { mobileScreenContents } from "../../../data/mobileScreenContent";
-import { motion, useInView, useScroll } from "motion/react";
+import { motion, useInView } from "motion/react";
 
 
 
@@ -10,7 +10,7 @@ const DesktopHomePage2: React.FC = () => {
     const [visibleProjects, setVisibleProjects] = useState<number[]>([]);
     
     // Set up scroll tracking
-    const { scrollYProgress } = useScroll();
+    // const { scrollYProgress } = useScroll();
     
     // Function to check if an element should be rendered
     const shouldRenderProject = (index: number) => {
@@ -76,7 +76,7 @@ const DesktopHomePage2: React.FC = () => {
   };
   
   // Component that handles visibility detection and rendering
-  const ProjectItem = ({ content, index, onVisibilityChange }) => {
+  const ProjectItem = ({ content, onVisibilityChange }: any) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { 
       amount: 0.1, // Only need a small amount to be visible

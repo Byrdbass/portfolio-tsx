@@ -6,13 +6,14 @@ import ParticlesContext from "../../../Providers/ParticlesProvider/ParticlesCont
 import { useDesktopMode } from "../../../Providers/Desktop/DesktopProvider";
 import { useActiveScreen } from "../../../Providers/ActiveScreenProvider/ActiveScreenContext";
 import { mobileScreenContents } from "../../../data/mobileScreenContent";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { Events, scroller } from "react-scroll";
 
 const CodeProjectsMobile: React.FC = () => {
   const phoneRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [phoneRevealed, setPhoneRevealed] = useState(false);
+  console.log(phoneRevealed);
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
   //TOUCH/SWIPE
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -21,7 +22,7 @@ const CodeProjectsMobile: React.FC = () => {
   const minSwipeDistance = 50;
   //PROVIDERS
   const { setParticlesVisible } = useContext(ParticlesContext);
-  const { isDesktopViewActive, setDesktopView } = useDesktopMode();
+  const { isDesktopViewActive} = useDesktopMode();
   const { activeScreen, setActiveScreen, navigateTo, totalScreens } =
     useActiveScreen();
 
@@ -59,17 +60,17 @@ const CodeProjectsMobile: React.FC = () => {
       const scrollPositionMobilePage = window.scrollY + window.innerHeight / 2;
 
       // handle particles transition
-      const scrollPositionParticles = Math.min(
-        window.scrollY / (window.innerHeight * 0.25),
-        1
-      );
+      // const scrollPositionParticles = Math.min(
+      //   window.scrollY / (window.innerHeight * 0.25),
+      //   1
+      // );
       // if (scrollPositionParticles > 0.1) {
       //   setParticlesVisible(false);
       // } else {
       //   setParticlesVisible(true);
       // }
       // Find which section is currently in view
-      const activeIndex = sectionRefs.current.findIndex((section, index) => {
+      const activeIndex = sectionRefs.current.findIndex((section) => {
         if (!section) return false;
         const rect = section.getBoundingClientRect();
         const sectionTop = rect.top + window.scrollY;
@@ -319,7 +320,7 @@ const CodeProjectsMobile: React.FC = () => {
         {mobileScreenContents.map((screen, index) => (
           <div
             key={screen.id}
-            ref={(el) => (sectionRefs.current[index] = el)}
+            ref={(el) => {sectionRefs.current[index] = el; }}
             className="scroll-section"
             id={screen.id}
           >

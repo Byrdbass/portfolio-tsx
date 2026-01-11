@@ -1,17 +1,21 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, MotionValue, useAnimate, useInView, useMotionValueEvent, useScroll } from "motion/react";
-import { useActiveScreen } from "../../../Providers/ActiveScreenProvider/ActiveScreenContext";
+import { 
+  // AnimatePresence, 
+  motion, 
+  // MotionValue, useAnimate, useInView, 
+  useMotionValueEvent, useScroll } from "motion/react";
+// import { useActiveScreen } from "../../../Providers/ActiveScreenProvider/ActiveScreenContext";
 import { mobileScreenContents } from "../../../data/mobileScreenContent";
-import { backInOut, easeIn, easeInOut, easeOut } from "motion";
-import { Link } from "react-router-dom";
-import { useDesktopMode } from "../../../Providers/Desktop/DesktopProvider";
+// import { backInOut, easeIn, easeInOut, easeOut } from "motion";
+// import { Link } from "react-router-dom";
+// import { useDesktopMode } from "../../../Providers/Desktop/DesktopProvider";
 import '../../mobile/mobileCodeProjects/codeProjectsMobile.css'
 import './desktopHomePage.css'
 import DesktopHeader from "../../../components/header/DesktopHeader";
-import useScrollOverflowMask from "../../../helpers/motion/scrollOverflowMask";
+// import useScrollOverflowMask from "../../../helpers/motion/scrollOverflowMask";
 import DesktopProjects from "../../../components/Projects/DesktopProjects";
 import useScrollOverflowGrid from "../../../helpers/motion/scrollOverflowGrid";
-import SwitchLayoutButton from "../../../components/buttons/switchLayoutButton/switchLayoutButton";
+// import SwitchLayoutButton from "../../../components/buttons/switchLayoutButton/switchLayoutButton";
 
 interface ScrollProps {
 
@@ -22,7 +26,7 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
   const desktopScreenContents = mobileScreenContents.filter((_, index) => index >= 2)
 
   //PROVIDERS
-  const { isDesktopViewActive, setDesktopView } = useDesktopMode();;
+  // const { isDesktopViewActive, setDesktopView } = useDesktopMode();;
 
   //hook from motion
   const containerRef = useRef<HTMLDivElement>(null);
@@ -89,9 +93,9 @@ const DesktopHomePage: React.FC<ScrollProps> = () => {
     setVisibleProjects(newVisibleProjects);
   }, [currentCenter, desktopScreenContents.length]);
 
-  const toggleMode = () => {
-    setDesktopView(!isDesktopViewActive);
-  };
+  // const toggleMode = () => {
+  //   setDesktopView(!isDesktopViewActive);
+  // };
 
   const isProjectVisible = (index: number) => {
     return visibleProjects.includes(index);

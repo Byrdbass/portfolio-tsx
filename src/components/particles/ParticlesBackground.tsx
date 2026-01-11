@@ -1,10 +1,12 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { 
+    // useCallback, useState, 
+    useEffect } from "react";
 import { Particles, initParticlesEngine } from "@tsparticles/react";
 import { loadFull } from "tsparticles";
 import { Engine } from "@tsparticles/engine";
 import './particlesEx.css'
 import ParticlesContext from "../../Providers/ParticlesProvider/ParticlesContext";
-import DesktopContext, { useDesktopMode } from "../../Providers/Desktop/DesktopProvider";
+// import DesktopContext, { useDesktopMode } from "../../Providers/Desktop/DesktopProvider";
 
 
 const ParticlesBackground = () => {

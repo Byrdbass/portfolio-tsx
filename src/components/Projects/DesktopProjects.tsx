@@ -1,11 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useInView, motion, useScroll, MotionValue } from "motion/react";
-import useScrollOverflowGrid from "../../helpers/motion/scrollOverflowGrid";
+import { useInView, motion, useScroll,
+    //  MotionValue 
+    }  from "motion/react";
+// import useScrollOverflowGrid from "../../helpers/motion/scrollOverflowGrid";
 import { ViewportPosition } from "../../types/motionTypes";
 import { DesktopProjectsProps } from "../../types/desktopContent";
 
 const DesktopProjects: React.FC<DesktopProjectsProps> = ({ content, index, isVisible, onVisibilityChange }) => {
-    const ref = useRef(null);
+    const ref = useRef<HTMLDivElement>(null);
     const isInView = useInView(ref, {
         amount: 0.3,
         once: false
@@ -13,12 +15,12 @@ const DesktopProjects: React.FC<DesktopProjectsProps> = ({ content, index, isVis
     // Use a ref to track previous value to avoid unnecessary updates
     const wasInViewRef = useRef(false);
     const [viewportPosition, setViewportPosition] = useState<ViewportPosition>("outside");
-
+    console.log(viewportPosition)
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ["start end", "end start"]
     });
-    const maskStyles = useScrollOverflowGrid(scrollYProgress);
+    // const maskStyles = useScrollOverflowGrid(scrollYProgress);
 
     // Function to determine if element is at the top or bottom of viewport
     useEffect(() => {
@@ -64,37 +66,37 @@ const DesktopProjects: React.FC<DesktopProjectsProps> = ({ content, index, isVis
 
     // Generate position-based mask
    // Get the appropriate style object based on viewport position
-   const getStylesBasedOnPosition = () => {
-    const currentStyles = maskStyles.get();
+//    const getStylesBasedOnPosition = () => {
+//     const currentStyles = maskStyles.get();
     
-    if (viewportPosition === "top" || viewportPosition === "bottom") {
-        // Apply the grid effect when at top or bottom
-        return {
-            maskImage: currentStyles.maskImage,
-            WebkitMaskImage: currentStyles.maskImage,
-            backgroundImage: currentStyles.backgroundImage,
-            backgroundSize: currentStyles.backgroundSize,
-            backdropFilter: currentStyles.backdropFilter
-        };
-    }
+//     if (viewportPosition === "top" || viewportPosition === "bottom") {
+//         // Apply the grid effect when at top or bottom
+//         return {
+//             maskImage: currentStyles.maskImage,
+//             WebkitMaskImage: currentStyles.maskImage,
+//             backgroundImage: currentStyles.backgroundImage,
+//             backgroundSize: currentStyles.backgroundSize,
+//             backdropFilter: currentStyles.backdropFilter
+//         };
+//     }
     
-    // No mask effect for middle or outside viewport
-    return {
-        maskImage: "none",
-        WebkitMaskImage: "none",
-        backgroundImage: "none",
-        backgroundSize: "0px 0px",
-        backdropFilter: "none"
-    };
-};
+//     // No mask effect for middle or outside viewport
+//     return {
+//         maskImage: "none",
+//         WebkitMaskImage: "none",
+//         backgroundImage: "none",
+//         backgroundSize: "0px 0px",
+//         backdropFilter: "none"
+//     };
+// };
 
-const effectiveStyles = isVisible ? getStylesBasedOnPosition() : {
-    maskImage: "none",
-    WebkitMaskImage: "none",
-    backgroundImage: "none",
-    backgroundSize: "0px 0px",
-    backdropFilter: "none"
-};
+// const effectiveStyles = isVisible ? getStylesBasedOnPosition() : {
+//     maskImage: "none",
+//     WebkitMaskImage: "none",
+//     backgroundImage: "none",
+//     backgroundSize: "0px 0px",
+//     backdropFilter: "none"
+// };
 
 
     return (

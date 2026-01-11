@@ -8,16 +8,16 @@ import { ActiveScreenProvider } from "./Providers/ActiveScreenProvider/ActiveScr
 // import GsapAnimation from './components/examples/gasp'
 // import ParallaxSection from './components/examples/parallax'
 // import FadeIn from './components/examples/reactSpring'
-import { ParallaxProvider } from "react-scroll-parallax";
-import ParallaxFix from "./Providers/ParallaxProvider/ParallaxFix";
-import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import AnimatedRoutes from "./Providers/Animated/AnimatedRoutes";
+// import { ParallaxProvider } from "react-scroll-parallax";
+// import ParallaxFix from "./Providers/ParallaxProvider/ParallaxFix";
+import { BrowserRouter as Router } from "react-router-dom";
+// import AnimatedRoutes from "./Providers/Animated/AnimatedRoutes";
 import ParticlesBackground from "./components/particles/ParticlesBackground";
-import CodeProjectsMobile from "./pages/mobile/mobileCodeProjects/CodeProjectsMobile";
-import DesktopHomePage from "./pages/desktop/home/DesktopHomePage";
+// import CodeProjectsMobile from "./pages/mobile/mobileCodeProjects/CodeProjectsMobile";
+// import DesktopHomePage from "./pages/desktop/home/DesktopHomePage";
 import RouteHandler from "./routes/RouteHandler";
-import SwitchLayoutButton from "./components/buttons/switchLayoutButton/switchLayoutButton";
-import { ResumeModalProvider, useResumeModal } from "./Providers/ModalProvider/ResumeModalProvider/ResumeModalProvider";
+import SwitchLayoutButton from "./components/buttons/switchLayoutButton/SwitchLayoutButton";
+import { ResumeModalProvider } from "./Providers/ModalProvider/ResumeModalProvider/ResumeModalProvider";
 import ResumeDownLoadConfirm from "./components/modals/resumeDownloadConfirm/ResumeDownloadConfirm";
 
 function App() {

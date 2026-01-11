@@ -1,4 +1,4 @@
-import { getAnalogousColor } from "../helpers/colors/getAnalogousColor";
+// import { getAnalogousColor } from "../helpers/colors/getAnalogousColor";
 import { getComplementaryColor } from "../helpers/colors/getComplementaryColor";
 import { hexToHSL } from "../helpers/colors/hexToHSL";
 import { hslToString } from "../helpers/colors/hslToString";
@@ -93,14 +93,14 @@ export const techIconsBase = [
 
 export const techIconsData: TechIcon[] = techIconsBase.map(icon => {
   const hsl = hexToHSL(icon.hexColor);
-  const analogous = getAnalogousColor(hsl);
+  // const analogous = getAnalogousColor(hsl);
   const complementary = getComplementaryColor(hsl);
 
   return {
     id: icon.id,
     name: icon.name,
     fileName: icon.fileName,
-    techType: icon.techType,
+    techType: icon.techType as TechIcon['techType'],
     color: hslToString(hsl),
     backgroundColor: hslToString(complementary)
   };

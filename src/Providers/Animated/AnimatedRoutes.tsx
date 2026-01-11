@@ -1,13 +1,13 @@
 import { useLocation, Routes, Route } from "react-router-dom";
-import { Parallax } from "react-scroll-parallax";
+// import { Parallax } from "react-scroll-parallax";
 import React, { useState, useEffect } from "react";
 import LandingPage from "../../pages/Landing/LandingPage";
-import MobileHomePage from "../../pages/MobileHome/MobileHomePage";
+// import MobileHomePage from "../../pages/MobileHome/MobileHomePage";
 import './animatedRoutes.css'
-import AnimatedPage from "./AnimatedPage";
+// import AnimatedPage from "./AnimatedPage";
 import AnimatedLandingPage from "./AnimatedMobileView/AnimatedLandingPage";
-import MobileTemplate from "../../pages/mobile/mobileCodeProjects/mobileTemplate";
-import CodeProjectsMobile from "../../pages/mobile/mobileCodeProjects/CodeProjectsMobile";
+// import MobileTemplate from "../../pages/mobile/mobileCodeProjects/mobileTemplate";
+// import CodeProjectsMobile from "../../pages/mobile/mobileCodeProjects/CodeProjectsMobile";
 
 //TODO: RENAME THIS TO ANIMATEDROUTESMOBILE
 const AnimatedRoutes: React.FC = () => {

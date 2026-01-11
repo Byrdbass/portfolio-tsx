@@ -2,12 +2,13 @@ import React, { JSX, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GlassBreak from "../../components/glassBreak/GlassBreak";
 import ParticlesContext from "../../Providers/ParticlesProvider/ParticlesContext";
-import { Parallax } from "react-scroll-parallax";
+// import { Parallax } from "react-scroll-parallax";
 
 const LandingPage: React.FC = (): JSX.Element => {
     const navigate = useNavigate();
     const scrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [isScrolling, setIsScrolling] = useState(false);
+    console.log(isScrolling);
     const { setParticlesVisible } = React.useContext(ParticlesContext);
     const [canNavigate, setCanNavigate] = useState(true);
 

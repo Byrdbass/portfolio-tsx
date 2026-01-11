@@ -5,18 +5,18 @@ import TechIcon from "../../svg/TechIcon";
 import { techIconsData } from "../../../data/techIconData";
 import { TechIcon as TechIconType } from "../../../types/techIcons";
 import LeftArrowNormal from "../../svg/LeftArrowNormal";
-import SwitchLayoutButton from "../../buttons/switchLayoutButton/switchLayoutButton";
+// import SwitchLayoutButton from "../../buttons/switchLayoutButton/switchLayoutButton";
 import ResumeButton from "../../buttons/resumeButton/ResumeButton";
 import './project-nav-bar.css';
 
 const ProjectNavBar: React.FC = (): JSX.Element => {
-    const items = [1, 2, 3, 4, 5, 6]
-    const [selectedItem, setSelectedItem] = useState(items[0])
+    // const items = [1, 2, 3, 4, 5, 6]
+    // const [selectedItem, setSelectedItem] = useState(items[0])
     const [selectedItemId, setSelectedItemId] = useState<number>(techIconsData[0].id);
     const [direction, setDirection] = useState<1 | -1>(1)
     const [leftArrowAnimating, setLeftArrowAnimating] = useState(false);
     const [rightArrowAnimating, setRightArrowAnimating] = useState(false);
-
+    console.log(rightArrowAnimating);
     // Find the current icon by ID
     const currentIcon = techIconsData.find(icon => icon.id === selectedItemId) || techIconsData[0];
 

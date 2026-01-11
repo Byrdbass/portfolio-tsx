@@ -1,19 +1,19 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import {
   Navigate,
   Route,
   Routes,
-  useLocation,
-  useNavigate,
+  // useLocation,
+  // useNavigate,
 } from "react-router-dom";
 import CodeProjectsMobile from "../pages/mobile/mobileCodeProjects/CodeProjectsMobile";
 import DesktopHomePage from "../pages/desktop/home/DesktopHomePage";
-import DesktopHomePage2 from "../components/examples/DesktopHomePage2/DesktopHomePage2";
-import SwitchLayoutButton from "../components/buttons/switchLayoutButton/switchLayoutButton";
+// import DesktopHomePage2 from "../components/examples/DesktopHomePage2/DesktopHomePage2";
+// import SwitchLayoutButton from "../components/buttons/switchLayoutButton/switchLayoutButton";
 
 function RouteHandler() {
-  const location = useLocation();
-  const navigate = useNavigate();
+  // const location = useLocation();
+  // const navigate = useNavigate();
 
   // useEffect(() => {
   //   const isDesktopRoute = location.pathname === "/desktop";
